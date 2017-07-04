@@ -1,9 +1,12 @@
 <resources>
   <string name="app_name">PathogenTracker</string>
-  <string name="title_activity_list">ListActivity</string>
+  <string name="nav_view_header_title">Username</string>
+
+  <string name="title_activity_surveys">Surveys</string>
 
   <string name="navigation_drawer_open">Open navigation drawer</string>
   <string name="navigation_drawer_close">Close navigation drawer</string>
 
   <string name="action_settings">Settings</string>
+  <string name="action_sign_out">Sign out</string>
 </resources>
