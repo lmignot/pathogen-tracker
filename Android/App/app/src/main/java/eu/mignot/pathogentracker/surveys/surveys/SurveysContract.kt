@@ -1,5 +1,7 @@
 package eu.mignot.pathogentracker.surveys.surveys
 
+import eu.mignot.pathogentracker.common.mvp.MvpView
+import eu.mignot.pathogentracker.common.mvp.Presenter
 import eu.mignot.pathogentracker.surveys.data.models.survey.Survey
 
 /**
@@ -8,11 +10,9 @@ import eu.mignot.pathogentracker.surveys.data.models.survey.Survey
 interface SurveysContract {
 
   /**
-   * Defines UI methods for [[SurveysActivity]]
+   * Defines UI methods for [SurveysActivity]
    */
-  interface View {
-
-    fun setProgressIndicator(isActive: Boolean): Unit
+  interface View: MvpView {
 
     fun showSurveys(ls: List<Survey>): Unit
 
@@ -22,9 +22,9 @@ interface SurveysContract {
   }
 
   /**
-   * Defines user interaction(s) for [[SurveysPresenter]]
+   * Defines user interaction(s) for [SurveysPresenter]
    */
-  interface InteractionListener {
+  interface InteractionListener: Presenter<View> {
 
     fun loadSurveys(): Unit
 
