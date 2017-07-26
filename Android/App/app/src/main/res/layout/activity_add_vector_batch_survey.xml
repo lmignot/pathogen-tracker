@@ -30,7 +30,7 @@
     <android.support.design.widget.TextInputLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content">
-      <EditText
+      <android.support.design.widget.TextInputEditText
         android:id="@+id/batchId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/survey_field_top_margin">
-      <EditText
+      <android.support.design.widget.TextInputEditText
         android:id="@+id/batchDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -62,16 +62,27 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/survey_field_top_margin">
-      <EditText
+      <android.support.design.widget.TextInputEditText
         android:id="@+id/batchLocation"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:drawableEnd="@drawable/location_search"
         android:clickable="true"
         android:focusable="false"
-        android:hint="Tap to retrieve location"
+        android:hint="Tap to update location"
         android:inputType="text"
         android:maxLines="1"/>
+
+      <ProgressBar
+        android:id="@+id/batchLocationProgress"
+        style="@android:style/Widget.Material.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@id/batchLocation"
+        android:layout_alignStart="@id/batchLocation"
+        android:layout_alignTop="@id/batchLocation"
+        android:indeterminate="true"
+        android:visibility="gone"/>
     </android.support.design.widget.TextInputLayout>
 
     <RelativeLayout
@@ -83,25 +94,26 @@
           android:layout_height="wrap_content"
           android:text="Territory"
           />
-        <RadioGroup
-          android:id="@+id/batchTerritory"
-          android:layout_width="fill_parent"
+
+      <RadioGroup
+        android:id="@+id/batchTerritory"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+          android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginTop="24dp"
-          android:orientation="horizontal">
+          android:checked="false"
+          android:text="Urban"/>
 
-          <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="Urban"/>
-
-          <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="44dp"
-            android:text="Suburban"/>
-        </RadioGroup>
+        <RadioButton
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="44dp"
+          android:text="Suburban"/>
+      </RadioGroup>
 
     </RelativeLayout>
 
@@ -109,7 +121,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/survey_field_top_margin">
-      <EditText
+      <android.support.design.widget.TextInputEditText
         android:id="@+id/batchTemperature"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -124,7 +136,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/survey_field_top_margin">
-      <EditText
+      <android.support.design.widget.TextInputEditText
         android:id="@+id/batchWeatherConditions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

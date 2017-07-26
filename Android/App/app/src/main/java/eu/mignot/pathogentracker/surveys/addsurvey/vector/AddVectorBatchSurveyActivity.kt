@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.Menu
 import android.text.format.DateFormat
+import android.view.View
 import eu.mignot.pathogentracker.R
 import eu.mignot.pathogentracker.data.LocationProviderImpl
 import eu.mignot.pathogentracker.data.models.Location
@@ -67,12 +68,8 @@ class AddVectorBatchSurveyActivity: BaseSurveyActivity() {
   }
 
   override fun saveAndClose() {
-    debug("id: ${batchId.text}\n" +
-      "date: ${batchDate.text}\n" +
-      "loc: ${batchLocation.text}\n" +
-      "terr: ${batchTerritory.checkedRadioButtonId}\n" +
-      "temp: ${batchTemperature.text}\n" +
-      "cond: ${batchWeatherConditions.text}")
+    debug("saving this shiz...")
+    showShortMessage(vectorBatchForm, "Saving...")
   }
 
   private fun getId() = batchId?.setText(vm.id)
@@ -100,6 +97,7 @@ class AddVectorBatchSurveyActivity: BaseSurveyActivity() {
 
   private fun setLocationListener() {
     batchLocation?.setOnClickListener {
+      batchLocationProgress?.visibility = View.VISIBLE
       disposables.add(
         vm
           .getLocation()
@@ -108,10 +106,12 @@ class AddVectorBatchSurveyActivity: BaseSurveyActivity() {
           .subscribeBy (
             onError = {
               showShortMessage(vectorBatchForm, "Unable to determine location, please try again")
+              batchLocationProgress?.visibility = View.GONE
             },
             onSuccess = {
               location = it
               batchLocation?.setText(it.toString())
+              batchLocationProgress?.visibility = View.GONE
             }
           )
       )

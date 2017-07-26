@@ -5,7 +5,9 @@ import java.util.*
 import eu.mignot.pathogentracker.data.LocationProvider
 import eu.mignot.pathogentracker.data.models.Location
 
-class AddVectorBatchViewModel(val locationProvider: LocationProvider) {
+class AddVectorBatchViewModel(
+  val locationProvider: LocationProvider
+) {
 
   private val currentDate by lazy { Calendar.getInstance() }
 
