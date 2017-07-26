@@ -3,12 +3,20 @@
   <style name="AppTheme" parent="Base.AppTheme" />
 
   <style name="AppTheme.OverlapSystemBar" parent="Base.AppTheme" />
+  <style name="AppTheme.OverlapSystemBarVector" parent="Vector.AppTheme" />
 
   <style name="Base.AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
     <!-- Customize your theme here. -->
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
+  </style>
+
+  <style name="Vector.AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <!-- Customize your theme here. -->
+    <item name="colorPrimary">@color/colorVectorPrimary</item>
+    <item name="colorPrimaryDark">@color/colorVectorPrimaryDark</item>
+    <item name="colorAccent">@color/colorVectorAccent</item>
   </style>
 
   <style name="Toolbar" parent="ThemeOverlay.AppCompat.ActionBar">

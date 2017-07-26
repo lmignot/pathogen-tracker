@@ -1,8 +1,18 @@
 <resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="nav_header_vertical_spacing">8dp</dimen>
-    <dimen name="nav_header_height">176dp</dimen>
-    <dimen name="fab_margin">16dp</dimen>
+  <!-- Default screen margins, per the Android Design guidelines. -->
+  <dimen name="activity_horizontal_margin">16dp</dimen>
+  <dimen name="activity_vertical_margin">16dp</dimen>
+  <dimen name="nav_header_vertical_spacing">8dp</dimen>
+  <dimen name="nav_header_height">176dp</dimen>
+  <dimen name="fab_margin">16dp</dimen>
+  <dimen name="survey_item_horizontal_margin">8dp</dimen>
+  <dimen name="survey_item_vertical_margin">8dp</dimen>
+  <dimen name="survey_item_avatar_diameter">120dp</dimen>
+  <dimen name="survey_item_padding_start">56dp</dimen>
+  <!-- Text sizes -->
+  <dimen name="survey_item_text_id">18sp</dimen>
+  <dimen name="survey_item_text_location">12sp</dimen>
+  <dimen name="survey_item_text_date">11sp</dimen>
+  <!-- Form spacing -->
+  <dimen name="survey_field_top_margin">24dp</dimen>
 </resources>

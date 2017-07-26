@@ -12,5 +12,6 @@
   <color name="colorVectorPrimary">#00BCD4</color>
   <color name="colorVectorPrimaryDark">#0097A7</color>
   <color name="colorVectorPrimaryLight">#B2EBF2</color>
+  <color name="colorVectorToolbarText">#FFFFFF</color>
   <color name="colorVectorAccent">#FF5722</color>
 </resources>

@@ -9,4 +9,15 @@
 
   <string name="action_settings">Settings</string>
   <string name="action_sign_out">Sign out</string>
+  <string name="login_action_sign_in">Sign in</string>
+  <string name="login_email_hint">Email address</string>
+  <string name="login_password_hint">Password</string>
+  <string name="login_title">Sign in to PathogenTracker</string>
+  <string name="survey_type_avatar">Survey type avatar</string>
+  <string name="survey_item_is_flagged">Survey item is flagged</string>
+  <string name="survey_item_is_queued_for_upload">Survey item is queued for upload</string>
+  <string name="vector_batch">Vector Batch</string>
+  <string name="action_save">Save</string>
+  <string name="date_format">dd MMMM yyyy</string>
+
 </resources>
