@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "325222213386",
+    "firebase_url": "https://pathogentracker-50bfa.firebaseio.com",
+    "project_id": "pathogentracker-50bfa",
+    "storage_bucket": "pathogentracker-50bfa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:325222213386:android:d4cb8739a2c2d099",
+        "android_client_info": {
+          "package_name": "eu.mignot.pathogentracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "325222213386-l7g2nl18bkomi3ir5e341logrocn0gqs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "eu.mignot.pathogentracker",
+            "certificate_hash": "d5451d1add2851acc51aeb4045a719f5c3f8e574"
+          }
+        },
+        {
+          "client_id": "325222213386-sjimqsng2istc6l3g2eo9qm4p1n3jj2r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbd90XlkSzYdThTjR5J4osZ9bF_slir94"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "325222213386-sjimqsng2istc6l3g2eo9qm4p1n3jj2r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

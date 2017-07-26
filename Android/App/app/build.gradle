@@ -1,11 +1,10 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply from: '../codestyle/codestyle.gradle'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion '25.0.2'
     defaultConfig {
         applicationId "eu.mignot.pathogentracker"
         minSdkVersion 25
@@ -15,45 +14,46 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
-      debug {
+        debug {
 
-      }
-      release {
-          minifyEnabled false
-          proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-      }
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
     }
 }
 
 dependencies {
-  implementation fileTree(dir: 'libs', include: ['*.jar'])
-
+  implementation fileTree(include: ['*.jar'], dir: 'libs')
   testImplementation 'junit:junit:4.12'
-  testCompile 'org.mockito:mockito-core:2.8.47'
-  testAnnotationProcessor 'com.google.dagger:dagger-compiler:2.11'
-
-  androidTestCompile 'org.mockito:mockito-core:2.8.47'
-  androidTestAnnotationProcessor 'com.google.dagger:dagger-compiler:2.11'
+  testImplementation 'org.mockito:mockito-core:2.8.47'
+  androidTestImplementation 'org.mockito:mockito-core:2.8.47'
   androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
     exclude group: 'com.android.support', module: 'support-annotations'
   })
-
   // kotlin
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-
+  implementation "org.jetbrains.anko:anko-common:$anko_version"
   // android support
   implementation 'com.android.support:appcompat-v7:25.4.0'
+  implementation 'com.android.support:recyclerview-v7:25.4.0'
   implementation 'com.android.support:design:25.4.0'
   implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-  compile 'com.android.support:support-annotations:26.0.0-beta2'
-
-  // dependency injection
-  compile 'com.google.dagger:dagger:2.11'
-  annotationProcessor 'com.google.dagger:dagger-compiler:2.11'
-  provided 'javax.annotation:jsr250-api:1.0'
-  compile 'javax.inject:javax.inject:1'
-
+  implementation 'com.android.support:support-annotations:26.0.0-beta2'
+  implementation 'com.google.android.gms:play-services-location:11.0.2'
   // reactiveX
-  compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-  compile 'io.reactivex.rxjava2:rxjava:2.1.0'
+  implementation 'io.reactivex.rxjava2:rxjava:2.1.0'
+  implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+  implementation 'io.reactivex.rxjava2:rxkotlin:2.1.0'
+  // firebase libraries
+  implementation 'com.google.firebase:firebase-auth:11.0.2'
+  implementation 'com.google.firebase:firebase-database:11.0.2'
+  implementation 'com.google.firebase:firebase-storage:11.0.2'
+  implementation 'com.google.firebase:firebase-config:11.0.2'
+  implementation 'com.google.firebase:firebase-crash:11.0.2'
+  // other tools
+  implementation 'com.stepstone.stepper:material-stepper:3.3.0'
 }
+
+apply plugin: 'com.google.gms.google-services'
