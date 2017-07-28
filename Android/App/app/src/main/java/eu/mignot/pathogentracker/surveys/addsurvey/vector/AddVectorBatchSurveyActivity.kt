@@ -1,27 +1,35 @@
 package eu.mignot.pathogentracker.surveys.addsurvey.vector
 
 import android.app.DatePickerDialog
+import android.location.LocationManager
 import android.os.Bundle
 import android.view.Menu
 import android.text.format.DateFormat
 import android.view.View
+import android.widget.RadioButton
+import eu.mignot.pathogentracker.App
+import eu.mignot.pathogentracker.MainActivity
 import eu.mignot.pathogentracker.R
-import eu.mignot.pathogentracker.data.LocationProviderImpl
 import eu.mignot.pathogentracker.data.models.Location
 import eu.mignot.pathogentracker.extensions.showShortMessage
 import eu.mignot.pathogentracker.surveys.addsurvey.BaseSurveyActivity
+import eu.mignot.pathogentracker.surveys.addsurvey.UsesLocation
+import eu.mignot.pathogentracker.surveys.data.models.survey.VectorBatch
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_add_vector_batch_survey.*
-import org.jetbrains.anko.debug
+import me.zhanghai.android.effortlesspermissions.AfterPermissionDenied
+import me.zhanghai.android.effortlesspermissions.EffortlessPermissions
+import org.jetbrains.anko.*
+import pub.devrel.easypermissions.AfterPermissionGranted
 import java.util.*
 
-class AddVectorBatchSurveyActivity: BaseSurveyActivity() {
+class AddVectorBatchSurveyActivity: BaseSurveyActivity(), UsesLocation {
 
   private val vm by lazy {
-    AddVectorBatchViewModel(LocationProviderImpl)
+    AddVectorBatchViewModel(App.getLocationProvider())
   }
 
   private val disposables by lazy {
@@ -59,8 +67,8 @@ class AddVectorBatchSurveyActivity: BaseSurveyActivity() {
     getDate()
     // set the date listener
     setDateListener()
-    // set the location listener
-    setLocationListener()
+    // check for location permissions (sets listener if successful)
+    requestLocationPermission()
   }
 
   override fun unbind() {
@@ -68,13 +76,47 @@ class AddVectorBatchSurveyActivity: BaseSurveyActivity() {
   }
 
   override fun saveAndClose() {
-    debug("saving this shiz...")
-    showShortMessage(vectorBatchForm, "Saving...")
+    val progress = indeterminateProgressDialog("Saving. Please wait...")
+    disposables
+      .add(
+        vm.save(
+          VectorBatch(
+            vm.id,
+            vm.date,
+            location,
+            getTerritoryValue(),
+            getTemperatureValue(),
+            batchWeatherConditions.text.toString()
+          )
+        )
+          .subscribeOn(Schedulers.io())
+          .observeOn(AndroidSchedulers.mainThread())
+          .subscribeBy (
+            onError = {
+              progress.hide()
+              alert ("There was an error saving, try again?") {
+                yesButton {
+                  saveAndClose()
+                }
+                noButton {
+//                  startActivity<MainActivity>()
+//                  finish()
+                }
+              }
+            },
+            onSuccess = {
+              progress.hide()
+              showShortMessage(vectorBatchForm, "Successfully saved")
+//              startActivity<MainActivity>()
+//              finish()
+            }
+          )
+      )
   }
 
   private fun getId() = batchId?.setText(vm.id)
 
-  private fun getDate() = batchDate?.setText(DateFormat.format(R.string.date_format.toString(), vm.date))
+  private fun getDate() = batchDate?.setText(DateFormat.format("dd MMMM yyyy", vm.date))
 
   private fun setDateListener() {
     batchDate?.setOnClickListener {
@@ -95,6 +137,48 @@ class AddVectorBatchSurveyActivity: BaseSurveyActivity() {
     }
   }
 
+  private fun getTerritoryValue(): String {
+    val selected = batchTerritory.checkedRadioButtonId
+    if (selected > -1) {
+      val btn = batchTerritory.getChildAt(selected) as RadioButton
+      return btn.text.toString()
+    }
+    return ""
+  }
+
+  private fun getTemperatureValue(): Int {
+    val input = batchTemperature.text.toString()
+    try {
+        return input.toInt()
+    } catch (ne: NumberFormatException) {
+      return 0
+    }
+  }
+
+  @AfterPermissionGranted(UsesLocation.REQUEST_CODE)
+  override fun requestLocationPermission() {
+    if (EffortlessPermissions.hasPermissions(this, UsesLocation.PERMISSION)) {
+      setLocationListener()
+    } else if (EffortlessPermissions.permissionPermanentlyDenied(this, UsesLocation.PERMISSION)) {
+      alert("Device location required", "Please grant permission in the settings app and try again") {
+        yesButton { startActivity<MainActivity>() }
+      }.show()
+    } else {
+      askForLocationPermission(
+        this,
+        "We need permission to access this device's location"
+      )
+    }
+  }
+
+  @AfterPermissionDenied(UsesLocation.REQUEST_CODE)
+  override fun onLocationPermissionDenied() {
+    askForLocationPermission(
+      this,
+      "This app cannot function without access to this device's location, please grant permission"
+    )
+  }
+
   private fun setLocationListener() {
     batchLocation?.setOnClickListener {
       batchLocationProgress?.visibility = View.VISIBLE
@@ -107,8 +191,9 @@ class AddVectorBatchSurveyActivity: BaseSurveyActivity() {
             onError = {
               showShortMessage(vectorBatchForm, "Unable to determine location, please try again")
               batchLocationProgress?.visibility = View.GONE
+              error { it.localizedMessage }
             },
-            onSuccess = {
+            onNext = {
               location = it
               batchLocation?.setText(it.toString())
               batchLocationProgress?.visibility = View.GONE
