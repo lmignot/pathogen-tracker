@@ -1,7 +1,5 @@
 package eu.mignot.pathogentracker.surveys.addsurvey
 
-import android.view.View
-
 interface AddSurvey {
   fun bind()
 
