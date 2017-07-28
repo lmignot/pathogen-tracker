@@ -1,17 +1,18 @@
 package eu.mignot.pathogentracker.surveys.addsurvey.vector
 
 import android.app.DatePickerDialog
-import android.location.LocationManager
 import android.os.Bundle
 import android.view.Menu
 import android.text.format.DateFormat
 import android.view.View
-import android.widget.RadioButton
 import eu.mignot.pathogentracker.App
 import eu.mignot.pathogentracker.MainActivity
 import eu.mignot.pathogentracker.R
 import eu.mignot.pathogentracker.data.models.Location
+import eu.mignot.pathogentracker.extensions.asIntOrDefault
 import eu.mignot.pathogentracker.extensions.showShortMessage
+import eu.mignot.pathogentracker.extensions.asString
+import eu.mignot.pathogentracker.extensions.selectedValue
 import eu.mignot.pathogentracker.surveys.addsurvey.BaseSurveyActivity
 import eu.mignot.pathogentracker.surveys.addsurvey.UsesLocation
 import eu.mignot.pathogentracker.surveys.data.models.survey.VectorBatch
@@ -26,7 +27,7 @@ import org.jetbrains.anko.*
 import pub.devrel.easypermissions.AfterPermissionGranted
 import java.util.*
 
-class AddVectorBatchSurveyActivity: BaseSurveyActivity(), UsesLocation {
+class AddVectorBatchSurveyActivity: BaseSurveyActivity(), UsesLocation, AnkoLogger {
 
   private val vm by lazy {
     AddVectorBatchViewModel(App.getLocationProvider())
@@ -77,18 +78,12 @@ class AddVectorBatchSurveyActivity: BaseSurveyActivity(), UsesLocation {
 
   override fun saveAndClose() {
     val progress = indeterminateProgressDialog("Saving. Please wait...")
+    val model = VectorBatch(vm.id, vm.date, location, batchTerritory.selectedValue(),
+      batchTemperature.asIntOrDefault(0), batchWeatherConditions.asString())
+    info { model }
     disposables
       .add(
-        vm.save(
-          VectorBatch(
-            vm.id,
-            vm.date,
-            location,
-            getTerritoryValue(),
-            getTemperatureValue(),
-            batchWeatherConditions.text.toString()
-          )
-        )
+        vm.save(model)
           .subscribeOn(Schedulers.io())
           .observeOn(AndroidSchedulers.mainThread())
           .subscribeBy (
@@ -134,24 +129,6 @@ class AddVectorBatchSurveyActivity: BaseSurveyActivity(), UsesLocation {
         date.get(Calendar.MONTH),
         date.get(Calendar.DATE)
       ).show()
-    }
-  }
-
-  private fun getTerritoryValue(): String {
-    val selected = batchTerritory.checkedRadioButtonId
-    if (selected > -1) {
-      val btn = batchTerritory.getChildAt(selected) as RadioButton
-      return btn.text.toString()
-    }
-    return ""
-  }
-
-  private fun getTemperatureValue(): Int {
-    val input = batchTemperature.text.toString()
-    try {
-        return input.toInt()
-    } catch (ne: NumberFormatException) {
-      return 0
     }
   }
 
