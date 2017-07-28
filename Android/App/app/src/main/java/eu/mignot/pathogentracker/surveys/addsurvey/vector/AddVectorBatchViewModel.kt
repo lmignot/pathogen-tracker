@@ -23,13 +23,15 @@ class AddVectorBatchViewModel(
 
   fun getLocation(): Observable<Location> = locationProvider.getLocation()
 
-  fun save(model: VectorBatch): Single<Boolean> {
-    info {model.toString()}
+  fun save(model: VectorBatch?): Single<Boolean> {
+    info {model?.toString()}
     return Single.just(true)
   }
 
-  private fun setCurrentDate(d: Calendar): Unit {
-    currentDate.set(d.get(Calendar.YEAR), d.get(Calendar.MONTH), d.get(Calendar.DATE))
+  private fun setCurrentDate(d: Calendar?): Unit {
+    d?.let {
+      currentDate.set(d.get(Calendar.YEAR), d.get(Calendar.MONTH), d.get(Calendar.DATE))
+    }
   }
 
 }
