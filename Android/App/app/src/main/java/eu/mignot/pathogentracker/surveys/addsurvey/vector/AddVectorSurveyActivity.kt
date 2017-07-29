@@ -1,7 +1,6 @@
 package eu.mignot.pathogentracker.surveys.addsurvey.vector
 
 import android.os.Bundle
-import android.view.Menu
 import eu.mignot.pathogentracker.MainActivity
 import eu.mignot.pathogentracker.R
 import eu.mignot.pathogentracker.surveys.addsurvey.BaseSurveyActivity
@@ -12,6 +11,7 @@ import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.jetbrains.anko.startActivity
 import kotlinx.android.synthetic.main.activity_add_vector_survey.*
+import kotlinx.android.synthetic.main.vector_form.*
 
 class AddVectorSurveyActivity: BaseSurveyActivity(), UsesCamera, AnkoLogger {
 
@@ -22,7 +22,7 @@ class AddVectorSurveyActivity: BaseSurveyActivity(), UsesCamera, AnkoLogger {
   }
 
   private val vm by lazy {
-    AddVectorViewModel(batchId)
+    AddVectorViewModel(batchId, batchId + "-001")
   }
 
   private val disposables by lazy {
@@ -51,11 +51,6 @@ class AddVectorSurveyActivity: BaseSurveyActivity(), UsesCamera, AnkoLogger {
     supportActionBar?.setTitle(R.string.add_vector)
     supportActionBar?.setDisplayHomeAsUpEnabled(true)
     supportActionBar?.setHomeAsUpIndicator(R.drawable.close_white)
-  }
-
-  override fun onCreateOptionsMenu(menu: Menu):Boolean {
-    menuInflater.inflate(R.menu.add_survey_menu_white, menu)
-    return true
   }
 
   override fun saveAndClose() {

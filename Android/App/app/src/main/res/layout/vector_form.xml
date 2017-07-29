@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/vectorBatchForm"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:descendantFocusability="beforeDescendants"
+  android:focusableInTouchMode="true"
+  android:orientation="vertical"
+  android:paddingBottom="@dimen/activity_vertical_margin"
+  android:paddingEnd="@dimen/activity_horizontal_margin"
+  android:paddingStart="@dimen/activity_horizontal_margin"
+  android:paddingTop="@dimen/activity_vertical_margin">
+
+  <android.support.design.widget.TextInputLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.design.widget.TextInputEditText
+      android:id="@+id/vectorSpecies"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:clickable="true"
+      android:ems="10"
+      android:focusable="true"
+      android:hint="Mosquito Species"
+      android:inputType="text|textPersonName"
+      android:maxLines="1"/>
+  </android.support.design.widget.TextInputLayout>
+
+  <RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/survey_field_top_margin">
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Gender"
+      />
+
+    <RadioGroup
+      android:id="@+id/vectorGender"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="24dp"
+      android:orientation="horizontal">
+
+      <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="false"
+        android:text="Female"/>
+
+      <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:text="Male"/>
+    </RadioGroup>
+  </RelativeLayout>
+
+  <View
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:layout_marginEnd="4dp"
+    android:layout_marginStart="4dp"
+    android:layout_marginTop="4dp"
+    android:alpha="4"
+    android:background="#000000"/>
+
+  <RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/survey_field_top_margin">
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Stage"
+      />
+
+    <RadioGroup
+      android:id="@+id/vectorStage"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="24dp"
+      android:orientation="horizontal">
+
+      <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="false"
+        android:text="Larva"/>
+
+      <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:text="Adult"/>
+    </RadioGroup>
+  </RelativeLayout>
+
+  <View
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:layout_marginEnd="4dp"
+    android:layout_marginStart="4dp"
+    android:layout_marginTop="4dp"
+    android:alpha="4"
+    android:background="#000000"/>
+
+  <RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/survey_field_top_margin">
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Has the mosquito fed?"
+      />
+
+    <RadioGroup
+      android:id="@+id/vectorDidFeed"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="24dp"
+      android:orientation="horizontal">
+
+      <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="false"
+        android:text="Yes"/>
+
+      <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="68dp"
+        android:text="No"/>
+    </RadioGroup>
+  </RelativeLayout>
+
+  <View
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:layout_marginEnd="4dp"
+    android:layout_marginStart="4dp"
+    android:layout_marginTop="4dp"
+    android:alpha="4"
+    android:background="#000000"/>
+
+  <android.support.design.widget.TextInputLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/survey_field_top_margin">
+
+    <android.support.design.widget.TextInputEditText
+      android:id="@+id/vectorDna"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/survey_field_top_margin"
+      android:ems="10"
+      android:hint="DNA extract"
+      android:inputType="text|textNoSuggestions"
+      android:maxLines="1"
+      android:text="Tap to connect and retrieve"/>
+  </android.support.design.widget.TextInputLayout>
+
+</LinearLayout>

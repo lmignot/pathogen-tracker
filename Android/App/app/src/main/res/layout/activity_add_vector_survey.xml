@@ -18,6 +18,14 @@
     android:theme="?attr/actionBarTheme"
     app:titleTextColor="@color/colorVectorToolbarText"/>
 
+  <android.support.v4.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+    <include layout="@layout/vector_form"/>
+
+  </android.support.v4.widget.NestedScrollView>
 
 </LinearLayout>
