@@ -24,7 +24,7 @@ class AddVectorBatchViewModel(
   fun getLocation(): Observable<Location> = locationProvider.getLocation()
 
   fun save(model: VectorBatch?): Single<Boolean> {
-    info {model?.toString()}
+    info(model?.toString())
     return Single.just(true)
   }
 

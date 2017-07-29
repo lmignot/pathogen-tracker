@@ -54,7 +54,8 @@
       android:drawableEnd="@drawable/location_search"
       android:clickable="true"
       android:focusable="false"
-      android:hint="Tap to update location"
+      android:hint="Location Collected"
+      android:text="Tap to update location"
       android:inputType="text"
       android:maxLines="1"/>
 
@@ -101,6 +102,15 @@
     </RadioGroup>
 
   </RelativeLayout>
+
+  <View
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:layout_marginEnd="4dp"
+    android:layout_marginStart="4dp"
+    android:layout_marginTop="4dp"
+    android:alpha="4"
+    android:background="#000000"/>
 
   <android.support.design.widget.TextInputLayout
     android:layout_width="match_parent"
