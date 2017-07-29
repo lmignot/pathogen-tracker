@@ -2,7 +2,6 @@ package eu.mignot.pathogentracker.surveys.addsurvey.vector
 
 import android.app.DatePickerDialog
 import android.os.Bundle
-import android.view.Menu
 import android.text.format.DateFormat
 import android.view.View
 import eu.mignot.pathogentracker.App
@@ -51,11 +50,6 @@ class AddVectorBatchSurveyActivity: BaseSurveyActivity(), UsesLocation, AnkoLogg
     supportActionBar?.setTitle(R.string.add_vector_batch)
     supportActionBar?.setDisplayHomeAsUpEnabled(true)
     supportActionBar?.setHomeAsUpIndicator(R.drawable.close_white)
-  }
-
-  override fun onCreateOptionsMenu(menu: Menu):Boolean {
-    menuInflater.inflate(R.menu.add_survey_menu_white, menu)
-    return true
   }
 
   override fun bind() {
