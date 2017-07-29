@@ -39,7 +39,7 @@ abstract class BaseSurveyActivity: AppCompatActivity(), AddSurvey {
   }
 
   override fun cancelAndClose() {
-    alert("Are you sure?","This record has not been saved..."){
+    alert(getString(R.string.cancel_survey_title),getString(R.string.cancel_survey_rationale)){
       yesButton {
         startActivity<MainActivity>()
       }

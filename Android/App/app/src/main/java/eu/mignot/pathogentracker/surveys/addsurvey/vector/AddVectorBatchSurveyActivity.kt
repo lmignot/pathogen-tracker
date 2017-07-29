@@ -21,6 +21,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_add_vector_batch_survey.*
+import kotlinx.android.synthetic.main.vector_batch_form.*
 import me.zhanghai.android.effortlesspermissions.AfterPermissionDenied
 import me.zhanghai.android.effortlesspermissions.EffortlessPermissions
 import org.jetbrains.anko.*
@@ -47,7 +48,7 @@ class AddVectorBatchSurveyActivity: BaseSurveyActivity(), UsesLocation, AnkoLogg
 
   override fun setupToolbar() {
     setSupportActionBar(toolbarAVB)
-    supportActionBar?.setTitle(R.string.vector_batch)
+    supportActionBar?.setTitle(R.string.add_vector_batch)
     supportActionBar?.setDisplayHomeAsUpEnabled(true)
     supportActionBar?.setHomeAsUpIndicator(R.drawable.close_white)
   }
@@ -55,10 +56,6 @@ class AddVectorBatchSurveyActivity: BaseSurveyActivity(), UsesLocation, AnkoLogg
   override fun onCreateOptionsMenu(menu: Menu):Boolean {
     menuInflater.inflate(R.menu.add_survey_menu_white, menu)
     return true
-  }
-
-  override fun onResume() {
-    super.onResume()
   }
 
   override fun bind() {

@@ -3,7 +3,6 @@ package eu.mignot.pathogentracker.addsurvey
 import eu.mignot.pathogentracker.data.LocationProvider
 import eu.mignot.pathogentracker.surveys.addsurvey.vector.AddVectorBatchViewModel
 import io.kotlintest.matchers.shouldBe
-import io.kotlintest.matchers.shouldThrow
 import io.kotlintest.specs.ShouldSpec
 import org.mockito.Mockito
 import java.util.*

@@ -7,25 +7,17 @@
   android:orientation="vertical"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  tools:context=".surveys.addsurvey.vector.AddVectorBatchSurveyActivity"
-  android:fitsSystemWindows="true">
+  android:fitsSystemWindows="true"
+  tools:context=".surveys.addsurvey.vector.AddVectorSurveyActivity">
 
   <android.support.v7.widget.Toolbar
-    android:id="@+id/toolbarAVB"
+    android:id="@+id/toolbarAV"
     android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize"
+    android:layout_height="wrap_content"
     android:background="@color/colorVectorPrimary"
     android:theme="?attr/actionBarTheme"
     app:titleTextColor="@color/colorVectorToolbarText"/>
 
-  <android.support.v4.widget.NestedScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:clipToPadding="false"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <include layout="@layout/vector_batch_form"/>
-
-  </android.support.v4.widget.NestedScrollView>
 
 </LinearLayout>

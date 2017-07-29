@@ -19,11 +19,6 @@
     android:roundIcon="@mipmap/ic_launcher_round"
     android:supportsRtl="true"
     android:theme="@style/AppTheme">
-    <activity
-      android:name=".surveys.surveys.SurveysActivity"
-      android:screenOrientation="portrait"
-      android:theme="@style/AppTheme.OverlapSystemBar">
-    </activity>
     <activity android:name=".MainActivity"
               android:screenOrientation="portrait">
       <intent-filter>
@@ -31,7 +26,16 @@
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
     </activity>
+    <activity
+      android:name=".surveys.surveys.SurveysActivity"
+      android:screenOrientation="portrait"
+      android:theme="@style/AppTheme.OverlapSystemBar">
+    </activity>
     <activity android:name=".surveys.addsurvey.vector.AddVectorBatchSurveyActivity"
+              android:parentActivityName=".MainActivity"
+              android:screenOrientation="portrait"
+              android:theme="@style/AppTheme.OverlapSystemBarVector"/>
+    <activity android:name=".surveys.addsurvey.vector.AddVectorSurveyActivity"
               android:parentActivityName=".MainActivity"
               android:screenOrientation="portrait"
               android:theme="@style/AppTheme.OverlapSystemBarVector"/>
