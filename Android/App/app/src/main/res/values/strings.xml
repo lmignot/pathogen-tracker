@@ -20,8 +20,16 @@
   <string name="add_vector">Add Mosquito</string>
   <string name="add_human">Add Human Record</string>
   <string name="action_save">Save</string>
-  <string name="cancel_survey_title">Are you sure you want to cancel?</string>
+  <string name="cancel_survey_title">Are you sure you want to leave?</string>
   <string name="cancel_survey_rationale">This survey has not been saved…</string>
   <string name="error_vector_no_batchid">A Vector record requires a vector batch</string>
+  <string name="specify_species">Please specify</string>
+  <string name="replace_photo">Replace photo</string>
+  <string name="insert_photo">Add a photo</string>
+  <string name="select_photo">Select photo from gallery</string>
+  <string name="take_new_photo">Take new photo</string>
+  <string name="survey_photo">Vector Photo</string>
+  <string name="leave">Leave</string>
+  <string name="stay">Stay</string>
 
 </resources>

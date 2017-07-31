@@ -10,6 +10,7 @@
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
+    <item name="android:actionMenuTextColor">@android:color/white</item>
   </style>
 
   <style name="Vector.AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -17,6 +18,7 @@
     <item name="colorPrimary">@color/colorVectorPrimary</item>
     <item name="colorPrimaryDark">@color/colorVectorPrimaryDark</item>
     <item name="colorAccent">@color/colorVectorAccent</item>
+    <item name="android:actionMenuTextColor">@android:color/white</item>
   </style>
 
   <style name="Toolbar" parent="ThemeOverlay.AppCompat.ActionBar">

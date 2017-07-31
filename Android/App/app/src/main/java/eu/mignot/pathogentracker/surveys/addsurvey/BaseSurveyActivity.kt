@@ -46,10 +46,10 @@ abstract class BaseSurveyActivity: AppCompatActivity(), AddSurvey {
 
   override fun cancelAndClose() {
     alert(getString(R.string.cancel_survey_title),getString(R.string.cancel_survey_rationale)){
-      yesButton {
+      positiveButton(getString(R.string.leave)) {
         startActivity<MainActivity>()
       }
-      noButton {}
+      negativeButton(R.string.stay) {}
     }.show()
   }
 }

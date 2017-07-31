@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:id="@+id/photoSheet"
+  android:layout_width="match_parent"
+  android:layout_height="128dp"
+  android:paddingTop="24dp"
+  android:paddingBottom="24dp"
+  android:clipToPadding="true"
+  android:elevation="16dp"
+  android:background="@android:color/white"
+  app:layout_behavior="android.support.design.widget.BottomSheetBehavior"
+  app:behavior_hideable="true"
+  app:behavior_peekHeight="0dp">
+  <LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:paddingStart="24dp"
+    android:orientation="horizontal">
+    <ImageButton
+      android:id="@+id/fromCamera"
+      android:layout_width="100dp"
+      android:layout_height="80dp"
+      android:src="@drawable/take_photo"
+      android:contentDescription="@string/take_new_photo"/>
+    <ImageButton
+      android:id="@+id/fromGallery"
+      android:layout_width="100dp"
+      android:layout_height="80dp"
+      android:src="@drawable/insert_photo"
+      android:contentDescription="@string/select_photo"/>
+  </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

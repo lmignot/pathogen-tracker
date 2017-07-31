@@ -7,13 +7,12 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.support.design.widget.BottomSheetBehavior
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import eu.mignot.pathogentracker.MainActivity
 import eu.mignot.pathogentracker.R
 import eu.mignot.pathogentracker.extensions.showLongMessage
 import eu.mignot.pathogentracker.extensions.showShortMessage
 import eu.mignot.pathogentracker.surveys.addsurvey.BaseSurveyActivity
+import eu.mignot.pathogentracker.surveys.addsurvey.SpinnerOrOther
 import eu.mignot.pathogentracker.surveys.addsurvey.UsesCamera
 import eu.mignot.pathogentracker.surveys.addsurvey.UsesGallery
 import eu.mignot.pathogentracker.util.AppSettings
@@ -28,7 +27,7 @@ import me.zhanghai.android.effortlesspermissions.AfterPermissionDenied
 import me.zhanghai.android.effortlesspermissions.EffortlessPermissions
 import pub.devrel.easypermissions.AfterPermissionGranted
 
-class AddVectorSurveyActivity: BaseSurveyActivity(), UsesCamera, UsesGallery, AnkoLogger {
+class AddVectorSurveyActivity: BaseSurveyActivity(), SpinnerOrOther, UsesCamera, UsesGallery, AnkoLogger {
 
   private val batchId by lazy {
     intent.getStringExtra(AppSettings.Constants.BATCH_ID_KEY)?.let {
@@ -58,7 +57,7 @@ class AddVectorSurveyActivity: BaseSurveyActivity(), UsesCamera, UsesGallery, An
   }
 
   override fun bind() {
-    setupSpeciesSpinner()
+    setupSpinner(this, R.array.mosquitoSpecies, vectorSpecies, vectorSpeciesOtherLayout)
     setupPhotoSheetButton()
     requestCameraPermission()
     setDnaRequestListener()
@@ -153,35 +152,9 @@ class AddVectorSurveyActivity: BaseSurveyActivity(), UsesCamera, UsesGallery, An
     photoButton.setText(R.string.replace_photo)
   }
 
-  private fun setupSpeciesSpinner() {
-    val adapter = ArrayAdapter.createFromResource(
-      this,
-      R.array.mosquitoSpecies,
-      android.R.layout.simple_spinner_item)
-    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-    vectorSpecies.adapter = adapter
-    vectorSpecies.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
-      override fun onItemSelected(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
-        val selected = parent.getItemAtPosition(pos).toString()
-        when(selected) {
-          "Other" -> {toggleOtherSpeciesField(true)}
-          else -> {toggleOtherSpeciesField(false)}
-        }
-      }
-      override fun onNothingSelected(parent: AdapterView<*>?) {}
-    }
-  }
-
-  private fun toggleOtherSpeciesField(visible: Boolean = false) {
-    if (visible) {
-      vectorSpeciesOtherLayout.visibility = View.VISIBLE
-    } else {
-      vectorSpeciesOtherLayout.visibility = View.GONE
-    }
-  }
-
   private fun setDnaRequestListener() {
     vectorDna.setOnClickListener {
+      // @TODO: implement this
       showLongMessage(vectorSurveyRoot, "This hasn't yet been implemented :)")
     }
   }

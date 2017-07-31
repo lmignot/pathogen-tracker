@@ -20,7 +20,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:ems="10"
-      android:inputType="text|textPersonName"
+      android:inputType="text"
       android:hint="Batch ID"
       android:maxLines="1"
       android:focusable="false"
