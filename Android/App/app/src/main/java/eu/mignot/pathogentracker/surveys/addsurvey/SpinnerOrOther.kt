@@ -1,7 +1,39 @@
 package eu.mignot.pathogentracker.surveys.addsurvey
 
-/**
- * Created by lmignot on 31/07/2017.
- */
-interface HasSpinner {
+import android.content.Context
+import android.support.design.widget.TextInputLayout
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
+
+interface SpinnerOrOther {
+
+  fun setupSpinner(
+    context: Context,
+    arraySource: Int,
+    spinnerField: Spinner,
+    otherField: TextInputLayout) {
+    val adapter = ArrayAdapter.createFromResource(context, arraySource, android.R.layout.simple_spinner_item)
+    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+    spinnerField.adapter = adapter
+    spinnerField.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+      override fun onItemSelected(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
+        val selected = parent.getItemAtPosition(pos).toString()
+        when(selected) {
+          "Other" -> {toggleOtherField(true, otherField)}
+          else -> {toggleOtherField(field = otherField)}
+        }
+      }
+      override fun onNothingSelected(parent: AdapterView<*>?) {}
+    }
+  }
+
+  private fun toggleOtherField(visible: Boolean = false, field: TextInputLayout) {
+    if (visible) {
+      field.visibility = View.VISIBLE
+    } else {
+      field.visibility = View.GONE
+    }
+  }
 }
