@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string-array name="mosquitoSpecies">
+    <item>Aedes Aegypti</item>
+    <item>Aedes Albopictus</item>
+    <item>Aedes Triseriatus</item>
+    <item>Culex Pipiens Complex</item>
+    <item>Culex Quinquefasciatus</item>
+    <item>Culex Tritaeniorhynchus</item>
+    <item>Anopheles Gambiae Species Complex</item>
+    <item>Anopheles Albimanus</item>
+    <item>Anopheles Aquasalis</item>
+    <item>Anopheles Arabiensis</item>
+    <item>Anopheles Darlingi</item>
+    <item>Anopheles Funestus</item>
+    <item>Anopheles Stephensi</item>
+    <item>Other</item>
+  </string-array>
+</resources>

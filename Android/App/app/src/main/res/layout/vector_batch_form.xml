@@ -76,9 +76,11 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/survey_field_top_margin">
     <TextView
+      android:layout_marginStart="4dp"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:text="Territory"
+      android:textSize="12sp"
       />
 
     <RadioGroup

@@ -1,19 +1,34 @@
 package eu.mignot.pathogentracker.surveys.addsurvey.vector
 
+import android.app.Activity
+import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.provider.MediaStore
+import android.support.design.widget.BottomSheetBehavior
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import eu.mignot.pathogentracker.MainActivity
 import eu.mignot.pathogentracker.R
+import eu.mignot.pathogentracker.extensions.showLongMessage
+import eu.mignot.pathogentracker.extensions.showShortMessage
 import eu.mignot.pathogentracker.surveys.addsurvey.BaseSurveyActivity
 import eu.mignot.pathogentracker.surveys.addsurvey.UsesCamera
+import eu.mignot.pathogentracker.surveys.addsurvey.UsesGallery
 import eu.mignot.pathogentracker.util.AppSettings
 import io.reactivex.disposables.CompositeDisposable
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.jetbrains.anko.startActivity
 import kotlinx.android.synthetic.main.activity_add_vector_survey.*
+import kotlinx.android.synthetic.main.photo_bottom_sheet.*
 import kotlinx.android.synthetic.main.vector_form.*
+import me.zhanghai.android.effortlesspermissions.AfterPermissionDenied
+import me.zhanghai.android.effortlesspermissions.EffortlessPermissions
+import pub.devrel.easypermissions.AfterPermissionGranted
 
-class AddVectorSurveyActivity: BaseSurveyActivity(), UsesCamera, AnkoLogger {
+class AddVectorSurveyActivity: BaseSurveyActivity(), UsesCamera, UsesGallery, AnkoLogger {
 
   private val batchId by lazy {
     intent.getStringExtra(AppSettings.Constants.BATCH_ID_KEY)?.let {
@@ -29,6 +44,10 @@ class AddVectorSurveyActivity: BaseSurveyActivity(), UsesCamera, AnkoLogger {
     CompositeDisposable()
   }
 
+  private val photoSheetBehavior by lazy {
+    BottomSheetBehavior.from(photoSheet)
+  }
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     if (batchId == AppSettings.Constants.NO_ID_VALUE) {
@@ -39,7 +58,10 @@ class AddVectorSurveyActivity: BaseSurveyActivity(), UsesCamera, AnkoLogger {
   }
 
   override fun bind() {
-    info("binding...")
+    setupSpeciesSpinner()
+    setupPhotoSheetButton()
+    requestCameraPermission()
+    setDnaRequestListener()
   }
 
   override fun unbind() {
@@ -55,6 +77,113 @@ class AddVectorSurveyActivity: BaseSurveyActivity(), UsesCamera, AnkoLogger {
 
   override fun saveAndClose() {
     info("closing...")
+  }
+
+  fun setupPhotoSheetButton() {
+    photoSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+    photoButton.setOnClickListener {
+      if (photoSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
+        photoSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+      } else {
+        photoSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+      }
+    }
+  }
+
+  @AfterPermissionGranted(UsesCamera.REQUEST_CODE)
+  override fun requestCameraPermission() {
+    if (EffortlessPermissions.hasPermissions(this, UsesCamera.PERMISSION)) {
+      setupPhotoListener()
+    } else if (EffortlessPermissions.permissionPermanentlyDenied(this, UsesCamera.PERMISSION)) {
+      fromCamera.visibility = View.GONE
+      TODO("Set preference to not use camera")
+    } else {
+      askForCameraPermission(this, "Please allow access to the camera")
+    }
+  }
+
+  @AfterPermissionDenied(UsesCamera.REQUEST_CODE)
+  override fun onCameraPermissionDenied() {
+    info("Camera permission denied")
+    fromCamera.visibility = View.GONE
+  }
+
+  private fun setupPhotoListener() {
+    fromCamera.setOnClickListener {
+      val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+      cameraIntent.resolveActivity(packageManager)?.let {
+        photoSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+        startActivityForResult(cameraIntent, UsesCamera.REQUEST_CODE)
+      }
+    }
+    fromGallery.setOnClickListener {
+      photoSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+      val galleryIntent = Intent(Intent.ACTION_GET_CONTENT)
+      galleryIntent.type = "image/*"
+      startActivityForResult(galleryIntent, UsesGallery.REQUEST_CODE)
+    }
+  }
+
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    super.onActivityResult(requestCode, resultCode, data)
+    if (resultCode == Activity.RESULT_OK) {
+      when (requestCode) {
+        UsesCamera.REQUEST_CODE -> {
+          data?.let {
+            val bmp = it.extras.get("data") as Bitmap
+            setPhotoToView(bmp)
+          }
+        }
+        UsesGallery.REQUEST_CODE -> {
+          data?.data?.let {
+            val bmp = MediaStore.Images.Media.getBitmap(contentResolver, it) as Bitmap
+            setPhotoToView(bmp)
+          }
+        }
+        else -> {}
+      }
+    } else {
+      showShortMessage(vectorSurveyRoot, "There was an error choosing or taking the photo")
+    }
+  }
+
+  private fun setPhotoToView(bmp: Bitmap) {
+    photoView.setImageBitmap(bmp)
+    photoView.visibility = View.VISIBLE
+    photoButton.setText(R.string.replace_photo)
+  }
+
+  private fun setupSpeciesSpinner() {
+    val adapter = ArrayAdapter.createFromResource(
+      this,
+      R.array.mosquitoSpecies,
+      android.R.layout.simple_spinner_item)
+    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+    vectorSpecies.adapter = adapter
+    vectorSpecies.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+      override fun onItemSelected(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
+        val selected = parent.getItemAtPosition(pos).toString()
+        when(selected) {
+          "Other" -> {toggleOtherSpeciesField(true)}
+          else -> {toggleOtherSpeciesField(false)}
+        }
+      }
+      override fun onNothingSelected(parent: AdapterView<*>?) {}
+    }
+  }
+
+  private fun toggleOtherSpeciesField(visible: Boolean = false) {
+    if (visible) {
+      vectorSpeciesOtherLayout.visibility = View.VISIBLE
+    } else {
+      vectorSpeciesOtherLayout.visibility = View.GONE
+    }
+  }
+
+  private fun setDnaRequestListener() {
+    vectorDna.setOnClickListener {
+      showLongMessage(vectorSurveyRoot, "This hasn't yet been implemented :)")
+    }
   }
 
 }
