@@ -1,4 +1,4 @@
-package eu.mignot.pathogentracker.surveys.addsurvey
+package eu.mignot.pathogentracker.util
 
 interface UsesGallery {
   companion object {

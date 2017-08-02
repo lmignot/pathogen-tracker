@@ -1,11 +1,13 @@
-package eu.mignot.pathogentracker.surveys.addsurvey
+package eu.mignot.pathogentracker.util
 
 import android.content.Context
 import android.support.design.widget.TextInputLayout
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.EditText
 import android.widget.Spinner
+import eu.mignot.pathogentracker.extensions.asString
 
 interface SpinnerOrOther {
 
@@ -26,6 +28,15 @@ interface SpinnerOrOther {
         }
       }
       override fun onNothingSelected(parent: AdapterView<*>?) {}
+    }
+  }
+
+  fun getSpinnerValue(spinner: Spinner, textField: EditText, textLayout: TextInputLayout): String {
+    if (textLayout.visibility == View.VISIBLE) {
+      return textField.asString()
+    } else {
+      val selected = spinner.getItemAtPosition(spinner.selectedItemPosition)
+      return selected.toString()
     }
   }
 
