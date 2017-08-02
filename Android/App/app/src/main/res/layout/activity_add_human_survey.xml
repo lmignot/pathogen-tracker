@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/humanSurveyRoot"
+  android:orientation="vertical"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:fitsSystemWindows="true"
+  tools:context=".surveys.addsurvey.human.AddHumanSurveyActivity">
+
+  <android.support.v7.widget.Toolbar
+    android:id="@+id/toolbarAH"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:theme="@style/Toolbar"/>
+
+  <com.stepstone.stepper.StepperLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/stepperLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:ms_stepperType="dots"
+    app:ms_completeButtonText="@string/action_save"/>
+
+</LinearLayout>

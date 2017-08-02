@@ -39,6 +39,9 @@
               android:parentActivityName=".MainActivity"
               android:screenOrientation="portrait"
               android:theme="@style/AppTheme.OverlapSystemBarVector"/>
+    <activity android:name=".surveys.addsurvey.human.AddHumanSurveyActivity"
+              android:parentActivityName=".MainActivity"
+              android:screenOrientation="portrait"/>
   </application>
 
 </manifest>
