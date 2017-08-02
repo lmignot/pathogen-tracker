@@ -16,13 +16,13 @@
   <string name="survey_type_avatar">Survey type avatar</string>
   <string name="survey_item_is_flagged">Survey item is flagged</string>
   <string name="survey_item_is_queued_for_upload">Survey item is queued for upload</string>
-  <string name="add_vector_batch">Add Mosquito Batch</string>
-  <string name="add_vector">Add Mosquito</string>
-  <string name="add_human">Add Human Record</string>
+  <string name="title_vector_batch">New Mosquito Batch</string>
+  <string name="title_vector">New Mosquito</string>
+  <string name="title_human">New Patient</string>
   <string name="action_save">Save</string>
   <string name="cancel_survey_title">Are you sure you want to leave?</string>
   <string name="cancel_survey_rationale">This survey has not been saved…</string>
-  <string name="error_vector_no_batchid">A Vector record requires a vector batch</string>
+  <string name="error_vector_no_batchid">A mosquito record requires a mosquito batch</string>
   <string name="specify_species">Please specify</string>
   <string name="replace_photo">Replace photo</string>
   <string name="insert_photo">Add a photo</string>
@@ -31,5 +31,11 @@
   <string name="survey_photo">Vector Photo</string>
   <string name="leave">Leave</string>
   <string name="stay">Stay</string>
+  <string name="notice_saving">Saving. Please wait…</string>
+  <string name="remove">Remove</string>
+  <string name="add_another">Add another</string>
+  <string name="sample_types">Sample type(s)</string>
+  <string name="past_infections">Past infection(s)</string>
+  <string name="travel_history">Recent travel history</string>
 
 </resources>
