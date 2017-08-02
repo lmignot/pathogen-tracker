@@ -23,3 +23,7 @@ fun RadioGroup.selectedValue(): String {
   }
   return ""
 }
+
+fun RadioGroup.asBoolean(): Boolean {
+  return this.selectedValue() == "Yes"
+}

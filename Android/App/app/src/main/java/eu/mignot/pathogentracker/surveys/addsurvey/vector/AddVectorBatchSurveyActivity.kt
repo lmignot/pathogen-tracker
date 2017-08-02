@@ -13,10 +13,9 @@ import eu.mignot.pathogentracker.extensions.showShortMessage
 import eu.mignot.pathogentracker.extensions.asString
 import eu.mignot.pathogentracker.extensions.selectedValue
 import eu.mignot.pathogentracker.surveys.addsurvey.BaseSurveyActivity
-import eu.mignot.pathogentracker.surveys.addsurvey.UsesLocation
+import eu.mignot.pathogentracker.util.UsesLocation
 import eu.mignot.pathogentracker.surveys.data.models.survey.VectorBatch
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_add_vector_batch_survey.*
@@ -27,14 +26,10 @@ import org.jetbrains.anko.*
 import pub.devrel.easypermissions.AfterPermissionGranted
 import java.util.*
 
-class AddVectorBatchSurveyActivity: BaseSurveyActivity(), UsesLocation, AnkoLogger {
+class AddVectorBatchSurveyActivity: BaseSurveyActivity(), UsesLocation {
 
   private val vm by lazy {
     AddVectorBatchViewModel(App.getLocationProvider())
-  }
-
-  private val disposables by lazy {
-    CompositeDisposable()
   }
 
   private var location: Location = Location()
@@ -42,14 +37,7 @@ class AddVectorBatchSurveyActivity: BaseSurveyActivity(), UsesLocation, AnkoLogg
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_add_vector_batch_survey)
-    setupToolbar()
-  }
-
-  override fun setupToolbar() {
-    setSupportActionBar(toolbarAVB)
-    supportActionBar?.setTitle(R.string.add_vector_batch)
-    supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    supportActionBar?.setHomeAsUpIndicator(R.drawable.close_white)
+    setupToolbar(toolbarAVB, getString(R.string.title_vector_batch))
   }
 
   override fun bind() {
@@ -61,10 +49,6 @@ class AddVectorBatchSurveyActivity: BaseSurveyActivity(), UsesLocation, AnkoLogg
     setDateListener()
     // check for location permissions (sets listener if successful)
     requestLocationPermission()
-  }
-
-  override fun unbind() {
-    disposables.clear()
   }
 
   override fun saveAndClose() {

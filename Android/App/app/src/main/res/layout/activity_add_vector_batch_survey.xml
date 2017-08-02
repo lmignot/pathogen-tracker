@@ -14,9 +14,7 @@
     android:id="@+id/toolbarAVB"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:background="@color/colorVectorPrimary"
-    android:theme="?attr/actionBarTheme"
-    app:titleTextColor="@color/colorVectorToolbarText"/>
+    android:theme="@style/VectorToolbar"/>
 
   <android.support.v4.widget.NestedScrollView
     android:layout_width="match_parent"

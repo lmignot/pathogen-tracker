@@ -5,7 +5,7 @@ import io.reactivex.Single
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 
-class AddVectorViewModel(val batchId: String, val id: String): AnkoLogger {
+class AddVectorViewModel(val id: String): AnkoLogger {
 
   fun save(v: Vector): Single<Boolean> {
     info(v.toString())

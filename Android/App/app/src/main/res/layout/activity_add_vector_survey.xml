@@ -14,9 +14,7 @@
     android:id="@+id/toolbarAV"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorVectorPrimary"
-    android:theme="?attr/actionBarTheme"
-    app:titleTextColor="@color/colorVectorToolbarText"/>
+    android:theme="@style/VectorToolbar"/>
 
   <android.support.design.widget.CoordinatorLayout
     android:layout_width="match_parent"

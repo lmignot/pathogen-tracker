@@ -1,6 +1,6 @@
 package eu.mignot.pathogentracker.surveys.data.models.survey
 
-import android.media.Image
+import android.graphics.Bitmap
 
 data class Vector (
   val id: String,
@@ -10,5 +10,5 @@ data class Vector (
   val stage: String,
   val didFeed: Boolean,
   val dna: String = "",
-  val photo: Image
+  val photo: Bitmap
 )

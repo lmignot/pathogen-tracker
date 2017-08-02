@@ -46,13 +46,16 @@ dependencies {
   // kotlin
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
   implementation "org.jetbrains.anko:anko-common:$anko_version"
+  implementation "org.jetbrains.anko:anko-sdk25:$anko_version"
+  implementation "org.jetbrains.anko:anko-appcompat-v7:$anko_version"
+  implementation "org.jetbrains.anko:anko-sdk25-coroutines:$anko_version"
+  implementation "org.jetbrains.anko:anko-appcompat-v7-coroutines:$anko_version"
   // android support
-  implementation 'com.android.support:appcompat-v7:25.4.0'
-  implementation 'com.android.support:recyclerview-v7:25.4.0'
-  implementation 'com.android.support:design:25.4.0'
-//  implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+  implementation "com.android.support:appcompat-v7:$android_support_version"
+  implementation "com.android.support:recyclerview-v7:$android_support_version"
+  implementation "com.android.support:design:$android_support_version"
   // play services
-  implementation 'com.google.android.gms:play-services-location:11.0.2'
+  implementation "com.google.android.gms:play-services-location:$play_services_version"
   // permissions
   implementation 'me.zhanghai.android.effortlesspermissions:library:1.0.0'
   // reactiveX
@@ -61,13 +64,18 @@ dependencies {
   implementation 'io.reactivex.rxjava2:rxkotlin:2.1.0'
   implementation 'com.patloew.rxlocation:rxlocation:1.0.3'
   // firebase libraries
-  implementation 'com.google.firebase:firebase-auth:11.0.2'
-  implementation 'com.google.firebase:firebase-database:11.0.2'
-  implementation 'com.google.firebase:firebase-storage:11.0.2'
-  implementation 'com.google.firebase:firebase-config:11.0.2'
-  implementation 'com.google.firebase:firebase-crash:11.0.2'
+  implementation "com.google.firebase:firebase-auth:$firebase_version"
+  implementation "com.google.firebase:firebase-database:$firebase_version"
+  implementation "com.google.firebase:firebase-storage:$firebase_version"
+  implementation "com.google.firebase:firebase-config:$firebase_version"
+  implementation "com.google.firebase:firebase-crash:$firebase_version"
   // other tools
   implementation 'com.stepstone.stepper:material-stepper:3.3.0'
 }
 
 apply plugin: 'com.google.gms.google-services'
+kotlin {
+  experimental {
+    coroutines "enable"
+  }
+}

@@ -19,6 +19,7 @@ object AppSettings {
     const val MESSAGE_KEY = "MESSAGE"
     const val NO_ID_VALUE = "NO_ID"
     const val BATCH_ID_KEY = "batchId"
+    const val VECTOR_ID_KEY = "vectorId"
   }
 
 }

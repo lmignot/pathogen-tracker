@@ -10,7 +10,7 @@
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
-    <item name="android:actionMenuTextColor">@android:color/white</item>
+    <item name="ms_stepperStyle">@style/DotStepperStyle</item>
   </style>
 
   <style name="Vector.AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -18,11 +18,17 @@
     <item name="colorPrimary">@color/colorVectorPrimary</item>
     <item name="colorPrimaryDark">@color/colorVectorPrimaryDark</item>
     <item name="colorAccent">@color/colorVectorAccent</item>
-    <item name="android:actionMenuTextColor">@android:color/white</item>
+    <item name="android:statusBarColor">@color/colorVectorPrimaryDark</item>
   </style>
 
   <style name="Toolbar" parent="ThemeOverlay.AppCompat.ActionBar">
     <item name="android:textColorPrimary">@android:color/white</item>
+    <item name="android:actionMenuTextColor">@android:color/white</item>
+    <item name="android:background">@color/colorPrimary</item>
+  </style>
+
+  <style name="VectorToolbar" parent="Toolbar">
+    <item name="android:background">@color/colorVectorPrimary</item>
   </style>
 
   <style name="CollapsedAppBar" parent="@android:style/TextAppearance.Medium">
@@ -35,6 +41,15 @@
     <item name="android:textSize">28sp</item>
     <item name="android:textStyle">normal</item>
     <item name="android:textColor">@android:color/white</item>
+  </style>
+
+  <style name="DotStepperStyle">
+    <item name="ms_stepperType">dots</item>
+    <item name="ms_activeStepColor">@color/colorAccent</item>
+    <item name="ms_inactiveStepColor">@color/colorSecondaryText</item>
+    <item name="ms_backButtonColor">@color/colorSecondaryText</item>
+    <item name="ms_nextButtonColor">@color/colorSecondaryText</item>
+    <item name="ms_completeButtonColor">@color/colorAccent</item>
   </style>
 
 </resources>

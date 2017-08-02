@@ -3,23 +3,26 @@ package eu.mignot.pathogentracker.surveys.addsurvey.vector
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.provider.MediaStore
 import android.support.design.widget.BottomSheetBehavior
 import android.view.View
 import eu.mignot.pathogentracker.MainActivity
 import eu.mignot.pathogentracker.R
-import eu.mignot.pathogentracker.extensions.showLongMessage
-import eu.mignot.pathogentracker.extensions.showShortMessage
+import eu.mignot.pathogentracker.extensions.*
 import eu.mignot.pathogentracker.surveys.addsurvey.BaseSurveyActivity
-import eu.mignot.pathogentracker.surveys.addsurvey.SpinnerOrOther
-import eu.mignot.pathogentracker.surveys.addsurvey.UsesCamera
-import eu.mignot.pathogentracker.surveys.addsurvey.UsesGallery
+import eu.mignot.pathogentracker.util.SpinnerOrOther
+import eu.mignot.pathogentracker.util.UsesCamera
+import eu.mignot.pathogentracker.util.UsesGallery
+import eu.mignot.pathogentracker.surveys.data.models.survey.Vector
 import eu.mignot.pathogentracker.util.AppSettings
-import io.reactivex.disposables.CompositeDisposable
-import org.jetbrains.anko.AnkoLogger
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxkotlin.subscribeBy
+import io.reactivex.schedulers.Schedulers
 import org.jetbrains.anko.info
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.indeterminateProgressDialog
 import kotlinx.android.synthetic.main.activity_add_vector_survey.*
 import kotlinx.android.synthetic.main.photo_bottom_sheet.*
 import kotlinx.android.synthetic.main.vector_form.*
@@ -27,7 +30,13 @@ import me.zhanghai.android.effortlesspermissions.AfterPermissionDenied
 import me.zhanghai.android.effortlesspermissions.EffortlessPermissions
 import pub.devrel.easypermissions.AfterPermissionGranted
 
-class AddVectorSurveyActivity: BaseSurveyActivity(), SpinnerOrOther, UsesCamera, UsesGallery, AnkoLogger {
+class AddVectorSurveyActivity: BaseSurveyActivity(), SpinnerOrOther, UsesCamera, UsesGallery {
+
+  private val vectorId by lazy {
+    intent.getStringExtra(AppSettings.Constants.VECTOR_ID_KEY)?.let {
+      it
+    } ?: AppSettings.Constants.NO_ID_VALUE
+  }
 
   private val batchId by lazy {
     intent.getStringExtra(AppSettings.Constants.BATCH_ID_KEY)?.let {
@@ -36,11 +45,7 @@ class AddVectorSurveyActivity: BaseSurveyActivity(), SpinnerOrOther, UsesCamera,
   }
 
   private val vm by lazy {
-    AddVectorViewModel(batchId, batchId + "-001")
-  }
-
-  private val disposables by lazy {
-    CompositeDisposable()
+    AddVectorViewModel(vectorId)
   }
 
   private val photoSheetBehavior by lazy {
@@ -49,11 +54,11 @@ class AddVectorSurveyActivity: BaseSurveyActivity(), SpinnerOrOther, UsesCamera,
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    if (batchId == AppSettings.Constants.NO_ID_VALUE) {
+    if (vectorId == AppSettings.Constants.NO_ID_VALUE || batchId == AppSettings.Constants.NO_ID_VALUE) {
       startActivity<MainActivity>(AppSettings.Constants.MESSAGE_KEY to getString(R.string.error_vector_no_batchid))
     }
     setContentView(R.layout.activity_add_vector_survey)
-    setupToolbar()
+    setupToolbar(toolbarAV, getString(R.string.title_vector))
   }
 
   override fun bind() {
@@ -63,19 +68,32 @@ class AddVectorSurveyActivity: BaseSurveyActivity(), SpinnerOrOther, UsesCamera,
     setDnaRequestListener()
   }
 
-  override fun unbind() {
-    disposables.clear()
-  }
-
-  override fun setupToolbar() {
-    setSupportActionBar(toolbarAV)
-    supportActionBar?.setTitle(R.string.add_vector)
-    supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    supportActionBar?.setHomeAsUpIndicator(R.drawable.close_white)
-  }
-
   override fun saveAndClose() {
-    info("closing...")
+    val progress = indeterminateProgressDialog(getString(R.string.notice_saving))
+    val model = Vector(
+      vectorId,
+      batchId,
+      getSpinnerValue(vectorSpecies, vectorSpeciesOther, vectorSpeciesOtherLayout),
+      vectorGender.selectedValue(),
+      vectorStage.selectedValue(),
+      vectorDidFeed.asBoolean(),
+      vectorDna.asString(),
+      (photoView.drawable as BitmapDrawable).bitmap
+    )
+    vm
+      .save(model)
+      .subscribeOn(Schedulers.io())
+      .observeOn(AndroidSchedulers.mainThread())
+      .subscribeBy (
+        onError = {
+          progress.hide()
+          showShortMessage(vectorSurveyRoot, "There was an error saving")
+        },
+        onSuccess = {
+          progress.hide()
+          showShortMessage(vectorSurveyRoot, "Successfully saved")
+        }
+      )
   }
 
   fun setupPhotoSheetButton() {

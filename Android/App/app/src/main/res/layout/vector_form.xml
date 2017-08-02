@@ -45,131 +45,114 @@
       android:lines="1"/>
   </android.support.design.widget.TextInputLayout>
 
-  <RelativeLayout
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/survey_field_top_margin">
+  <LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:divider="@color/colorDivider"
+    android:dividerPadding="4dp"
+    android:showDividers="middle|end"
+    android:orientation="vertical">
 
-    <TextView
-      android:layout_marginStart="4dp"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:textSize="12sp"
-      android:text="Gender"/>
-
-    <RadioGroup
-      android:id="@+id/vectorGender"
+    <RelativeLayout
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
-      android:layout_marginTop="24dp"
-      android:orientation="horizontal">
+      android:layout_marginTop="@dimen/survey_field_top_margin">
 
-      <RadioButton
+      <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:checked="false"
-        android:text="Female"/>
+        android:layout_marginStart="4dp"
+        android:text="Gender"
+        android:textSize="12sp"/>
 
-      <RadioButton
-        android:layout_width="wrap_content"
+      <RadioGroup
+        android:id="@+id/vectorGender"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:text="Male"/>
-    </RadioGroup>
-  </RelativeLayout>
+        android:layout_marginTop="24dp"
+        android:orientation="horizontal">
 
-  <View
-    android:layout_width="match_parent"
-    android:layout_height="1dp"
-    android:layout_marginEnd="4dp"
-    android:layout_marginStart="4dp"
-    android:layout_marginTop="4dp"
-    android:alpha="4"
-    android:background="#000000"/>
+        <RadioButton
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:checked="false"
+          android:text="Female"/>
 
-  <RelativeLayout
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/survey_field_top_margin">
+        <RadioButton
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="44dp"
+          android:text="Male"/>
+      </RadioGroup>
+    </RelativeLayout>
 
-    <TextView
-      android:layout_marginStart="4dp"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:textSize="12sp"
-      android:text="Stage"/>
-
-    <RadioGroup
-      android:id="@+id/vectorStage"
+    <RelativeLayout
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
-      android:layout_marginTop="24dp"
-      android:orientation="horizontal">
+      android:layout_marginTop="@dimen/survey_field_top_margin">
 
-      <RadioButton
+      <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:checked="false"
-        android:text="Larva"/>
+        android:layout_marginStart="4dp"
+        android:text="Stage"
+        android:textSize="12sp"/>
 
-      <RadioButton
-        android:layout_width="wrap_content"
+      <RadioGroup
+        android:id="@+id/vectorStage"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
-        android:text="Adult"/>
-    </RadioGroup>
-  </RelativeLayout>
+        android:layout_marginTop="24dp"
+        android:orientation="horizontal">
 
-  <View
-    android:layout_width="match_parent"
-    android:layout_height="1dp"
-    android:layout_marginEnd="4dp"
-    android:layout_marginStart="4dp"
-    android:layout_marginTop="4dp"
-    android:alpha="4"
-    android:background="#000000"/>
+        <RadioButton
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:checked="false"
+          android:text="Larva"/>
 
-  <RelativeLayout
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/survey_field_top_margin">
+        <RadioButton
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="56dp"
+          android:text="Adult"/>
+      </RadioGroup>
+    </RelativeLayout>
 
-    <TextView
-      android:layout_marginStart="4dp"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:textSize="12sp"
-      android:text="Has the mosquito fed?"/>
-
-    <RadioGroup
-      android:id="@+id/vectorDidFeed"
+    <RelativeLayout
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
-      android:layout_marginTop="24dp"
-      android:orientation="horizontal">
+      android:layout_marginTop="@dimen/survey_field_top_margin">
 
-      <RadioButton
+      <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:checked="false"
-        android:text="Yes"/>
+        android:layout_marginStart="4dp"
+        android:text="Has the mosquito fed?"
+        android:textSize="12sp"/>
 
-      <RadioButton
-        android:layout_width="wrap_content"
+      <RadioGroup
+        android:id="@+id/vectorDidFeed"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="68dp"
-        android:text="No"/>
-    </RadioGroup>
-  </RelativeLayout>
+        android:layout_marginTop="24dp"
+        android:orientation="horizontal">
 
-  <View
-    android:layout_width="match_parent"
-    android:layout_height="1dp"
-    android:layout_marginEnd="4dp"
-    android:layout_marginStart="4dp"
-    android:layout_marginTop="4dp"
-    android:alpha="4"
-    android:background="#000000"/>
+        <RadioButton
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:checked="false"
+          android:text="Yes"/>
+
+        <RadioButton
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="68dp"
+          android:text="No"/>
+      </RadioGroup>
+    </RelativeLayout>
+
+  </LinearLayout>
 
   <android.support.design.widget.TextInputLayout
     android:layout_width="match_parent"

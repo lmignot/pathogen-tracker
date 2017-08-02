@@ -3,6 +3,7 @@ package eu.mignot.pathogentracker
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import eu.mignot.pathogentracker.extensions.showShortMessage
+import eu.mignot.pathogentracker.surveys.addsurvey.human.AddHumanSurveyActivity
 import eu.mignot.pathogentracker.surveys.addsurvey.vector.AddVectorBatchSurveyActivity
 import eu.mignot.pathogentracker.surveys.addsurvey.vector.AddVectorSurveyActivity
 import eu.mignot.pathogentracker.util.AppSettings
@@ -25,7 +26,8 @@ class MainActivity: AppCompatActivity(), AnkoLogger {
 
   private fun setupButtons() {
     humanSurveyButton.setOnClickListener {
-      showShortMessage(mainView, "Human Survey launching...")
+      info("Launching activity: HumanSurveyActivity")
+      startActivity<AddHumanSurveyActivity>()
     }
     vectorBatchSurveyButton.setOnClickListener {
       info("Launching activity: AddVectorBatchSurveyActivity")
@@ -33,8 +35,10 @@ class MainActivity: AppCompatActivity(), AnkoLogger {
     }
     vectorSurveyButton.setOnClickListener {
       info("Launching activity: AddVectorSurveyActivity")
-//      startActivity<AddVectorSurveyActivity>()
-      startActivity<AddVectorSurveyActivity>(AppSettings.Constants.BATCH_ID_KEY to "VB-${UUID.randomUUID()}")
+      startActivity<AddVectorSurveyActivity>(
+        AppSettings.Constants.BATCH_ID_KEY to "VB-${UUID.randomUUID()}",
+        AppSettings.Constants.VECTOR_ID_KEY to "V-${UUID.randomUUID()}-001"
+      )
     }
   }
 }

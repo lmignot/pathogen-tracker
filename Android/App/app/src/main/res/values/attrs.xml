@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <declare-styleable name="MultiSpinner">
+    <attr name="labelText" format="string"/>
+    <attr name="buttonText" format="string"/>
+    <attr name="valuesResId" format="integer" />
+    <attr name="maxItems" format="integer" />
+  </declare-styleable>
+</resources>

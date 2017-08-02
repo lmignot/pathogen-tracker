@@ -41,7 +41,7 @@
         android:background="@color/colorVectorPrimary"
         android:theme="?attr/actionBarTheme"
         app:layout_collapseMode="pin"
-        app:titleTextColor="@color/colorVectorToolbarText"/>
+        app:titleTextColor="@color/colorToolbarText"/>
 
     </android.support.design.widget.CollapsingToolbarLayout>
 

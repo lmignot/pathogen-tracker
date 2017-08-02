@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <color name="transparent">#00ffffff</color>
+  <color name="white">#FFFFFF</color>
   <color name="colorPrimary">#3F51B5</color>
   <color name="colorPrimaryDark">#303F9F</color>
   <color name="colorPrimaryLight">#C5CAE9</color>
@@ -8,10 +10,10 @@
   <color name="colorSecondaryText">#757575</color>
   <color name="colorIcons">#FFFFFF</color>
   <color name="colorIconsReverse">#212121</color>
-  <color name="colorDivider">#BDBDBD</color>
+  <color name="colorDivider">#9F000000</color>
+  <color name="colorToolbarText">#FFFFFF</color>
   <color name="colorVectorPrimary">#00BCD4</color>
   <color name="colorVectorPrimaryDark">#0097A7</color>
   <color name="colorVectorPrimaryLight">#B2EBF2</color>
-  <color name="colorVectorToolbarText">#FFFFFF</color>
   <color name="colorVectorAccent">#FF5722</color>
 </resources>
