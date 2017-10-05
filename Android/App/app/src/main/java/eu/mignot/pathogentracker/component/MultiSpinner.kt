@@ -1,12 +1,14 @@
-package eu.mignot.pathogentracker.widget
+package eu.mignot.pathogentracker.component
 
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewManager
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.LinearLayout
 import android.widget.Spinner
@@ -23,17 +25,17 @@ class MultiSpinner(context: Context, attrs: AttributeSet?, defStyleAttr: Int):
 
   private lateinit var spinnerContainer: LinearLayout
 
+  private lateinit var adapter: ArrayAdapter<CharSequence>
+
+  private var spinnerWidgets: List<Spinner> = listOf()
+
   private lateinit var labelText: String
 
   private lateinit var buttonText: String
 
-  private lateinit var adapter: ArrayAdapter<CharSequence>
-
   private var maxItems: Int = 0
 
-  private var spinnerWidgets: List<Spinner> = listOf()
-
-  private var valuesResId: Int = 0
+  var valuesResId: Int = 0
 
   init {
     val a = context.theme.obtainStyledAttributes(attrs, R.styleable.MultiSpinner, 0, 0)
@@ -48,7 +50,6 @@ class MultiSpinner(context: Context, attrs: AttributeSet?, defStyleAttr: Int):
   }
 
   private fun init() = AnkoContext.createDelegate(this).apply {
-
     adapter = ArrayAdapter.createFromResource(context, valuesResId, android.R.layout.simple_spinner_item)
     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
@@ -63,7 +64,7 @@ class MultiSpinner(context: Context, attrs: AttributeSet?, defStyleAttr: Int):
       spinnerContainer = linearLayout {
         topPadding = dip(4)
         orientation = LinearLayout.VERTICAL
-        dividerDrawable = ColorDrawable(Color.parseColor("#9F000000"))
+        dividerDrawable = ColorDrawable(ContextCompat.getColor(context, R.color.colorDivider))
         dividerPadding = dip(4)
         showDividers = LinearLayout.SHOW_DIVIDER_MIDDLE
         lparams(matchParent, wrapContent) {
@@ -81,7 +82,7 @@ class MultiSpinner(context: Context, attrs: AttributeSet?, defStyleAttr: Int):
       button = button(buttonText) {
         backgroundColor = Color.TRANSPARENT
         textAlignment = View.TEXT_ALIGNMENT_TEXT_START
-        textColor = Color.parseColor("#757575")
+        textColor = ContextCompat.getColor(context, R.color.colorSecondaryText)
         onClick {
           if (spinnerWidgets.size < maxItems) {
             button.isEnabled = true
@@ -97,7 +98,7 @@ class MultiSpinner(context: Context, attrs: AttributeSet?, defStyleAttr: Int):
   }
 
   fun getAllValues(): List<String> {
-    return spinnerWidgets.map { it.selectedItem.toString() }
+    return spinnerWidgets.map { it.selectedItem.toString() }.filter { it != "Select…" }
   }
 
   private fun addSpinner() {
@@ -141,7 +142,6 @@ class MultiSpinner(context: Context, attrs: AttributeSet?, defStyleAttr: Int):
 }
 
 @Suppress("NOTHING_TO_INLINE")
-inline fun ViewManager.multiSpinner(theme: Int = 0)
-  = multiSpinner({}, theme)
+inline fun ViewManager.multiSpinner(theme: Int = 0) = multiSpinner({}, theme)
 inline fun ViewManager.multiSpinner(init: MultiSpinner.() -> Unit, theme: Int = 0)
   = ankoView(::MultiSpinner, theme, init)
