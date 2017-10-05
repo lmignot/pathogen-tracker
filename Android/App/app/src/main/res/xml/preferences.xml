@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+  <ListPreference
+    android:key="PRIMARY_SURVEY_KEY"
+    android:title="Primary survey"
+    android:summary="Your primary survey type"
+    android:entries="@array/surveyTypes"
+    android:defaultValue="Vector"
+    />
+  <ListPreference
+    android:key="SECONDARY_SURVEY_KEY"
+    android:title="Secondary survey"
+    android:summary="Secondary survey type (if any)"
+    android:entries="@array/surveyTypes"
+    android:defaultValue="None"
+    />
+  <CheckBoxPreference
+    android:key="USE_CELLULAR_KEY"
+    android:title="Use cellular data"
+    android:summary="The app will use cellular data to upload surveys to the cloud."
+    android:defaultValue="true"
+    />
+  <CheckBoxPreference
+    android:key="IMAGE_RESOLUTION_KEY"
+    android:title="Optimise image resolution?"
+    android:summary="Image resolution will be optimised before uploading."
+    android:defaultValue="false"
+    />
+</PreferenceScreen>

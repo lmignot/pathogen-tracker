@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string-array name="diseases">
+    <item>Select…</item>
     <item>Zika</item>
     <item>Dengue</item>
     <item>Malaria</item>

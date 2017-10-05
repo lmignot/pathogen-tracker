@@ -15,4 +15,5 @@
   <dimen name="survey_item_text_date">11sp</dimen>
   <!-- Form spacing -->
   <dimen name="survey_field_top_margin">24dp</dimen>
+  <dimen name="appbar_padding_top">8dp</dimen>
 </resources>

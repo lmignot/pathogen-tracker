@@ -1,9 +1,10 @@
 <resources>
   <!-- Base application theme. -->
-  <style name="AppTheme" parent="Base.AppTheme" />
+  <style name="AppTheme" parent="Base.AppTheme"/>
 
-  <style name="AppTheme.OverlapSystemBar" parent="Base.AppTheme" />
-  <style name="AppTheme.OverlapSystemBarVector" parent="Vector.AppTheme" />
+  <style name="AppTheme.OverlapSystemBar" parent="Base.AppTheme"/>
+
+  <style name="AppTheme.OverlapSystemBarVector" parent="Vector.AppTheme"/>
 
   <style name="Base.AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
     <!-- Customize your theme here. -->
@@ -11,6 +12,7 @@
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
     <item name="ms_stepperStyle">@style/DotStepperStyle</item>
+    <item name="android:statusBarColor">@color/colorPrimaryDark</item>
   </style>
 
   <style name="Vector.AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -51,5 +53,9 @@
     <item name="ms_nextButtonColor">@color/colorSecondaryText</item>
     <item name="ms_completeButtonColor">@color/colorAccent</item>
   </style>
+
+  <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+  <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
 </resources>

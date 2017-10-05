@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string-array name="symptoms">
+    <item>Select…</item>
     <item>Skin rash</item>
     <item>Fever</item>
     <item>Joint or muscle pain</item>

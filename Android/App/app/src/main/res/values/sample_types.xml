@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string-array name="sampleTypes">
+    <item>Select…</item>
     <item>Blood</item>
     <item>Urine</item>
     <item>Sera</item>
