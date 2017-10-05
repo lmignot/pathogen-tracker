@@ -78,5 +78,11 @@ object AppPreferencesProvider: PreferencesProvider {
 
   override fun setPiNetworkId(i: Int) =
     sharedPreferences.edit().putInt(keys.PI_NETWORK_ID_KEY, i).apply()
+
+  override fun getImageQuality(): Int =
+    sharedPreferences.getInt(keys.IMAGE_RESOLUTION_KEY, AppSettings.Constants.DEFAULT_IMAGE_QUALITY)
+
+  override fun setImageQuality(i: Int) =
+    sharedPreferences.edit().putInt(keys.IMAGE_RESOLUTION_KEY, i).apply()
 }
 

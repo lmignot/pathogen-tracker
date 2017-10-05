@@ -23,4 +23,6 @@ interface PreferencesProvider {
   fun setDidCompleteOnBoarding(b: Boolean)
   fun getPiNetworkId(): Int
   fun setPiNetworkId(i: Int)
+  fun setImageQuality(i: Int)
+  fun getImageQuality(): Int
 }
