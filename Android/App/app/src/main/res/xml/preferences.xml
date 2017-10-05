@@ -22,7 +22,7 @@
   </android.support.v7.preference.PreferenceCategory>
   <android.support.v7.preference.PreferenceCategory
     android:title="Data">
-    <android.support.v7.preference.CheckBoxPreferences
+    <android.support.v7.preference.CheckBoxPreference
       android:key="USE_CELLULAR_KEY"
       android:title="Use cellular data"
       android:summary="The app will use cellular data to upload surveys to the cloud."
