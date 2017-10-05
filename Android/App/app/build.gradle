@@ -1,81 +1,100 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'realm-android'
 
 android {
-  compileSdkVersion 25
-  buildToolsVersion '25.0.2'
-  defaultConfig {
-    applicationId "eu.mignot.pathogentracker"
-    minSdkVersion 25
-    targetSdkVersion 25
-    versionCode 1
-    versionName "1.0.0"
-    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-    multiDexEnabled true
-  }
-  buildTypes {
-    debug {
+    compileSdkVersion 25
+    buildToolsVersion '25.0.3'
+    defaultConfig {
+        applicationId "eu.mignot.pathogentracker"
+        minSdkVersion 24
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+        resConfigs "auto"
+    }
+    buildTypes {
+        debug {
 
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
     }
-    release {
-      minifyEnabled false
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    dexOptions {
+        preDexLibraries = false
     }
-  }
-  dexOptions {
-    preDexLibraries = false
-  }
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+    }
+}
+
+// enable @ParametersAreNonnullByDefault annotation. See https://blog.jetbrains.com/kotlin/2017/08/kotlin-1-1-4-is-out/
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    kotlinOptions {
+        freeCompilerArgs = ["-Xjsr305-annotations=enable"]
+    }
 }
 
 dependencies {
-  implementation fileTree(include: ['*.jar'], dir: 'libs')
-  testImplementation 'junit:junit:4.12'
-  testImplementation 'org.mockito:mockito-core:2.8.47'
-  testImplementation 'io.kotlintest:kotlintest:2.0.4'
-  androidTestImplementation 'org.mockito:mockito-core:2.8.47'
-  androidTestImplementation 'io.kotlintest:kotlintest:2.0.4'
-  androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
-    exclude group: 'com.android.support', module: 'support-annotations'
-    exclude group: 'com.android.support', module: 'appcompat-v7'
-    exclude group: 'com.android.support', module: 'support-v4'
-    exclude group: 'com.android.support', module: 'design'
-    exclude group: 'com.android.support', module: 'recyclerview-v7'
-    exclude group: 'com.google.android.gms', module: 'play-services-location'
-  })
-  // kotlin
-  implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-  implementation "org.jetbrains.anko:anko-common:$anko_version"
-  implementation "org.jetbrains.anko:anko-sdk25:$anko_version"
-  implementation "org.jetbrains.anko:anko-appcompat-v7:$anko_version"
-  implementation "org.jetbrains.anko:anko-sdk25-coroutines:$anko_version"
-  implementation "org.jetbrains.anko:anko-appcompat-v7-coroutines:$anko_version"
-  // android support
-  implementation "com.android.support:appcompat-v7:$android_support_version"
-  implementation "com.android.support:recyclerview-v7:$android_support_version"
-  implementation "com.android.support:design:$android_support_version"
-  // play services
-  implementation "com.google.android.gms:play-services-location:$play_services_version"
-  // permissions
-  implementation 'me.zhanghai.android.effortlesspermissions:library:1.0.0'
-  // reactiveX
-  implementation 'io.reactivex.rxjava2:rxjava:2.1.0'
-  implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
-  implementation 'io.reactivex.rxjava2:rxkotlin:2.1.0'
-  implementation 'com.patloew.rxlocation:rxlocation:1.0.3'
-  // firebase libraries
-  implementation "com.google.firebase:firebase-auth:$firebase_version"
-  implementation "com.google.firebase:firebase-database:$firebase_version"
-  implementation "com.google.firebase:firebase-storage:$firebase_version"
-  implementation "com.google.firebase:firebase-config:$firebase_version"
-  implementation "com.google.firebase:firebase-crash:$firebase_version"
-  // other tools
-  implementation 'com.stepstone.stepper:material-stepper:3.3.0'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:2.8.47'
+    testImplementation 'io.kotlintest:kotlintest:2.0.4'
+    androidTestImplementation 'org.mockito:mockito-core:2.8.47'
+    androidTestImplementation 'io.kotlintest:kotlintest:2.0.4'
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'design'
+        exclude group: 'com.android.support', module: 'recyclerview-v7'
+        exclude group: 'com.google.android.gms', module: 'play-services-location'
+    })
+    // kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "org.jetbrains.anko:anko-common:$anko_version"
+    implementation "org.jetbrains.anko:anko-sdk25:$anko_version"
+    implementation "org.jetbrains.anko:anko-appcompat-v7:$anko_version"
+    implementation "org.jetbrains.anko:anko-sdk25-coroutines:$anko_version"
+    implementation "org.jetbrains.anko:anko-appcompat-v7-coroutines:$anko_version"
+    // android support
+    implementation "com.android.support:appcompat-v7:$android_support_version"
+    implementation "com.android.support:recyclerview-v7:$android_support_version"
+    implementation "com.android.support:design:$android_support_version"
+    // play services
+    implementation "com.google.android.gms:play-services-location:$play_services_version"
+    // permissions
+    implementation 'me.zhanghai.android.effortlesspermissions:library:1.0.0'
+    // reactiveX
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.0'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    implementation 'io.reactivex.rxjava2:rxkotlin:2.1.0'
+    implementation 'com.patloew.rxlocation:rxlocation:1.0.3'
+    // firebase libraries
+    implementation "com.google.firebase:firebase-auth:$firebase_version"
+    implementation "com.google.firebase:firebase-database:$firebase_version"
+    implementation "com.google.firebase:firebase-storage:$firebase_version"
+    implementation "com.google.firebase:firebase-config:$firebase_version"
+    implementation "com.google.firebase:firebase-crash:$firebase_version"
+    // other tools
+    implementation 'com.stepstone.stepper:material-stepper:3.3.0'
+    // realm extensions for kotlin
+    implementation 'com.github.vicpinm:krealmextensions:1.1.5'
+    implementation 'com.github.vicpinm:krealmextensions-rxjava:1.1.5'
+    implementation 'com.github.vicpinm:krealmextensions-rxjava2:1.1.5'
+}
+
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
 }
 
 apply plugin: 'com.google.gms.google-services'
-kotlin {
-  experimental {
-    coroutines "enable"
-  }
-}
