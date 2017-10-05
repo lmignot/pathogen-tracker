@@ -2,24 +2,25 @@ package eu.mignot.pathogentracker.data
 
 import eu.mignot.pathogentracker.surveys.data.SurveyType
 import eu.mignot.pathogentracker.util.AppMode
-import eu.mignot.pathogentracker.surveys.data.models.User
+import eu.mignot.pathogentracker.data.models.User
 
 /**
  * Provides preferences to the app
  */
 interface PreferencesProvider {
-  fun getAppMode(): AppMode
-  fun setAppMode(m: AppMode): Unit
   fun getPrimarySurveyActivity(): SurveyType
-  fun setPrimarySurveyActivity(s: SurveyType): Unit
+  fun setPrimarySurveyActivity(s: SurveyType)
   fun getSecondarySurveyActivity(): SurveyType
-  fun setSecondarySurveyActivity(s: SurveyType): Unit
+  fun setSecondarySurveyActivity(s: SurveyType)
+  fun hasSecondarySurvey(): Boolean
   fun getUseCellular(): Boolean
-  fun setUseCellular(b: Boolean): Unit
+  fun setUseCellular(b: Boolean)
   fun getOptimizeImageRes(): Boolean
-  fun setOptimizeImageRes(b: Boolean): Unit
+  fun setOptimizeImageRes(b: Boolean)
   fun getUser(): User
-  fun setUser(u: User): Unit
-  fun getDidCompleteOnboarding(): Boolean
-  fun setDidCompleteOnboarding(b: Boolean): Unit
+  fun setUser(u: User)
+  fun getDidCompleteOnBoarding(): Boolean
+  fun setDidCompleteOnBoarding(b: Boolean)
+  fun getPiNetworkId(): Int
+  fun setPiNetworkId(i: Int)
 }

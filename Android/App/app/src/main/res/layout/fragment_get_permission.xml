@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@color/colorPrimary"
+  android:gravity="bottom">
+
+  <TextView
+    android:id="@+id/questionText"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textColor="@color/white"
+    android:textSize="24sp"
+    android:text="@string/permission_location_rationale"
+    android:layout_marginBottom="164dp"
+    android:layout_marginStart="24dp"
+    android:layout_marginEnd="48dp"
+    android:layout_alignParentBottom="true"
+    />
+
+  <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:layout_alignParentBottom="true"
+    android:paddingEnd="24dp"
+    android:paddingStart="24dp"
+    android:background="@color/white">
+
+    <Button
+      android:id="@+id/givePermission"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:text="Give permission"
+      android:background="@color/white"
+      android:textColor="@color/colorAccent"
+      android:layout_alignParentEnd="true"/>
+
+  </RelativeLayout>
+
+</RelativeLayout>

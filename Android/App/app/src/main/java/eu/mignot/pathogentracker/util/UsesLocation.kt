@@ -22,8 +22,10 @@ interface UsesLocation {
   }
 
   @AfterPermissionGranted(REQUEST_CODE)
-  fun requestLocationPermission() {}
+  fun onRequestLocationPermission() {}
 
   @AfterPermissionDenied(REQUEST_CODE)
   fun onLocationPermissionDenied() {}
+
+  fun setLocationListener() {}
 }

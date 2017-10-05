@@ -1,15 +1,51 @@
 package eu.mignot.pathogentracker.surveys.addsurvey.vector
 
-import eu.mignot.pathogentracker.surveys.data.models.survey.Vector
-import io.reactivex.Single
+import android.graphics.Bitmap
+import eu.mignot.pathogentracker.surveys.addsurvey.BaseViewModel
+import eu.mignot.pathogentracker.surveys.data.SurveyRepository
+import eu.mignot.pathogentracker.surveys.data.models.database.Vector
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.*
 
-class AddVectorViewModel(val id: String): AnkoLogger {
+class AddVectorViewModel (
+  override val id: String,
+  repository: SurveyRepository<Vector>
+): AnkoLogger, BaseViewModel<Vector>(repository) {
 
-  fun save(v: Vector): Single<Boolean> {
-    info(v.toString())
-    return Single.just(true)
+  private var photoPath: String? = null
+
+  lateinit var photo: Bitmap
+
+  fun getPhotoPath() = photoPath
+
+  fun getTempImageFile(storageDir: File): File? {
+    val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.UK).format(Date())
+    val fileName = "${id}_$timeStamp"
+    return createTempFile(storageDir, fileName, ".jpg")
+  }
+
+  fun savePhoto(): Boolean {
+    return when (photoPath) {
+      null -> false
+      else -> FileOutputStream(photoPath).use {
+        photo.compress(Bitmap.CompressFormat.JPEG, 100, it)
+      }
+    }
+  }
+
+  private fun createTempFile(storageDir: File, fileName: String, suffix: String): File? {
+    return try {
+      createTempFile(fileName, suffix, storageDir).let {
+        photoPath = it.absolutePath
+        it
+      }
+    } catch (e: IOException) {
+      null
+    }
   }
 
 }

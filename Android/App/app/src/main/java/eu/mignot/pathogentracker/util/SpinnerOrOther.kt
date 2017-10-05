@@ -7,7 +7,6 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Spinner
-import eu.mignot.pathogentracker.extensions.asString
 
 interface SpinnerOrOther {
 
@@ -32,11 +31,11 @@ interface SpinnerOrOther {
   }
 
   fun getSpinnerValue(spinner: Spinner, textField: EditText, textLayout: TextInputLayout): String {
-    if (textLayout.visibility == View.VISIBLE) {
-      return textField.asString()
+    return if (textLayout.visibility == View.VISIBLE) {
+      textField.toString()
     } else {
       val selected = spinner.getItemAtPosition(spinner.selectedItemPosition)
-      return selected.toString()
+      selected.toString()
     }
   }
 

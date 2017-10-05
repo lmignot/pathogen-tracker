@@ -1,19 +1,28 @@
 package eu.mignot.pathogentracker.surveys.addsurvey
 
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
-import eu.mignot.pathogentracker.MainActivity
+import eu.mignot.pathogentracker.App
 import eu.mignot.pathogentracker.R
+import eu.mignot.pathogentracker.surveys.surveys.SurveysActivity
 import io.reactivex.disposables.CompositeDisposable
+import io.realm.RealmObject
 import me.zhanghai.android.effortlesspermissions.EffortlessPermissions
-import org.jetbrains.anko.*
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.alert
+import org.jetbrains.anko.startActivity
 
-abstract class BaseSurveyActivity: AppCompatActivity(), AddSurvey, AnkoLogger {
+abstract class BaseSurveyActivity<T: RealmObject>: AppCompatActivity(), AddSurvey<T>, AnkoLogger {
+
+  abstract val vm: BaseViewModel<T>
 
   val disposables by lazy {
     CompositeDisposable()
+  }
+
+  val preferences by lazy {
+    App.getPreferenceProvider()
   }
 
   override fun onResume() {
@@ -30,24 +39,17 @@ abstract class BaseSurveyActivity: AppCompatActivity(), AddSurvey, AnkoLogger {
     disposables.dispose()
   }
 
-  override fun setupToolbar(toolbar: Toolbar, title: String) {
-    setSupportActionBar(toolbar)
-    supportActionBar?.title = title
-    supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    supportActionBar?.setHomeAsUpIndicator(R.drawable.close_white)
-  }
-
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
-    when (item.itemId) {
+    return when (item.itemId) {
       R.id.actionSave -> {
         saveAndClose()
-        return true
+        true
       }
       android.R.id.home -> {
         cancelAndClose()
-        return true
+        true
       }
-      else -> return super.onOptionsItemSelected(item)
+      else -> super.onOptionsItemSelected(item)
     }
   }
 
@@ -62,11 +64,11 @@ abstract class BaseSurveyActivity: AppCompatActivity(), AddSurvey, AnkoLogger {
   }
 
   override fun cancelAndClose() {
-    alert(getString(R.string.cancel_survey_title),getString(R.string.cancel_survey_rationale)){
-      positiveButton(getString(R.string.leave)) {
-        startActivity<MainActivity>()
+    alert(getString(R.string.cancel_survey_title), getString(R.string.cancel_survey_rationale)){
+      positiveButton(getString(R.string.action_leave)) {
+        startActivity<SurveysActivity>()
       }
-      negativeButton(R.string.stay) {}
+      negativeButton(R.string.action_stay) {}
     }.show()
   }
 }

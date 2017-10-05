@@ -2,12 +2,10 @@
 <android.support.design.widget.CoordinatorLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:id="@+id/vectorBatchRoot"
+  android:id="@+id/vectorBatchDetailRoot"
   android:orientation="vertical"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  tools:context=".surveys.addsurvey.vector.AddVectorBatchSurveyActivity"
   android:fitsSystemWindows="false">
 
   <android.support.v4.widget.NestedScrollView
@@ -16,7 +14,159 @@
     android:clipToPadding="false"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <include layout="@layout/vector_batch_form"/>
+    <LinearLayout
+      android:id="@+id/vectorBatchDetail"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:paddingTop="@dimen/activity_vertical_margin"
+      android:paddingBottom="@dimen/activity_vertical_margin"
+      android:paddingStart="@dimen/activity_horizontal_margin"
+      android:paddingEnd="@dimen/activity_horizontal_margin"
+      android:orientation="vertical">
+
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="56dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:text="Survey ID"
+        />
+
+      <TextView
+        android:id="@+id/vectorBatchSurveyDetailId"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:drawablePadding="32dp"
+        android:drawableStart="@drawable/tag"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:lines="1"
+        android:text="H-1781717-1231231-1231231asdfa"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="56dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:text="Survey date"
+        />
+      <TextView
+        android:id="@+id/vectorBatchSurveyDetailDate"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:drawablePadding="32dp"
+        android:drawableStart="@drawable/date"
+        android:lines="1"
+        android:text="21 June 2017"
+        android:gravity="center_vertical"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="56dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:text="Survey Location"
+        />
+      <TextView
+        android:id="@+id/vectorBatchSurveyDetailLoc"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:drawablePadding="32dp"
+        android:drawableStart="@drawable/place"
+        android:lines="1"
+        android:text="Lat: 1111, Long: 11111"
+        android:gravity="center_vertical"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="56dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:text="Territory"
+        />
+      <TextView
+        android:id="@+id/vectorBatchSurveyDetailTerritory"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:drawablePadding="32dp"
+        android:drawableStart="@drawable/terrain"
+        android:lines="1"
+        android:text="Urban"
+        android:gravity="center_vertical"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="56dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:text="Temperature"
+        />
+      <TextView
+        android:id="@+id/vectorBatchSurveyDetailTemp"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:drawablePadding="32dp"
+        android:drawableStart="@drawable/temperature_celsius"
+        android:lines="1"
+        android:text="-40"
+        android:gravity="center_vertical"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="56dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:text="Weather conditions"
+        />
+      <TextView
+        android:id="@+id/vectorBatchSurveyDetailWeather"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:drawablePadding="32dp"
+        android:drawableStart="@drawable/weather_partlycloudy"
+        android:lines="1"
+        android:text="Cape Verde, Cameroon"
+        android:gravity="center_vertical"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+      <LinearLayout
+        android:id="@+id/vectorBatchMosquitoSection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="32dp">
+        <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+          android:text="Batch Mosquitoes"/>
+
+        <android.support.v7.widget.RecyclerView
+          android:id="@+id/vectorBatchDetailList"
+          android:layout_marginTop="16dp"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content" />
+
+      </LinearLayout>
+
+    </LinearLayout>
 
   </android.support.v4.widget.NestedScrollView>
 
@@ -26,7 +176,7 @@
     android:fitsSystemWindows="true">
 
     <android.support.design.widget.CollapsingToolbarLayout
-      android:id="@+id/collapseToolbarAVB"
+      android:id="@+id/collapseToolbarVBD"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       app:statusBarScrim="@color/colorVectorPrimaryDark"
@@ -35,7 +185,7 @@
       app:expandedTitleTextAppearance="@style/ExpandedAppBar">
 
       <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbarAVB"
+        android:id="@+id/toolbarVBD"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorVectorPrimary"
@@ -46,5 +196,16 @@
     </android.support.design.widget.CollapsingToolbarLayout>
 
   </android.support.design.widget.AppBarLayout>
+
+  <android.support.design.widget.FloatingActionButton
+    android:id="@+id/fabAddVector"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/fab_margin"
+    android:src="@drawable/add"
+    app:backgroundTint="@color/colorVectorAccent"
+    app:fabSize="mini"
+    app:layout_anchor="@id/vectorBatchMosquitoSection"
+    app:layout_anchorGravity="top|right|end"/>
 
 </android.support.design.widget.CoordinatorLayout>

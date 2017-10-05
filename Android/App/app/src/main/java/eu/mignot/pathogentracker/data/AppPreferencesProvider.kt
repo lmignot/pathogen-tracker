@@ -1,11 +1,10 @@
 package eu.mignot.pathogentracker.data
 
-import android.content.Context
 import android.content.SharedPreferences
+import android.preference.PreferenceManager
 import eu.mignot.pathogentracker.App
 import eu.mignot.pathogentracker.surveys.data.SurveyType
-import eu.mignot.pathogentracker.surveys.data.models.User
-import eu.mignot.pathogentracker.util.AppMode
+import eu.mignot.pathogentracker.data.models.User
 import eu.mignot.pathogentracker.util.AppSettings
 
 /**
@@ -16,29 +15,28 @@ object AppPreferencesProvider: PreferencesProvider {
 
   private val keys = AppSettings.PreferenceKeys
 
-  val sharedPreferences: SharedPreferences by lazy {
-    context.getSharedPreferences(keys.PREFS_FILE_NAME, Context.MODE_PRIVATE)
+  private val sharedPreferences: SharedPreferences by lazy {
+    PreferenceManager.getDefaultSharedPreferences(App.instance)
   }
 
-  val context: Context by lazy { App.instance }
-
-  override fun getAppMode(): AppMode =
-    AppMode.valueOf(sharedPreferences.getString(keys.APP_MODE_KEY, AppMode.LIVE.toString()))
-
-  override fun setAppMode(m: AppMode) =
-    sharedPreferences.edit().putString(keys.APP_MODE_KEY, m.toString()).apply()
-
   override fun getPrimarySurveyActivity(): SurveyType =
-    SurveyType.valueOf(sharedPreferences.getString(keys.PRIMARY_SURVEY_KEY, SurveyType.HUMAN.toString()))
+    SurveyType.get(
+      sharedPreferences.getString(keys.PRIMARY_SURVEY_KEY, SurveyType.VECTOR.toString())
+    )
 
   override fun setPrimarySurveyActivity(s: SurveyType) =
     sharedPreferences.edit().putString(keys.PRIMARY_SURVEY_KEY, s.toString()).apply()
 
   override fun getSecondarySurveyActivity(): SurveyType =
-    SurveyType.valueOf(sharedPreferences.getString(keys.SECONDARY_SURVEY_KEY, SurveyType.NA.toString()))
+    SurveyType.get(
+      sharedPreferences.getString(keys.SECONDARY_SURVEY_KEY, SurveyType.PATIENT.toString())
+    )
 
   override fun setSecondarySurveyActivity(s: SurveyType) =
-    sharedPreferences.edit().putString(keys.PRIMARY_SURVEY_KEY, s.toString()).apply()
+    sharedPreferences.edit().putString(keys.SECONDARY_SURVEY_KEY, s.toString()).apply()
+
+  override fun hasSecondarySurvey(): Boolean =
+    getSecondarySurveyActivity() != SurveyType.NONE
 
   override fun getUseCellular(): Boolean =
     sharedPreferences.getBoolean(keys.USE_CELLULAR_KEY, false)
@@ -69,10 +67,16 @@ object AppPreferencesProvider: PreferencesProvider {
       .putString(keys.AUTH_TOKEN_KEY, u.token)
       .apply()
 
-  override fun getDidCompleteOnboarding(): Boolean =
-    sharedPreferences.getBoolean(keys.ONBOARDING_COMPLETE_KEY, false)
+  override fun getDidCompleteOnBoarding(): Boolean =
+    sharedPreferences.getBoolean(keys.ON_BOARDING_COMPLETE_KEY, false)
 
-  override fun setDidCompleteOnboarding(b: Boolean) =
-    sharedPreferences.edit().putBoolean(keys.ONBOARDING_COMPLETE_KEY, b).apply()
+  override fun setDidCompleteOnBoarding(b: Boolean) =
+    sharedPreferences.edit().putBoolean(keys.ON_BOARDING_COMPLETE_KEY, b).apply()
+
+  override fun getPiNetworkId(): Int =
+    sharedPreferences.getInt(keys.PI_NETWORK_ID_KEY, -1)
+
+  override fun setPiNetworkId(i: Int) =
+    sharedPreferences.edit().putInt(keys.PI_NETWORK_ID_KEY, i).apply()
 }
 

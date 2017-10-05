@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:id="@+id/vectorBatchDetailRoot"
+  android:orientation="vertical"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:fitsSystemWindows="false">
+
+  <android.support.v4.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <LinearLayout
+      android:id="@+id/vectorDetail"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:paddingTop="@dimen/activity_vertical_margin"
+      android:paddingBottom="@dimen/activity_vertical_margin"
+      android:paddingStart="@dimen/activity_horizontal_margin"
+      android:paddingEnd="@dimen/activity_horizontal_margin"
+      android:orientation="vertical">
+
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="56dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:text="Survey ID and sequence"
+        />
+
+      <TextView
+        android:id="@+id/vectorDetailId"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:drawablePadding="32dp"
+        android:drawableStart="@drawable/tag"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:lines="1"
+        android:text="H-1781717-1231231-1231231asdfa-1"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="56dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:text="Species"
+        />
+      <TextView
+        android:id="@+id/vectorDetailSpecies"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:drawablePadding="32dp"
+        android:drawableStart="@drawable/mosquito"
+        android:lines="1"
+        android:text="Anopheles Funestus"
+        android:gravity="center_vertical"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="56dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:text="Gender"
+        />
+      <TextView
+        android:id="@+id/vectorDetailGender"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:drawablePadding="32dp"
+        android:drawableStart="@drawable/gender_male_female"
+        android:lines="1"
+        android:text="Male"
+        android:gravity="center_vertical"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="56dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:text="Stage"
+        />
+      <TextView
+        android:id="@+id/vectorDetailStage"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="56dp"
+        android:lines="1"
+        android:text="Larvae"
+        android:gravity="center_vertical"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="56dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:text="Has the mosquito fed?"
+        />
+      <TextView
+        android:id="@+id/vectorDetailDidFeed"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:drawablePadding="32dp"
+        android:drawableStart="@drawable/food_variant"
+        android:lines="1"
+        android:text="Yes"
+        android:gravity="center_vertical"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="56dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:text="DNA"
+        />
+      <TextView
+        android:id="@+id/vectorDetailDna"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:drawablePadding="32dp"
+        android:drawableStart="@drawable/dna"
+        android:lines="1"
+        android:text="Dna string"
+        android:gravity="center_vertical"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="56dp"
+        android:layout_marginBottom="24dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:text="Photo"
+        />
+      <ImageView
+        android:id="@+id/vectorDetailPhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="240dp"
+        android:contentDescription="@string/survey_photo"
+        android:scaleType="centerCrop"
+        android:visibility="gone"/>
+
+    </LinearLayout>
+
+  </android.support.v4.widget.NestedScrollView>
+
+  <android.support.design.widget.AppBarLayout
+    android:layout_width="match_parent"
+    android:layout_height="196dp"
+    android:fitsSystemWindows="true">
+
+    <android.support.design.widget.CollapsingToolbarLayout
+      android:id="@+id/collapseToolbarVD"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      app:statusBarScrim="@color/colorVectorPrimaryDark"
+      app:layout_scrollFlags="scroll|exitUntilCollapsed"
+      app:collapsedTitleTextAppearance="@style/CollapsedAppBar"
+      app:expandedTitleTextAppearance="@style/ExpandedAppBar">
+
+      <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbarVD"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorVectorPrimary"
+        android:theme="?attr/actionBarTheme"
+        app:layout_collapseMode="pin"
+        app:titleTextColor="@color/colorToolbarText"/>
+
+    </android.support.design.widget.CollapsingToolbarLayout>
+
+  </android.support.design.widget.AppBarLayout>
+
+</android.support.design.widget.CoordinatorLayout>

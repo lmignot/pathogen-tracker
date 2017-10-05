@@ -124,6 +124,8 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/survey_field_top_margin"
+      android:clickable="true"
+      android:focusable="false"
       android:ems="10"
       android:hint="Temperature (Cº)"
       android:inputType="numberSigned"

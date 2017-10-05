@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
-  android:id="@+id/vectorBatchForm"
+  android:id="@+id/vectorForm"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:descendantFocusability="beforeDescendants"
@@ -165,10 +165,10 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/survey_field_top_margin"
       android:ems="10"
-      android:hint="DNA extract"
+      android:hint="DNA sequence"
       android:inputType="text|textNoSuggestions"
       android:maxLines="1"
-      android:text="Tap to connect and retrieve"
+      android:text="@string/dna_field_label"
       android:focusable="false"
       android:clickable="true"/>
   </android.support.design.widget.TextInputLayout>
@@ -187,20 +187,21 @@
     <LinearLayout
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:orientation="horizontal">
-      <Button
-        android:id="@+id/photoButton"
-        android:layout_marginTop="16dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/insert_photo"/>
+      android:layout_marginTop="24dp"
+      android:orientation="vertical">
       <ImageView
         android:id="@+id/photoView"
-        android:layout_marginTop="24dp"
         android:layout_width="wrap_content"
-        android:layout_height="72dp"
-        android:visibility="gone"
-        android:contentDescription="@string/survey_photo"/>
+        android:layout_height="240dp"
+        android:contentDescription="@string/survey_photo"
+        android:scaleType="centerCrop"
+        android:visibility="gone" />
+      <Button
+        android:id="@+id/photoButton"
+        android:layout_marginTop="12dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/action_insert_photo"/>
     </LinearLayout>
   </RelativeLayout>
 

@@ -5,16 +5,17 @@ import android.os.Bundle
 import android.text.format.DateFormat
 import android.view.View
 import eu.mignot.pathogentracker.App
-import eu.mignot.pathogentracker.MainActivity
 import eu.mignot.pathogentracker.R
-import eu.mignot.pathogentracker.data.models.Location
-import eu.mignot.pathogentracker.extensions.asIntOrDefault
-import eu.mignot.pathogentracker.extensions.showShortMessage
-import eu.mignot.pathogentracker.extensions.asString
-import eu.mignot.pathogentracker.extensions.selectedValue
+import eu.mignot.pathogentracker.util.asIntOrDefault
+import eu.mignot.pathogentracker.util.selectedValue
+import eu.mignot.pathogentracker.util.setupToolbar
+import eu.mignot.pathogentracker.util.showShortMessage
 import eu.mignot.pathogentracker.surveys.addsurvey.BaseSurveyActivity
+import eu.mignot.pathogentracker.surveys.data.models.database.Location
+import eu.mignot.pathogentracker.surveys.data.models.database.VectorBatch
+import eu.mignot.pathogentracker.surveys.surveys.SurveysActivity
+import eu.mignot.pathogentracker.util.AppSettings
 import eu.mignot.pathogentracker.util.UsesLocation
-import eu.mignot.pathogentracker.surveys.data.models.survey.VectorBatch
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
@@ -23,21 +24,28 @@ import kotlinx.android.synthetic.main.vector_batch_form.*
 import me.zhanghai.android.effortlesspermissions.AfterPermissionDenied
 import me.zhanghai.android.effortlesspermissions.EffortlessPermissions
 import org.jetbrains.anko.*
+import org.jetbrains.anko.sdk25.coroutines.onCheckedChange
 import pub.devrel.easypermissions.AfterPermissionGranted
 import java.util.*
 
-class AddVectorBatchSurveyActivity: BaseSurveyActivity(), UsesLocation {
+class AddVectorBatchSurveyActivity: BaseSurveyActivity<VectorBatch>(), UsesLocation {
 
-  private val vm by lazy {
-    AddVectorBatchViewModel(App.getLocationProvider())
+  private val temperatures by lazy {
+    (AppSettings.Constants.MIN_TEMP..AppSettings.Constants.MAX_TEMP)
+      .toList().reversed().map { it.toString() }
   }
 
-  private var location: Location = Location()
+  override val vm by lazy {
+    AddVectorBatchViewModel(
+      App.getLocationProvider(),
+      App.getVectorBatchRepository()
+    )
+  }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_add_vector_batch_survey)
-    setupToolbar(toolbarAVB, getString(R.string.title_vector_batch))
+    setupToolbar(toolbarAVB, getString(R.string.title_vector_batch), R.drawable.close_white)
   }
 
   override fun bind() {
@@ -48,40 +56,46 @@ class AddVectorBatchSurveyActivity: BaseSurveyActivity(), UsesLocation {
     // set the date listener
     setDateListener()
     // check for location permissions (sets listener if successful)
-    requestLocationPermission()
+    onRequestLocationPermission()
+    // set value to model automatically
+    batchTerritory?.onCheckedChange { r, _ ->
+      r?.selectedValue()?.let {
+        vm.territory = it
+      }
+    }
+    // show a nice spinner for the temps :)
+    batchTemperature?.setOnClickListener {
+      selector("Choose temperature", temperatures, {_, i ->
+        batchTemperature.setText(temperatures[i])
+      })
+    }
+  }
+
+  override fun getModel(): VectorBatch {
+    val model = VectorBatch()
+    model.id = vm.id
+    model.collectedOn = vm.date.time
+    model.locationCollected = vm.location?.let {
+      Location(it.longitude, it.latitude, it.accuracy)
+    }
+    model.temperature = batchTemperature.asIntOrDefault(0)
+    model.weatherCondition = batchWeatherConditions.text.toString()
+    model.territory = vm.territory?.let { it }
+    return model
   }
 
   override fun saveAndClose() {
-    val progress = indeterminateProgressDialog("Saving. Please wait...")
-    val model = VectorBatch(vm.id, vm.date, location, batchTerritory.selectedValue(),
-      batchTemperature.asIntOrDefault(0), batchWeatherConditions.asString())
-    info { model }
-    disposables
-      .add(
-        vm.save(model)
-          .subscribeOn(Schedulers.io())
-          .observeOn(AndroidSchedulers.mainThread())
-          .subscribeBy (
-            onError = {
-              progress.hide()
-              alert ("There was an error saving, try again?") {
-                yesButton {
-                  saveAndClose()
-                }
-                noButton {
-//                  startActivity<MainActivity>()
-//                  finish()
-                }
-              }
-            },
-            onSuccess = {
-              progress.hide()
-              showShortMessage(vectorBatchForm, "Successfully saved")
-//              startActivity<MainActivity>()
-//              finish()
-            }
-          )
-      )
+    val model = getModel()
+    info(model)
+    doAsync {
+      vm.save(model)
+      uiThread {
+        startActivity<SurveysActivity>(
+          AppSettings.Constants.MESSAGE_KEY to "Survey added to database"
+        )
+        finish()
+      }
+    }
   }
 
   private fun getId() = batchId?.setText(vm.id)
@@ -108,18 +122,20 @@ class AddVectorBatchSurveyActivity: BaseSurveyActivity(), UsesLocation {
   }
 
   @AfterPermissionGranted(UsesLocation.REQUEST_CODE)
-  override fun requestLocationPermission() {
-    if (EffortlessPermissions.hasPermissions(this, UsesLocation.PERMISSION)) {
-      setLocationListener()
-    } else if (EffortlessPermissions.permissionPermanentlyDenied(this, UsesLocation.PERMISSION)) {
-      alert("Device location required", "Please grant permission in the settings app and try again") {
-        yesButton { startActivity<MainActivity>() }
-      }.show()
-    } else {
-      askForLocationPermission(
-        this,
-        "We need permission to access this device's location"
-      )
+  override fun onRequestLocationPermission() {
+    when {
+        EffortlessPermissions.hasPermissions(this, UsesLocation.PERMISSION) -> setLocationListener()
+        EffortlessPermissions.permissionPermanentlyDenied(this, UsesLocation.PERMISSION) ->
+          alert("Please grant permission in the settings app and try again", "Access to location is required") {
+          yesButton {
+            startActivity<SurveysActivity>()
+            // TODO: launch the settings app
+          }
+        }.show()
+        else -> askForLocationPermission(
+          this,
+          "We need permission to access this device's location"
+        )
     }
   }
 
@@ -131,7 +147,7 @@ class AddVectorBatchSurveyActivity: BaseSurveyActivity(), UsesLocation {
     )
   }
 
-  private fun setLocationListener() {
+  override fun setLocationListener() {
     batchLocation?.setOnClickListener {
       batchLocationProgress?.visibility = View.VISIBLE
       disposables.add(
@@ -146,7 +162,7 @@ class AddVectorBatchSurveyActivity: BaseSurveyActivity(), UsesLocation {
               error { it.localizedMessage }
             },
             onNext = {
-              location = it
+              vm.location = it
               batchLocation?.setText(it.toString())
               batchLocationProgress?.visibility = View.GONE
             }

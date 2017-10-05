@@ -2,6 +2,9 @@ package eu.mignot.pathogentracker.addsurvey
 
 import eu.mignot.pathogentracker.data.LocationProvider
 import eu.mignot.pathogentracker.surveys.addsurvey.vector.AddVectorBatchViewModel
+import eu.mignot.pathogentracker.surveys.data.SurveyRepository
+import eu.mignot.pathogentracker.surveys.data.VectorBatchSurveyRepository
+import eu.mignot.pathogentracker.surveys.data.models.database.VectorBatch
 import io.kotlintest.matchers.shouldBe
 import io.kotlintest.specs.ShouldSpec
 import org.mockito.Mockito
@@ -18,7 +21,10 @@ class TestAddVectorBatchViewModel: ShouldSpec() {
 
   init {
 
-    val vm = AddVectorBatchViewModel(Mockito.mock(LocationProvider::class.java))
+    val vm = AddVectorBatchViewModel(
+      Mockito.mock(LocationProvider::class.java),
+      eu.mignot.pathogentracker.surveys.data.VectorBatchSurveyRepository
+    )
 
     should("generate an id starting with VB-") {
       vm.id.substring(0, 3) shouldBe ID_PREFIX

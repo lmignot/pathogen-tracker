@@ -22,34 +22,34 @@
     android:dividerPadding="4dp"
     android:showDividers="middle">
 
-    <eu.mignot.pathogentracker.widget.MultiSpinner
+    <eu.mignot.pathogentracker.component.MultiSpinner
       android:id="@+id/surveySampleTypes"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="vertical"
-      app:buttonText="@string/add_another"
+      app:buttonText="@string/action_add_another"
       app:labelText="@string/sample_types"
       app:valuesResId="@array/sampleTypes"
       app:maxItems="3" />
 
-    <eu.mignot.pathogentracker.widget.MultiSpinner
+    <eu.mignot.pathogentracker.component.MultiSpinner
       android:id="@+id/surveyTravelHistory"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="24dp"
       android:orientation="vertical"
-      app:buttonText="@string/add_another"
+      app:buttonText="@string/action_add_another"
       app:labelText="@string/travel_history"
       app:valuesResId="@array/countries"
       app:maxItems="6" />
 
-    <eu.mignot.pathogentracker.widget.MultiSpinner
+    <eu.mignot.pathogentracker.component.MultiSpinner
       android:id="@+id/surveyInfectionHistory"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="24dp"
       android:orientation="vertical"
-      app:buttonText="@string/add_another"
+      app:buttonText="@string/action_add_another"
       app:labelText="@string/past_infections"
       app:valuesResId="@array/diseases"
       app:maxItems="3" />

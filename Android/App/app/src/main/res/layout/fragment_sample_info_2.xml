@@ -1,27 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView
+<!--<android.support.v4.widget.NestedScrollView-->
+  <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+  <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+  <!--android:layout_width="match_parent"-->
+  <!--android:layout_height="match_parent"-->
+  <!--android:clipToPadding="false"-->
+  <!--app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
+
+<LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:id="@+id/sampleInfoForm2"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:clipToPadding="false"
-  app:layout_behavior="@string/appbar_scrolling_view_behavior">
+  android:descendantFocusability="beforeDescendants"
+  android:focusableInTouchMode="true"
+  android:orientation="vertical"
+  android:paddingBottom="@dimen/activity_vertical_margin"
+  android:paddingEnd="@dimen/activity_horizontal_margin"
+  android:paddingStart="@dimen/activity_horizontal_margin"
+  android:paddingTop="@dimen/activity_vertical_margin"
+  android:divider="@color/colorDivider"
+  android:dividerPadding="4dp"
+  android:showDividers="middle">
 
-  <LinearLayout
-    android:id="@+id/sampleInfoForm2"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:descendantFocusability="beforeDescendants"
-    android:focusableInTouchMode="true"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingEnd="@dimen/activity_horizontal_margin"
-    android:paddingStart="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin">
+    <LinearLayout
+      android:orientation="vertical"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content">
+
       <TextView
+        android:layout_marginStart="4dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Current diseases"
+        android:textSize="12sp"
+        />
+
+      <ListView
+        android:id="@+id/surveyCurrentDiseases"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello step 3"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp" />
+
+      <Button
+        android:id="@+id/surveyAddCurrentDisease"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@color/transparent"
+        android:paddingStart="8dp"
+        android:text="Add Entry"
+        android:textAlignment="textStart"
+        android:textColor="@color/colorPrimaryText"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/survey_field_top_margin"
+      android:layout_marginBottom="@dimen/survey_field_top_margin">
+      <TextView
+        android:layout_marginStart="4dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Is anyone else in the household ill?"
+        android:textSize="12sp"
+        />
+
+      <RadioGroup
+        android:id="@+id/surveyIsHouseholdMemberIll"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:checked="false"
+          android:text="Yes"/>
+
+        <RadioButton
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="44dp"
+          android:text="No"/>
+      </RadioGroup>
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.AppCompatCheckBox
+      android:id="@+id/surveyIsFlagged"
+      android:layout_height="wrap_content"
+      android:layout_width="match_parent"
+      android:layout_marginTop="@dimen/survey_field_top_margin"
+      android:text="Flag this survey for further review?"
+      />
 
   </LinearLayout>
-</android.support.v4.widget.NestedScrollView>
+<!--</android.support.v4.widget.NestedScrollView>-->

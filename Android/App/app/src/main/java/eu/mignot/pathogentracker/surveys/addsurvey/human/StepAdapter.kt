@@ -4,24 +4,43 @@ import android.content.Context
 import android.support.v4.app.FragmentManager
 import com.stepstone.stepper.Step
 import com.stepstone.stepper.adapter.AbstractFragmentStepAdapter
-import com.stepstone.stepper.viewmodel.StepViewModel
-import eu.mignot.pathogentracker.R
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
 
+/**
+ * @see AbstractFragmentStepAdapter
+ */
 class StepAdapter(
   fm: FragmentManager,
   context: Context,
-  val numSteps: Int
-): AbstractFragmentStepAdapter(fm, context) {
+  private val numSteps: Int
+): AbstractFragmentStepAdapter(fm, context), AnkoLogger {
 
+  /**
+   * @see AbstractFragmentStepAdapter.createStep
+   */
   override fun createStep(position: Int): Step {
-    when(position) {
-      0 -> return StepFragment.newInstance(R.layout.fragment_personal_info)
-      1 -> return StepFragment.newInstance(R.layout.fragment_sample_info_1)
-      2 -> return StepFragment.newInstance(R.layout.fragment_sample_info_2)
+    return when(position) {
+      0 -> HumanPersonalInfo()
+      1 -> HumanSampleInfoA()
+      2 -> HumanSampleInfoB()
       else -> throw IllegalArgumentException("incorrect step")
     }
   }
 
+  /**
+   * @see AbstractFragmentStepAdapter.getCount
+   */
   override fun getCount(): Int = numSteps
+
+  /**
+   * Returns a list of all [StepFragment] steps that have been initialised
+   * @return List of initialised steps as [StepFragment]
+   */
+  fun getAllSteps(): List<StepFragment> =
+    (0 until count).fold(listOf(), { ls: List<StepFragment>, i: Int ->
+      val step = findStep(i)?.let { it as StepFragment }
+      if (step != null) ls.plus(step) else ls
+    })
 
 }

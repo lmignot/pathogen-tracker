@@ -4,7 +4,7 @@ import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
 import android.text.InputType
 import android.widget.EditText
-import eu.mignot.pathogentracker.extensions.asIntOrDefault
+import eu.mignot.pathogentracker.util.asIntOrDefault
 import io.kotlintest.matchers.shouldBe
 import io.kotlintest.specs.ShouldSpec
 import org.junit.runner.RunWith

@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:id="@+id/humanDetailRoot"
+  android:orientation="vertical"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:fitsSystemWindows="false">
+
+  <android.support.v4.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <LinearLayout
+      android:id="@+id/humanDetail"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:paddingTop="@dimen/activity_vertical_margin"
+      android:paddingBottom="@dimen/activity_vertical_margin"
+      android:paddingStart="@dimen/activity_horizontal_margin"
+      android:paddingEnd="@dimen/activity_horizontal_margin"
+      android:orientation="vertical">
+
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="56dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:text="Survey ID"
+        />
+
+      <TextView
+        android:id="@+id/humanSurveyDetailId"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:drawablePadding="32dp"
+        android:drawableStart="@drawable/tag"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:lines="1"
+        android:text="H-1781717-1231231-1231231asdfa"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="56dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:text="Survey date"
+        />
+      <TextView
+        android:id="@+id/humanSurveyDetailDate"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:drawablePadding="32dp"
+        android:drawableStart="@drawable/date"
+        android:lines="1"
+        android:text="21 June 2017"
+        android:gravity="center_vertical"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="56dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:text="Survey Location"
+        />
+      <TextView
+        android:id="@+id/humanSurveyDetailLoc"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:drawablePadding="32dp"
+        android:drawableStart="@drawable/place"
+        android:lines="1"
+        android:text="Lat: 1111, Long: 11111"
+        android:gravity="center_vertical"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="56dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:text="Patient Date of Birth"
+        />
+      <TextView
+        android:id="@+id/humanSurveyDetailDob"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:drawablePadding="32dp"
+        android:drawableStart="@drawable/birthday"
+        android:lines="1"
+        android:gravity="center_vertical"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="56dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:text="Patient Gender"
+        />
+      <TextView
+        android:id="@+id/humanSurveyDetailGender"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:drawablePadding="32dp"
+        android:drawableStart="@drawable/gender_male_female"
+        android:lines="1"
+        android:text="None"
+        android:gravity="center_vertical"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="56dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:text="Is the patient pregnant?"
+        />
+      <TextView
+        android:id="@+id/humanSurveyDetailIsPreggers"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:drawablePadding="32dp"
+        android:drawableStart="@drawable/preggers"
+        android:lines="1"
+        android:text="Yup"
+        android:gravity="center_vertical"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="56dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:text="Samples collected"
+        />
+      <TextView
+        android:id="@+id/humanSurveyDetailSamples"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:drawablePadding="32dp"
+        android:drawableStart="@drawable/flask_outline"
+        android:lines="1"
+        android:text="Blood, Urine"
+        android:gravity="center_vertical"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="56dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:text="Patient recent travel history"
+        />
+      <TextView
+        android:id="@+id/humanSurveyDetailTravel"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:drawablePadding="32dp"
+        android:drawableStart="@drawable/airport"
+        android:lines="1"
+        android:text="Cape Verde, Cameroon"
+        android:gravity="center_vertical"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="56dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:text="Previous Sickness"
+        />
+      <TextView
+        android:id="@+id/humanSurveyDetailPastDiseases"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:drawablePadding="32dp"
+        android:drawableStart="@drawable/hospital"
+        android:lines="1"
+        android:text="Dengue, Zika"
+        android:gravity="center_vertical"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="56dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:text="Are other members of the household ill?"
+        />
+      <TextView
+        android:id="@+id/humanSurveyDetailIsFamilyIll"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:drawablePadding="32dp"
+        android:drawableStart="@drawable/family"
+        android:lines="1"
+        android:text="No"
+        android:gravity="center_vertical"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="56dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:text="Current Sickness"
+        />
+      <TextView
+        android:id="@+id/humanSurveyDetailCurrentDiseases"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:paddingStart="56dp"
+        android:text="Asdf"
+        android:gravity="center_vertical"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+    </LinearLayout>
+
+  </android.support.v4.widget.NestedScrollView>
+
+  <android.support.design.widget.AppBarLayout
+    android:layout_width="match_parent"
+    android:layout_height="196dp"
+    android:fitsSystemWindows="true">
+
+    <android.support.design.widget.CollapsingToolbarLayout
+      android:id="@+id/collapseToolbarHD"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      app:statusBarScrim="@color/colorPrimaryDark"
+      app:layout_scrollFlags="scroll|exitUntilCollapsed"
+      app:collapsedTitleTextAppearance="@style/CollapsedAppBar"
+      app:expandedTitleTextAppearance="@style/ExpandedAppBar">
+
+      <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbarHD"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:theme="?attr/actionBarTheme"
+        app:layout_collapseMode="pin"
+        app:titleTextColor="@color/colorToolbarText"/>
+
+    </android.support.design.widget.CollapsingToolbarLayout>
+
+  </android.support.design.widget.AppBarLayout>
+
+</android.support.design.widget.CoordinatorLayout>

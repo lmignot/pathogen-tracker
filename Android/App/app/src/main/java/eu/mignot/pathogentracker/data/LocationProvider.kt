@@ -1,8 +1,8 @@
 package eu.mignot.pathogentracker.data
 
-import eu.mignot.pathogentracker.data.models.Location
+import eu.mignot.pathogentracker.surveys.data.models.ui.UiLocation
 import io.reactivex.Observable
 
 interface LocationProvider {
-  fun getLocation(): Observable<Location>
+  fun getLocation(): Observable<UiLocation>
 }

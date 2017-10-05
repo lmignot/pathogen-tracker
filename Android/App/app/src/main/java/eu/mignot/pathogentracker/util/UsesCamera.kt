@@ -9,7 +9,8 @@ import pub.devrel.easypermissions.AfterPermissionGranted
 interface UsesCamera {
   companion object {
     const val REQUEST_CODE = 2
-    val PERMISSION = (Manifest.permission.CAMERA)
+    val CAMERA_PERMISSION = Manifest.permission.CAMERA
+    val STORAGE_PERMISSION = Manifest.permission.WRITE_EXTERNAL_STORAGE
   }
 
   fun askForCameraPermission(activity: Activity, rationale: String) {
@@ -17,12 +18,13 @@ interface UsesCamera {
       activity,
       rationale,
       REQUEST_CODE,
-      PERMISSION
+      CAMERA_PERMISSION,
+      STORAGE_PERMISSION
     )
   }
 
   @AfterPermissionGranted(REQUEST_CODE)
-  fun requestCameraPermission() {}
+  fun onRequestCameraPermission() {}
 
   @AfterPermissionDenied(REQUEST_CODE)
   fun onCameraPermissionDenied() {}
