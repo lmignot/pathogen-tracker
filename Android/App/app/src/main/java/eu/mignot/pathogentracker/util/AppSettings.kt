@@ -38,6 +38,7 @@ object AppSettings {
     const val MAX_TEMP = 40
     const val VECTOR_TYPE_VALUE = "Mosquito"
     const val PATIENT_TYPE_VALUE = "Patient"
+    const val NONE_TYPE_VALUE = "None"
   }
 
 }

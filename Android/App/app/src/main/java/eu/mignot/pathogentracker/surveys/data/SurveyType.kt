@@ -1,9 +1,11 @@
 package eu.mignot.pathogentracker.surveys.data
 
+import eu.mignot.pathogentracker.util.AppSettings
+
 enum class SurveyType(val value: String) {
-  VECTOR("Mosquito"),
-  PATIENT("Patient"),
-  NONE("None");
+  VECTOR(AppSettings.Constants.VECTOR_TYPE_VALUE),
+  PATIENT(AppSettings.Constants.PATIENT_TYPE_VALUE),
+  NONE(AppSettings.Constants.NONE_TYPE_VALUE);
 
   override fun toString(): String {
     return value
@@ -20,10 +22,10 @@ enum class SurveyType(val value: String) {
 
 // TODO: switch SurveyType for this, better than enum
 //sealed class SType
-//data class VECTOR(val name: String = "Mosquito"): SType() {
+//data class VECTOR(val name: String = AppSettings.Constants.VECTOR_TYPE_VALUE): SType() {
 //  override fun toString(): String = name
 //}
-//data class PATIENT(val name: String = "Patient"): SType() {
+//data class PATIENT(val name: String = AppSettings.Constants.PATIENT_TYPE_VALUE): SType() {
 //  override fun toString(): String = name
 //}
 //object NONE: SType()

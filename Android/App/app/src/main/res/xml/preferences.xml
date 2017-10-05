@@ -5,7 +5,7 @@
     android:title="Primary survey"
     android:summary="Your primary survey type"
     android:entries="@array/surveyTypes"
-    android:defaultValue="Vector"
+    android:defaultValue="Mosquito"
     />
   <ListPreference
     android:key="SECONDARY_SURVEY_KEY"
