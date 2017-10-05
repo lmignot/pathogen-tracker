@@ -12,6 +12,7 @@ import android.widget.TextView
 import eu.mignot.pathogentracker.App
 import eu.mignot.pathogentracker.R
 import eu.mignot.pathogentracker.onboarding.OnBoarding
+import eu.mignot.pathogentracker.preferences.AppPreferencesActivity
 import eu.mignot.pathogentracker.util.setupToolbar
 import eu.mignot.pathogentracker.util.showShortMessage
 import eu.mignot.pathogentracker.surveys.addsurvey.human.AddHumanSurveyActivity
@@ -114,7 +115,7 @@ class SurveysActivity: AppCompatActivity(), AnkoLogger {
   }
 
   private fun showSettings() {
-    showShortMessage(surveyListRoot, "Settings menu button clicked")
+    startActivity<AppPreferencesActivity>()
   }
 
   /**
