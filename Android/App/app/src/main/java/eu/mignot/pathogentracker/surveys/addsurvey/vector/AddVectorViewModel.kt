@@ -1,9 +1,11 @@
 package eu.mignot.pathogentracker.surveys.addsurvey.vector
 
 import android.graphics.Bitmap
+import eu.mignot.pathogentracker.data.PreferencesProvider
 import eu.mignot.pathogentracker.surveys.addsurvey.BaseViewModel
 import eu.mignot.pathogentracker.surveys.data.SurveyRepository
 import eu.mignot.pathogentracker.surveys.data.models.database.Vector
+import eu.mignot.pathogentracker.util.AppSettings
 import org.jetbrains.anko.AnkoLogger
 import java.io.File
 import java.io.FileOutputStream
@@ -13,7 +15,8 @@ import java.util.*
 
 class AddVectorViewModel (
   override val id: String,
-  repository: SurveyRepository<Vector>
+  repository: SurveyRepository<Vector>,
+  private val prefs: PreferencesProvider
 ): AnkoLogger, BaseViewModel<Vector>(repository) {
 
   private var photoPath: String? = null
@@ -32,7 +35,7 @@ class AddVectorViewModel (
     return when (photoPath) {
       null -> false
       else -> FileOutputStream(photoPath).use {
-        photo.compress(Bitmap.CompressFormat.JPEG, 100, it)
+        photo.compress(Bitmap.CompressFormat.JPEG, prefs.getImageQuality(), it)
       }
     }
   }

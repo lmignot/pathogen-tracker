@@ -51,7 +51,7 @@ class AddVectorSurveyActivity: BaseSurveyActivity<Vector>(), SpinnerOrOther, Use
   }
 
   override val vm by lazy {
-    AddVectorViewModel(vectorId, App.getVectorRepository())
+    AddVectorViewModel(vectorId, App.getVectorRepository(), App.getPreferenceProvider())
   }
 
   private val photoSheetBehavior by lazy {
