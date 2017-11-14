@@ -49,7 +49,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:lines="3"
-          android:text="No surveys available"
+          android:text="@string/empty_surveys_title"
           android:gravity="center"
           android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
@@ -58,7 +58,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:gravity="center"
-          android:text="Add a survey using\nthe big pink button"
+          android:text="@string/empty_surveys_message"
           android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
       </LinearLayout>

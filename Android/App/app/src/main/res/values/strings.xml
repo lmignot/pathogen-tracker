@@ -63,5 +63,7 @@
   <string name="request_permission_location">Allow this app to access device Location</string>
   <string name="request_permission_camera">Allow this app to access the Camera and save Photos?</string>
   <string name="dna_field_label">Tap to connect and retrieve</string>
+  <string name="empty_surveys_title">No surveys available</string>
+  <string name="empty_surveys_message">Add a survey using\nthe big pink button</string>
 
 </resources>
