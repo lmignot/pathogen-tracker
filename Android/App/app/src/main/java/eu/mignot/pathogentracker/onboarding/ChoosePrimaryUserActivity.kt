@@ -20,11 +20,11 @@ class ChoosePrimaryUserActivity: Fragment() {
     super.onStart()
 
     primaryActivityVector.onClick {
-      (activity as OnBoarding).onChoosePrimaryActivity(SurveyType.VECTOR)
+      (activity as OnBoarding).onChoosePrimaryActivity(SurveyType.VECTOR())
     }
 
     primaryActivityPatient.onClick {
-      (activity as OnBoarding).onChoosePrimaryActivity(SurveyType.PATIENT)
+      (activity as OnBoarding).onChoosePrimaryActivity(SurveyType.PATIENT())
     }
   }
 

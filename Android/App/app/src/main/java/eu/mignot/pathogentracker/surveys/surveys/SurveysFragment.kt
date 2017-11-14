@@ -17,8 +17,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import eu.mignot.pathogentracker.R
-import eu.mignot.pathogentracker.surveys.data.SurveyType
-import eu.mignot.pathogentracker.surveys.data.UiSurveysRepository
+import eu.mignot.pathogentracker.surveys.data.*
 import eu.mignot.pathogentracker.surveys.data.models.ui.UiSurvey
 import eu.mignot.pathogentracker.surveys.surveydetail.HumanDetailActivity
 import eu.mignot.pathogentracker.surveys.surveydetail.VectorBatchDetailActivity
@@ -183,26 +182,26 @@ class SurveysFragment: Fragment(), AnkoLogger {
       surveyItemQueue.visibility = if (survey.isQueued) View.VISIBLE else View.GONE
       itemView.onClick {
         when (survey.surveyType) {
-          SurveyType.VECTOR -> ctx.startActivity<VectorBatchDetailActivity>(
+          is SurveyType.VECTOR -> ctx.startActivity<VectorBatchDetailActivity>(
             AppSettings.Constants.BATCH_ID_KEY to survey.surveyId
           )
-          SurveyType.PATIENT -> ctx.startActivity<HumanDetailActivity>(
+          is SurveyType.PATIENT -> ctx.startActivity<HumanDetailActivity>(
             AppSettings.Constants.BATCH_ID_KEY to survey.surveyId
           )
-          SurveyType.NONE -> Toast.makeText(ctx, "This is weird...", Toast.LENGTH_SHORT).show()
+          is SurveyType.NONE -> Toast.makeText(ctx, "This is weird...", Toast.LENGTH_SHORT).show()
         }
       }
     }
 
     private fun getAvatar(surveyType: SurveyType): Drawable = when (surveyType) {
-      SurveyType.VECTOR -> itemView.context.getDrawable(R.drawable.bg_avatar_survey_vector_batch)
+      is SurveyType.VECTOR -> itemView.context.getDrawable(R.drawable.bg_avatar_survey_vector_batch)
       else -> itemView.context.getDrawable(R.drawable.bg_avatar_survey_human)
     }
 
     private fun getAvatarLetter(surveyType: SurveyType): String = when (surveyType) {
-      SurveyType.PATIENT -> "H"
-      SurveyType.VECTOR -> "M"
-      SurveyType.NONE -> "?"
+      is SurveyType.PATIENT -> "H"
+      is SurveyType.VECTOR -> "M"
+      is SurveyType.NONE -> "?"
     }
   }
 

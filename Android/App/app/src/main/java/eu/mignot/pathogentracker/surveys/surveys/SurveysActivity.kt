@@ -55,9 +55,9 @@ class SurveysActivity: AppCompatActivity(), AnkoLogger {
       // if there is no secondary survey, pick the appropriate option
       if (!prefsProvider.hasSecondarySurvey()) {
         when(prefsProvider.getPrimarySurveyActivity()) {
-          SurveyType.PATIENT -> startActivity<AddHumanSurveyActivity>()
-          SurveyType.VECTOR -> startActivity<AddVectorBatchSurveyActivity>()
-          SurveyType.NONE -> showShortMessage(surveyListRoot, getString(R.string.error_no_primary_activity))
+          is SurveyType.PATIENT -> startActivity<AddHumanSurveyActivity>()
+          is SurveyType.VECTOR -> startActivity<AddVectorBatchSurveyActivity>()
+          is SurveyType.NONE -> showShortMessage(surveyListRoot, getString(R.string.error_no_primary_activity))
         }
       } else {
         showSurveySelection()

@@ -20,17 +20,13 @@ object AppPreferencesProvider: PreferencesProvider {
   }
 
   override fun getPrimarySurveyActivity(): SurveyType =
-    SurveyType.get(
-      sharedPreferences.getString(keys.PRIMARY_SURVEY_KEY, SurveyType.VECTOR.toString())
-    )
+    SurveyType.get(sharedPreferences.getString(keys.PRIMARY_SURVEY_KEY, SurveyType.VECTOR().toString()))
 
   override fun setPrimarySurveyActivity(s: SurveyType) =
     sharedPreferences.edit().putString(keys.PRIMARY_SURVEY_KEY, s.toString()).apply()
 
   override fun getSecondarySurveyActivity(): SurveyType =
-    SurveyType.get(
-      sharedPreferences.getString(keys.SECONDARY_SURVEY_KEY, SurveyType.PATIENT.toString())
-    )
+    SurveyType.get(sharedPreferences.getString(keys.SECONDARY_SURVEY_KEY, SurveyType.PATIENT().toString()))
 
   override fun setSecondarySurveyActivity(s: SurveyType) =
     sharedPreferences.edit().putString(keys.SECONDARY_SURVEY_KEY, s.toString()).apply()

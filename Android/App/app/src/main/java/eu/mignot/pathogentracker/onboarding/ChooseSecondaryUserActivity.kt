@@ -14,8 +14,8 @@ import org.jetbrains.anko.sdk25.coroutines.onClick
 class ChooseSecondaryUserActivity : Fragment() {
 
   private fun getSecondaryActivityChoice(primary: SurveyType) = when (primary) {
-    SurveyType.PATIENT -> SurveyType.VECTOR
-    SurveyType.VECTOR -> SurveyType.PATIENT
+    is SurveyType.PATIENT -> SurveyType.VECTOR()
+    is SurveyType.VECTOR -> SurveyType.PATIENT()
     SurveyType.NONE -> SurveyType.NONE
   }
 
@@ -34,7 +34,7 @@ class ChooseSecondaryUserActivity : Fragment() {
   override fun onStart() {
     super.onStart()
 
-    questionTextSecondary.text = getString(R.string.what_is_secondary_activity, secondaryActivityChoice.value)
+    questionTextSecondary.text = getString(R.string.what_is_secondary_activity, secondaryActivityChoice.toString())
 
     secondaryActivityTrue.onClick {
       (activity as OnBoarding).onChooseSecondaryActivity(secondaryActivityChoice)
@@ -49,7 +49,7 @@ class ChooseSecondaryUserActivity : Fragment() {
       fun newInstance(s: SurveyType): ChooseSecondaryUserActivity {
         val f = ChooseSecondaryUserActivity()
         val args = Bundle()
-        args.putString(AppSettings.Constants.ACTIVITY_CHOICE, s.value)
+        args.putString(AppSettings.Constants.ACTIVITY_CHOICE, s.toString())
         f.arguments = args
         return f
       }

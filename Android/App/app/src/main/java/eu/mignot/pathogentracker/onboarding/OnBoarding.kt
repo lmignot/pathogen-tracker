@@ -31,13 +31,13 @@ class OnBoarding : AppCompatActivity(), AnkoLogger, UsesCamera, UsesLocation, Us
   }
 
   fun onChoosePrimaryActivity(s: SurveyType) {
-    info("Primary activity: ${s.value}")
+    info("Primary activity: $s")
     vm.primaryActivity = s
     changePage(1)
   }
 
   fun onChooseSecondaryActivity(s: SurveyType) {
-    info("Secondary activity: ${s.value}")
+    info("Secondary activity: $s")
     vm.secondaryActivity = s
     changePage(2)
   }

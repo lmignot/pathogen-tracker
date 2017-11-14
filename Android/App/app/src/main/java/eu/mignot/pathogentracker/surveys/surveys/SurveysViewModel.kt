@@ -20,7 +20,7 @@ class SurveysViewModel(private val repository: UiSurveysRepository): AnkoLogger 
           it.collectedOn.formatTime(),
           it.isFlagged,
           it.uploadedAt != null,
-          SurveyType.PATIENT
+          SurveyType.PATIENT()
         )
       }
     return humans.plus(
@@ -32,7 +32,7 @@ class SurveysViewModel(private val repository: UiSurveysRepository): AnkoLogger 
             it.collectedOn.formatTime(),
             false,
             it.uploadedAt != null,
-            SurveyType.VECTOR
+            SurveyType.VECTOR()
           )
         }
     ).sortedByDescending {
