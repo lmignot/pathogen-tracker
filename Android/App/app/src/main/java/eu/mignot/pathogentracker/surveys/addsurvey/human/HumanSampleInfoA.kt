@@ -1,6 +1,5 @@
 package eu.mignot.pathogentracker.surveys.addsurvey.human
 
-import com.stepstone.stepper.VerificationError
 import eu.mignot.pathogentracker.R
 import eu.mignot.pathogentracker.surveys.data.models.database.Country
 import eu.mignot.pathogentracker.surveys.data.models.database.Human
