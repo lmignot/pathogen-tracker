@@ -1,6 +1,6 @@
 <resources>
   <string name="app_name">PathogenTracker</string>
-  <string name="nav_view_header_title">Username</string>
+  <string name="nav_view_header_title">PathogenTracker</string>
 
   <string name="title_activity_surveys">Surveys</string>
   <string name="title_vector_batch_detail">Vector Batch Survey</string>
@@ -65,5 +65,6 @@
   <string name="dna_field_label">Tap to connect and retrieve</string>
   <string name="empty_surveys_title">No surveys available</string>
   <string name="empty_surveys_message">Add a survey using\nthe big pink button</string>
+  <string name="welcome_user">Welcome %1$s</string>
 
 </resources>

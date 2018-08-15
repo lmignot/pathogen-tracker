@@ -7,10 +7,6 @@ object AppSettings {
     const val USE_CELLULAR_KEY = "USE_CELLULAR_KEY"
     const val IMAGE_RESOLUTION_KEY = "IMAGE_RESOLUTION_KEY"
     const val IMAGE_QUALITY_KEY = "IMAGE_QUALITY_KEY"
-    const val AUTH_TOKEN_KEY = "AUTH_TOKEN_KEY"
-    const val USER_NAME_KEY = "USER_NAME_KEY"
-    const val USER_EMAIL_KEY = "USER_EMAIL_KEY"
-    const val USER_ID_KEY = "USER_ID_KEY"
     const val ON_BOARDING_COMPLETE_KEY = "ON_BOARDING_COMPLETE_KEY"
     const val PI_NETWORK_ID_KEY = "PI_NETWORK_ID_KEY"
   }

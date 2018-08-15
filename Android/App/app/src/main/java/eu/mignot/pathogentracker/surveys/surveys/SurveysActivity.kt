@@ -1,24 +1,30 @@
 package eu.mignot.pathogentracker.surveys.surveys
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.Gravity
+import android.view.Menu
 import android.view.MenuItem
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.firebase.ui.auth.ErrorCodes
+import com.firebase.ui.auth.IdpResponse
 import eu.mignot.pathogentracker.App
 import eu.mignot.pathogentracker.R
 import eu.mignot.pathogentracker.onboarding.OnBoarding
 import eu.mignot.pathogentracker.preferences.AppPreferencesActivity
-import eu.mignot.pathogentracker.util.setupToolbar
-import eu.mignot.pathogentracker.util.showShortMessage
 import eu.mignot.pathogentracker.surveys.addsurvey.human.AddHumanSurveyActivity
 import eu.mignot.pathogentracker.surveys.addsurvey.vector.AddVectorBatchSurveyActivity
 import eu.mignot.pathogentracker.surveys.data.SurveyType
 import eu.mignot.pathogentracker.util.AppSettings
+import eu.mignot.pathogentracker.util.DoesLogin
+import eu.mignot.pathogentracker.util.setupToolbar
+import eu.mignot.pathogentracker.util.showShortMessage
 import kotlinx.android.synthetic.main.activity_surveys.*
 import org.jetbrains.anko.*
 import org.jetbrains.anko.sdk25.coroutines.onClick
@@ -29,8 +35,18 @@ class SurveysActivity: AppCompatActivity(), AnkoLogger {
     App.getPreferenceProvider()
   }
 
+  private val loginProvider by lazy {
+    App.getLoginProvider()
+  }
+
+  private val loginUI by lazy {
+    App.getLoginUI()
+  }
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+
+    doLogin()
 
     if (!prefsProvider.getDidCompleteOnBoarding()) {
       startActivity<OnBoarding>()
@@ -78,6 +94,27 @@ class SurveysActivity: AppCompatActivity(), AnkoLogger {
     }
   }
 
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    super.onActivityResult(requestCode, resultCode, data)
+    if (requestCode == DoesLogin.REQUEST_CODE) {
+      val response = IdpResponse.fromResultIntent(data)
+      if (resultCode != Activity.RESULT_OK) {
+        if (response == null) {
+          showShortMessage(surveyListRoot, "This app requires a signed-in user, please sign in.")
+          doLogin()
+          return
+        }
+        if (response.error!!.errorCode == ErrorCodes.NO_NETWORK) {
+          showShortMessage(surveyListRoot, "Please enable a network connection and try signing in again.")
+          doLogin()
+          return
+        }
+        showShortMessage(surveyListRoot, "We encountered an unknown error when signing in sorry :(")
+        error { response.error.toString() }
+      }
+    }
+  }
+
   private fun setupSurveysFragment(savedInstanceState: Bundle?) {
     if (savedInstanceState == null) {
       supportFragmentManager
@@ -107,6 +144,17 @@ class SurveysActivity: AppCompatActivity(), AnkoLogger {
         }
         else -> true
       }
+    }
+  }
+
+  private fun doLogin() {
+    if (!loginProvider.hasUser()) {
+      startActivityForResult(
+        loginUI
+          .createSignInIntentBuilder()
+          .build(),
+        DoesLogin.REQUEST_CODE
+      )
     }
   }
 

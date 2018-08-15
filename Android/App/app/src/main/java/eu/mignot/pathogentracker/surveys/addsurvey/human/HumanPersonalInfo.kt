@@ -121,7 +121,7 @@ class HumanPersonalInfo: StepFragment(), UsesLocation {
           yesButton { startActivity<SurveysActivity>() }
         }.show()
       else -> askForLocationPermission(
-        activity,
+        activity!!.parent,
         "We need permission to access this device's location"
       )
     }
@@ -130,7 +130,7 @@ class HumanPersonalInfo: StepFragment(), UsesLocation {
   @AfterPermissionDenied(UsesLocation.REQUEST_CODE)
   override fun onLocationPermissionDenied() {
     askForLocationPermission(
-      activity,
+      activity!!.parent,
       "This app cannot function without access to this device's location, please grant permission"
     )
   }

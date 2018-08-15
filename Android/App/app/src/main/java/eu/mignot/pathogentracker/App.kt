@@ -4,6 +4,8 @@ import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.wifi.WifiManager
+import com.firebase.ui.auth.AuthUI
+import com.google.firebase.auth.FirebaseAuth
 import com.patloew.rxlocation.RxLocation
 import eu.mignot.pathogentracker.data.*
 import eu.mignot.pathogentracker.surveys.data.HumanSurveyRepository
@@ -14,6 +16,7 @@ import eu.mignot.pathogentracker.surveys.data.models.database.Human
 import eu.mignot.pathogentracker.surveys.data.models.database.Vector
 import eu.mignot.pathogentracker.surveys.data.models.database.VectorBatch
 import eu.mignot.pathogentracker.util.AppSettings
+import eu.mignot.pathogentracker.util.FirebaseLoginProvider
 import eu.mignot.pathogentracker.util.NetworkUtils
 import io.realm.Realm
 
@@ -51,6 +54,14 @@ class App : Application() {
     instance.getSystemService(Context.WIFI_SERVICE) as WifiManager
   }
 
+  private val authProvider by lazy {
+    FirebaseLoginProvider(FirebaseAuth.getInstance())
+  }
+
+  private val authUI by lazy {
+    AuthUI.getInstance()
+  }
+
   override fun onCreate() {
     super.onCreate()
     instance = this
@@ -72,6 +83,8 @@ class App : Application() {
     fun getHumanSurveyRepository(): SurveyRepository<Human> =
       instance.humanSurveyRepository
     fun getNetworkUtils() = NetworkUtils(instance.connectivityManager, instance.wifiManager)
+    fun getLoginProvider(): FirebaseLoginProvider = instance.authProvider
+    fun getLoginUI(): AuthUI = instance.authUI
   }
 
 }

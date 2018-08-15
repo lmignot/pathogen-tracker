@@ -46,23 +46,6 @@ object AppPreferencesProvider: PreferencesProvider {
   override fun setOptimizeImageRes(b: Boolean) =
     sharedPreferences.edit().putBoolean(keys.IMAGE_RESOLUTION_KEY, b).apply()
 
-  override fun getUser(): User =
-    User(
-      sharedPreferences.getLong(keys.USER_ID_KEY, -1L),
-      sharedPreferences.getString(keys.USER_NAME_KEY, ""),
-      sharedPreferences.getString(keys.USER_EMAIL_KEY, ""),
-      sharedPreferences.getString(keys.AUTH_TOKEN_KEY, "")
-    )
-
-  override fun setUser(u: User) =
-    sharedPreferences
-      .edit()
-      .putLong(keys.USER_ID_KEY, u.userId)
-      .putString(keys.USER_NAME_KEY, u.name)
-      .putString(keys.USER_EMAIL_KEY, u.email)
-      .putString(keys.AUTH_TOKEN_KEY, u.token)
-      .apply()
-
   override fun getDidCompleteOnBoarding(): Boolean =
     sharedPreferences.getBoolean(keys.ON_BOARDING_COMPLETE_KEY, false)
 

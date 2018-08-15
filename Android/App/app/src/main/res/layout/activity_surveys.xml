@@ -46,12 +46,20 @@
         android:orientation="vertical">
 
         <TextView
+          android:id="@+id/userNameTextView"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:lines="2"
+          android:gravity="center"
+          android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+        <TextView
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:lines="3"
           android:text="@string/empty_surveys_title"
           android:gravity="center"
-          android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+          android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
         <TextView
           android:layout_marginTop="12dp"

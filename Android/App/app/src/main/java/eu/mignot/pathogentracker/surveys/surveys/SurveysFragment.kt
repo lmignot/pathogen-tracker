@@ -1,6 +1,7 @@
 package eu.mignot.pathogentracker.surveys.surveys
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -16,14 +17,17 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import eu.mignot.pathogentracker.App
 import eu.mignot.pathogentracker.R
 import eu.mignot.pathogentracker.surveys.data.*
 import eu.mignot.pathogentracker.surveys.data.models.ui.UiSurvey
 import eu.mignot.pathogentracker.surveys.surveydetail.HumanDetailActivity
 import eu.mignot.pathogentracker.surveys.surveydetail.VectorBatchDetailActivity
 import eu.mignot.pathogentracker.util.AppSettings
+import eu.mignot.pathogentracker.util.DoesLogin
 import kotlinx.android.synthetic.main.activity_surveys.*
 import kotlinx.android.synthetic.main.fragment_surveys.*
+import kotlinx.android.synthetic.main.nav_header.*
 import org.jetbrains.anko.*
 import org.jetbrains.anko.sdk25.coroutines.onClick
 import kotlin.properties.Delegates
@@ -40,12 +44,16 @@ class SurveysFragment: Fragment(), AnkoLogger {
     SurveysListAdapter(vm.getSurveys())
   }
 
+  private val loginProvider by lazy {
+    App.getLoginProvider()
+  }
+
   companion object {
     fun newInstance(): Fragment = SurveysFragment()
   }
 
-  override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-    return inflater!!.inflate(R.layout.fragment_surveys, container, false)
+  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    return inflater.inflate(R.layout.fragment_surveys, container, false)
   }
 
   override fun onResume() {
@@ -54,7 +62,13 @@ class SurveysFragment: Fragment(), AnkoLogger {
     surveysList.layoutManager = LinearLayoutManager(context)
     surveysList.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
     if (vm.getSurveys().isEmpty()) {
-      (activity.noData as LinearLayout).visibility = View.VISIBLE
+      (activity!!.noData as LinearLayout).visibility = View.VISIBLE
+    }
+    info(loginProvider.hasUser())
+    info(loginProvider.getCurrentUser()?.displayName)
+    if (loginProvider.hasUser()) {
+      info(activity!!.userNameTextView)
+      activity!!.userNameTextView?.text = getString(R.string.welcome_user, loginProvider.getCurrentUser()?.displayName)
     }
   }
 

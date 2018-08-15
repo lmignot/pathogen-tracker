@@ -17,8 +17,6 @@ interface PreferencesProvider {
   fun setUseCellular(b: Boolean)
   fun getOptimizeImageRes(): Boolean
   fun setOptimizeImageRes(b: Boolean)
-  fun getUser(): User
-  fun setUser(u: User)
   fun getDidCompleteOnBoarding(): Boolean
   fun setDidCompleteOnBoarding(b: Boolean)
   fun getPiNetworkId(): Int
