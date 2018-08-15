@@ -62,9 +62,7 @@ class OnBoarding : AppCompatActivity(), AnkoLogger, UsesCamera, UsesLocation, Us
       when (requestCode) {
         UsesLocation.REQUEST_CODE -> {
           info("Requested location permission")
-          if (vm.shouldAskForCameraPerms()) {
-            changePage(3)
-          } else isComplete()
+          changePage(3)
         }
         UsesCamera.REQUEST_CODE -> {
           info("Requested camera permission")
@@ -77,9 +75,7 @@ class OnBoarding : AppCompatActivity(), AnkoLogger, UsesCamera, UsesLocation, Us
     }
   }
 
-  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-
-  }
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {}
 
   private fun changePage(position: Int) {
     when (position) {

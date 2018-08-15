@@ -13,11 +13,11 @@ import org.jetbrains.anko.sdk25.coroutines.onClick
 class AskForPermissionFragment : Fragment() {
 
   private val permissionCode by lazy {
-    arguments.getInt(AppSettings.Constants.PERMISSION_CODE)
+    arguments!!.getInt(AppSettings.Constants.PERMISSION_CODE)
   }
 
   private val permissionRationaleId by lazy {
-    arguments.getInt(AppSettings.Constants.PERMISSION_RATIONALE_ID)
+    arguments!!.getInt(AppSettings.Constants.PERMISSION_RATIONALE_ID)
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

@@ -34,8 +34,8 @@ abstract class StepFragment : Fragment(), Step, AnkoLogger {
   /**
    * @see Fragment.onCreateView
    */
-  override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-    return inflater!!.inflate(layoutResourceId, container, false)
+  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    return inflater.inflate(layoutResourceId, container, false)
   }
 
   /**

@@ -20,7 +20,7 @@ class ChooseSecondaryUserActivity : Fragment() {
   }
 
   private val primaryActivityChoice by lazy {
-    SurveyType.get(arguments.getString(AppSettings.Constants.ACTIVITY_CHOICE))
+    SurveyType.get(arguments!!.getString(AppSettings.Constants.ACTIVITY_CHOICE))
   }
 
   private val secondaryActivityChoice by lazy {
