@@ -7,7 +7,7 @@ import eu.mignot.pathogentracker.surveys.data.models.database.VectorBatch
 object VectorBatchSurveyRepository : SurveyRepository<VectorBatch> {
 
   override fun getSurvey(surveyId: String): VectorBatch? =
-    VectorBatch().queryFirst { q -> q.equalTo( "id", surveyId ) }
+    VectorBatch().queryFirst { equalTo( "id", surveyId ) }
 
   override fun getSurveys(): List<VectorBatch> = VectorBatch().queryAll()
 
