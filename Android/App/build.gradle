@@ -1,9 +1,7 @@
 buildscript {
-  ext.kotlin_version = '1.2.30-eap-16'
-  ext.anko_version = '0.10.4'
-  ext.firebase_version = '11.8.0'
-  ext.android_support_version = '25.4.0'
-  ext.play_services_version = '11.8.0'
+  ext.kotlin_version = '1.2.30'
+  ext.anko_version = '0.10.5'
+  ext.android_support_version = '27.1.1'
   repositories {
     google()
     jcenter()
@@ -12,10 +10,10 @@ buildscript {
     maven { url 'https://dl.bintray.com/kotlin/kotlin-dev' }
   }
   dependencies {
-    classpath 'com.android.tools.build:gradle:3.2.0-alpha01'
+    classpath 'com.android.tools.build:gradle:3.2.0-alpha15'
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    classpath 'com.google.gms:google-services:3.1.0'
-    classpath 'io.realm:realm-gradle-plugin:4.2.0'
+    classpath 'com.google.gms:google-services:4.0.1'
+    classpath 'io.realm:realm-gradle-plugin:5.4.2'
   }
 }
 
