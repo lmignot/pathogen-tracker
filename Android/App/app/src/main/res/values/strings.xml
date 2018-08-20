@@ -66,5 +66,7 @@
   <string name="empty_surveys_title">No surveys available</string>
   <string name="empty_surveys_message">Add a survey using\nthe big pink button</string>
   <string name="welcome_user">Welcome %1$s</string>
+  <string name="anonymous">stranger</string>
+  <string name="title_activity_launcher">PathogenTrackerLauncher</string>
 
 </resources>

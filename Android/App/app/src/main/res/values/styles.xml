@@ -1,10 +1,10 @@
 <resources>
   <!-- Base application theme. -->
-  <style name="AppTheme" parent="Base.AppTheme"/>
+  <style name="AppTheme" parent="Base.AppTheme" />
 
-  <style name="AppTheme.OverlapSystemBar" parent="Base.AppTheme"/>
+  <style name="AppTheme.OverlapSystemBar" parent="Base.AppTheme" />
 
-  <style name="AppTheme.OverlapSystemBarVector" parent="Vector.AppTheme"/>
+  <style name="AppTheme.OverlapSystemBarVector" parent="Vector.AppTheme" />
 
   <style name="Base.AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
     <!-- Customize your theme here. -->
@@ -56,8 +56,12 @@
     <item name="ms_completeButtonColor">@color/colorAccent</item>
   </style>
 
-  <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+  <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-  <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+  <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+  <style name="AppTheme.OverlapSystemBar.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+  <style name="AppTheme.OverlapSystemBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>

@@ -61,14 +61,18 @@ class SurveysFragment: Fragment(), AnkoLogger {
     surveysList.adapter = adapter
     surveysList.layoutManager = LinearLayoutManager(context)
     surveysList.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+
+    // Show the welcome message if no surveys available
     if (vm.getSurveys().isEmpty()) {
       (activity!!.noData as LinearLayout).visibility = View.VISIBLE
     }
-    info(loginProvider.hasUser())
-    info(loginProvider.getCurrentUser()?.displayName)
+
     if (loginProvider.hasUser()) {
-      info(activity!!.userNameTextView)
-      activity!!.userNameTextView?.text = getString(R.string.welcome_user, loginProvider.getCurrentUser()?.displayName)
+      // Show the user's name or anonymous text
+      activity!!.userNameTextView?.text = getString(
+        R.string.welcome_user,
+        loginProvider.getCurrentUser()?.displayName ?: getString(R.string.anonymous)
+      )
     }
   }
 

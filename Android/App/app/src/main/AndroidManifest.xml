@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="eu.mignot.pathogentracker">
+  package="eu.mignot.pathogentracker">
 
-  <uses-permission android:name="android.permission.INTERNET"/>
-  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-  <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-  <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
-  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-  <uses-permission android:name="android.permission.CAMERA"/>
-  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+  <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+  <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+  <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+  <uses-permission android:name="android.permission.CAMERA" />
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
   <application
     android:name=".App"
@@ -23,51 +23,46 @@
     <activity
       android:name=".onboarding.OnBoarding"
       android:label="@string/title_activity_onboarding"
-      android:screenOrientation="portrait">
-    </activity>
+      android:screenOrientation="portrait"/>
     <activity
       android:name=".surveys.surveys.SurveysActivity"
       android:screenOrientation="portrait">
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN"/>
-        <category android:name="android.intent.category.LAUNCHER"/>
-      </intent-filter>
     </activity>
     <activity
       android:name=".surveys.addsurvey.human.AddHumanSurveyActivity"
       android:parentActivityName=".surveys.surveys.SurveysActivity"
       android:screenOrientation="portrait"
-      android:theme="@style/AppTheme.OverlapSystemBar"/>
+      android:theme="@style/AppTheme.OverlapSystemBar" />
     <activity
       android:name=".surveys.addsurvey.vector.AddVectorBatchSurveyActivity"
       android:parentActivityName=".surveys.surveys.SurveysActivity"
       android:screenOrientation="portrait"
-      android:theme="@style/AppTheme.OverlapSystemBarVector"/>
+      android:theme="@style/AppTheme.OverlapSystemBarVector" />
     <activity
       android:name=".surveys.addsurvey.vector.AddVectorSurveyActivity"
       android:parentActivityName=".surveys.addsurvey.vector.AddVectorBatchSurveyActivity"
       android:screenOrientation="portrait"
-      android:theme="@style/AppTheme.OverlapSystemBarVector"/>
+      android:theme="@style/AppTheme.OverlapSystemBarVector" />
     <activity
       android:name=".surveys.surveydetail.VectorBatchDetailActivity"
       android:parentActivityName=".surveys.surveys.SurveysActivity"
       android:screenOrientation="portrait"
-      android:theme="@style/AppTheme.OverlapSystemBarVector"/>
+      android:theme="@style/AppTheme.OverlapSystemBarVector" />
     <activity
       android:name=".surveys.surveydetail.HumanDetailActivity"
       android:parentActivityName=".surveys.surveys.SurveysActivity"
       android:screenOrientation="portrait"
-      android:theme="@style/AppTheme.OverlapSystemBar"/>
+      android:theme="@style/AppTheme.OverlapSystemBar" />
     <activity
       android:name=".surveys.surveydetail.VectorDetailActivity"
       android:parentActivityName=".surveys.surveydetail.VectorBatchDetailActivity"
       android:screenOrientation="portrait"
-      android:theme="@style/AppTheme.OverlapSystemBarVector"/>
+      android:theme="@style/AppTheme.OverlapSystemBarVector" />
     <activity
       android:name=".preferences.AppPreferencesActivity"
       android:parentActivityName=".surveys.surveys.SurveysActivity"
       android:screenOrientation="portrait"
-      android:theme="@style/AppTheme.OverlapSystemBar"/>
+      android:theme="@style/AppTheme.OverlapSystemBar" />
 
     <provider
       android:name="android.support.v4.content.FileProvider"
@@ -76,8 +71,18 @@
       android:grantUriPermissions="true">
       <meta-data
         android:name="android.support.FILE_PROVIDER_PATHS"
-        android:resource="@xml/file_paths"/>
+        android:resource="@xml/file_paths" />
     </provider>
+
+    <activity
+      android:name=".launcher.LauncherActivity"
+      android:label="@string/title_activity_launcher"
+      android:theme="@style/AppTheme.OverlapSystemBar">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
   </application>
 
 </manifest>

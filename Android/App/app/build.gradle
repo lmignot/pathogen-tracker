@@ -102,7 +102,7 @@ kotlin {
 }
 
 kapt {
-  mapDiagnosticLocations = true
+    mapDiagnosticLocations = true
 }
 
 apply plugin: 'com.google.gms.google-services'
