@@ -18,9 +18,9 @@ class SurveysViewModel(private val repository: UiSurveysRepository): AnkoLogger 
           it.id,
           it.locationCollected?.toString() ?: AppSettings.Constants.NO_VALUE,
           it.collectedOn.formatTime(),
-          it.isFlagged,
           it.uploadedAt != null,
-          SurveyType.PATIENT()
+          SurveyType.PATIENT(),
+          it.isFlagged
         )
       }
     return humans.plus(
@@ -30,7 +30,6 @@ class SurveysViewModel(private val repository: UiSurveysRepository): AnkoLogger 
             it.id,
             it.locationCollected?.toString() ?: AppSettings.Constants.NO_VALUE,
             it.collectedOn.formatTime(),
-            false,
             it.uploadedAt != null,
             SurveyType.VECTOR()
           )

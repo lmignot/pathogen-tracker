@@ -18,7 +18,7 @@ abstract class StepFragment : Fragment(), Step, AnkoLogger {
   /**
    * Resource ID of layout matching this step
    */
-  abstract protected val layoutResourceId: Int
+  protected abstract val layoutResourceId: Int
 
   /**
    * Add data to provided model and return it
