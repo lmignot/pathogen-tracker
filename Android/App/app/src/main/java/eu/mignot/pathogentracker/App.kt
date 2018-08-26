@@ -6,8 +6,10 @@ import android.net.ConnectivityManager
 import android.net.wifi.WifiManager
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
-import com.patloew.rxlocation.RxLocation
-import eu.mignot.pathogentracker.data.*
+import eu.mignot.pathogentracker.data.AppFormDataProvider
+import eu.mignot.pathogentracker.data.AppPreferencesProvider
+import eu.mignot.pathogentracker.data.FormDataProvider
+import eu.mignot.pathogentracker.data.PreferencesProvider
 import eu.mignot.pathogentracker.surveys.data.HumanSurveyRepository
 import eu.mignot.pathogentracker.surveys.data.SurveyRepository
 import eu.mignot.pathogentracker.surveys.data.VectorBatchSurveyRepository
@@ -15,16 +17,15 @@ import eu.mignot.pathogentracker.surveys.data.VectorSurveyRepository
 import eu.mignot.pathogentracker.surveys.data.models.database.Human
 import eu.mignot.pathogentracker.surveys.data.models.database.Vector
 import eu.mignot.pathogentracker.surveys.data.models.database.VectorBatch
-import eu.mignot.pathogentracker.util.AppSettings
 import eu.mignot.pathogentracker.util.FirebaseLoginProvider
 import eu.mignot.pathogentracker.util.NetworkUtils
 import io.realm.Realm
 
 class App : Application() {
 
-  private val locationProvider by lazy {
-    AppLocationProvider(RxLocation(this))
-  }
+  /*private val locationProvider by lazy {
+    LocationServices.getFusedLocationProviderClient(this)
+  }*/
 
   private val prefsProvider by lazy {
     AppPreferencesProvider
@@ -70,8 +71,6 @@ class App : Application() {
 
   companion object {
     lateinit var instance: App private set
-    fun getLocationProvider(): LocationProvider =
-      instance.locationProvider
     fun getPreferenceProvider(): PreferencesProvider =
       instance.prefsProvider
     fun getFormDataProvider(): FormDataProvider =

@@ -9,7 +9,7 @@ import pub.devrel.easypermissions.AfterPermissionGranted
 interface UsesLocation {
   companion object {
     const val REQUEST_CODE = 1
-    val PERMISSION = (Manifest.permission.ACCESS_FINE_LOCATION)
+    const val PERMISSION = (Manifest.permission.ACCESS_FINE_LOCATION)
   }
 
   fun askForLocationPermission(activity: Activity, rationale: String) {
@@ -21,11 +21,4 @@ interface UsesLocation {
     )
   }
 
-  @AfterPermissionGranted(REQUEST_CODE)
-  fun onRequestLocationPermission() {}
-
-  @AfterPermissionDenied(REQUEST_CODE)
-  fun onLocationPermissionDenied() {}
-
-  fun setLocationListener() {}
 }

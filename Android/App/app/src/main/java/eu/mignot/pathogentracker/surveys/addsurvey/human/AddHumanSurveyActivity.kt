@@ -6,21 +6,18 @@ import com.stepstone.stepper.StepperLayout
 import com.stepstone.stepper.VerificationError
 import eu.mignot.pathogentracker.App
 import eu.mignot.pathogentracker.R
-import eu.mignot.pathogentracker.util.setupToolbar
 import eu.mignot.pathogentracker.surveys.addsurvey.BaseSurveyActivity
 import eu.mignot.pathogentracker.surveys.data.models.database.Human
 import eu.mignot.pathogentracker.surveys.surveys.SurveysActivity
 import eu.mignot.pathogentracker.util.AppSettings
-import eu.mignot.pathogentracker.util.UsesLocation
+import eu.mignot.pathogentracker.util.setupToolbar
 import kotlinx.android.synthetic.main.activity_add_human_survey.*
-import me.zhanghai.android.effortlesspermissions.EffortlessPermissions
 import org.jetbrains.anko.*
 
 class AddHumanSurveyActivity: BaseSurveyActivity<Human>(), StepperLayout.StepperListener {
 
   override val vm by lazy {
     AddHumanViewModel(
-      App.getLocationProvider(),
       App.getFormDataProvider(),
       App.getHumanSurveyRepository()
     )
@@ -31,6 +28,10 @@ class AddHumanSurveyActivity: BaseSurveyActivity<Human>(), StepperLayout.Stepper
     setContentView(R.layout.activity_add_human_survey)
     setupToolbar(toolbarAH, getString(R.string.title_human), R.drawable.close_white)
     setupStepper()
+  }
+
+  override fun unbind() {
+    info("Unbinding...")
   }
 
   override fun saveAndClose() {

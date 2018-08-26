@@ -6,7 +6,6 @@ import android.view.MenuItem
 import eu.mignot.pathogentracker.App
 import eu.mignot.pathogentracker.R
 import eu.mignot.pathogentracker.surveys.surveys.SurveysActivity
-import io.reactivex.disposables.CompositeDisposable
 import io.realm.RealmObject
 import me.zhanghai.android.effortlesspermissions.EffortlessPermissions
 import org.jetbrains.anko.AnkoLogger
@@ -16,10 +15,6 @@ import org.jetbrains.anko.startActivity
 abstract class BaseSurveyActivity<T: RealmObject>: AppCompatActivity(), AddSurvey<T>, AnkoLogger {
 
   abstract val vm: BaseViewModel<T>
-
-  val disposables by lazy {
-    CompositeDisposable()
-  }
 
   val preferences by lazy {
     App.getPreferenceProvider()
@@ -33,10 +28,6 @@ abstract class BaseSurveyActivity<T: RealmObject>: AppCompatActivity(), AddSurve
   override fun onPause() {
     unbind()
     super.onPause()
-  }
-
-  override fun unbind() {
-    disposables.dispose()
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {

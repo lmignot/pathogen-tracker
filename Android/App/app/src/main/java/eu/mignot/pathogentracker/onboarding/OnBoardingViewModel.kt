@@ -25,9 +25,6 @@ class OnBoardingViewModel(private val prefs: PreferencesProvider) {
     get() = chosenSecondaryActivity
     set(s) = setSecondary(s)
 
-  fun shouldAskForCameraPerms(): Boolean =
-    primaryActivity == SurveyType.VECTOR() || secondaryActivity == SurveyType.VECTOR()
-
   fun setOnBoardingComplete(isComplete: Boolean) =
     prefs.setDidCompleteOnBoarding(isComplete)
 

@@ -1,19 +1,16 @@
 package eu.mignot.pathogentracker.surveys.addsurvey.human
 
 import eu.mignot.pathogentracker.data.FormDataProvider
-import eu.mignot.pathogentracker.data.LocationProvider
-import eu.mignot.pathogentracker.surveys.data.models.ui.CurrentDisease
-import eu.mignot.pathogentracker.surveys.data.models.ui.UiLocation
 import eu.mignot.pathogentracker.surveys.addsurvey.BaseViewModel
 import eu.mignot.pathogentracker.surveys.addsurvey.CurrentDateProvider
 import eu.mignot.pathogentracker.surveys.data.SurveyRepository
 import eu.mignot.pathogentracker.surveys.data.models.database.Human
-import io.reactivex.Observable
+import eu.mignot.pathogentracker.surveys.data.models.ui.CurrentDisease
+import eu.mignot.pathogentracker.surveys.data.models.ui.UiLocation
 import org.jetbrains.anko.AnkoLogger
 import java.util.*
 
 class AddHumanViewModel(
-  private val locationProvider: LocationProvider,
   private val formDataProvider: FormDataProvider,
   repository: SurveyRepository<Human>
 ): AnkoLogger, BaseViewModel<Human>(repository), CurrentDateProvider {
@@ -25,8 +22,6 @@ class AddHumanViewModel(
   override val id: String by lazy { "$PREFIX-${UUID.randomUUID()}" }
 
   override val currentDate: Calendar by lazy { Calendar.getInstance() }
-
-  fun getLocation(): Observable<UiLocation> = locationProvider.getLocation()
 
   fun symptoms() = formDataProvider.symptoms()
 

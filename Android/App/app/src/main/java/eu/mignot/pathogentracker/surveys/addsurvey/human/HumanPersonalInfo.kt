@@ -4,30 +4,42 @@ import android.app.DatePickerDialog
 import android.support.v4.app.Fragment
 import android.text.format.DateFormat
 import android.view.View
+import com.yayandroid.locationmanager.LocationManager
+import com.yayandroid.locationmanager.configuration.DefaultProviderConfiguration
+import com.yayandroid.locationmanager.configuration.GooglePlayServicesConfiguration
+import com.yayandroid.locationmanager.configuration.LocationConfiguration
+import com.yayandroid.locationmanager.configuration.PermissionConfiguration
+import eu.mignot.pathogentracker.App
 import eu.mignot.pathogentracker.R
+import eu.mignot.pathogentracker.data.LocationView
 import eu.mignot.pathogentracker.util.asBoolean
 import eu.mignot.pathogentracker.util.selectedValue
 import eu.mignot.pathogentracker.util.showShortMessage
 import eu.mignot.pathogentracker.surveys.data.models.database.Human
 import eu.mignot.pathogentracker.surveys.data.models.database.Location
-import eu.mignot.pathogentracker.surveys.surveys.SurveysActivity
-import eu.mignot.pathogentracker.util.UsesLocation
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.rxkotlin.subscribeBy
-import io.reactivex.schedulers.Schedulers
+import eu.mignot.pathogentracker.surveys.data.models.ui.UiLocation
 import kotlinx.android.synthetic.main.fragment_personal_info.*
-import me.zhanghai.android.effortlesspermissions.AfterPermissionDenied
-import me.zhanghai.android.effortlesspermissions.EffortlessPermissions
-import org.jetbrains.anko.*
 import org.jetbrains.anko.sdk25.coroutines.onCheckedChange
-import org.jetbrains.anko.support.v4.alert
-import org.jetbrains.anko.support.v4.startActivity
-import pub.devrel.easypermissions.AfterPermissionGranted
 import java.util.*
 
-class HumanPersonalInfo: StepFragment(), UsesLocation {
+class HumanPersonalInfo: StepFragment(), LocationView {
 
   override val layoutResourceId: Int = R.layout.fragment_personal_info
+
+  private val locationConfiguration by lazy {
+    LocationConfiguration.Builder()
+      .keepTracking(false)
+      .askForPermission(
+        PermissionConfiguration.Builder()
+          .rationaleMessage("This app requires access to your device's location").build()
+      )
+      .useGooglePlayServices(GooglePlayServicesConfiguration.Builder().build())
+      .useDefaultProviders(
+        DefaultProviderConfiguration.Builder()
+          .gpsMessage("Please turn on location services").build()
+      )
+      .build()
+  }
 
   /**
    * @see Fragment.onResume
@@ -42,20 +54,22 @@ class HumanPersonalInfo: StepFragment(), UsesLocation {
     setDateCollectedListener()
     setDateOfBirthListener()
     // check for location permissions (sets listener if successful)
-    onRequestLocationPermission()
+    surveyLocation?.setOnClickListener { getLocation() }
     // update ViewModel when selection is made
     patientIsPregnant?.onCheckedChange { r, _ ->
-      r?.asBoolean()?.let {
-        vm.isPregnant = it
-        info(vm.isPregnant)
-      }
+      r?.asBoolean()?.let { vm.isPregnant = it }
     }
     patientGender?.onCheckedChange { r, _ ->
-      r?.selectedValue()?.let {
-        vm.gender = it
-        info(vm.gender)
-      }
+      r?.selectedValue()?.let { vm.gender = it }
     }
+    if (getLocationManager().isWaitingForLocation && !getLocationManager().isAnyDialogShowing) {
+      showLocationProgress()
+    }
+  }
+
+  override fun onPause() {
+    super.onPause()
+    dismissLocationProgress()
   }
 
   override fun getModel(model: Human): Human {
@@ -112,51 +126,39 @@ class HumanPersonalInfo: StepFragment(), UsesLocation {
     }
   }
 
-  @AfterPermissionGranted(UsesLocation.REQUEST_CODE)
-  override fun onRequestLocationPermission() {
-    when {
-      EffortlessPermissions.hasPermissions(this, UsesLocation.PERMISSION) -> setLocationListener()
-      EffortlessPermissions.permissionPermanentlyDenied(this, UsesLocation.PERMISSION) ->
-        alert("Please grant permission in the settings app and try again", "Access to location is required") {
-          yesButton { startActivity<SurveysActivity>() }
-        }.show()
-      else -> askForLocationPermission(
-        activity!!.parent,
-        "We need permission to access this device's location"
-      )
+  override fun getLocationManager(): LocationManager {
+    return LocationManager.Builder(App.instance)
+      .activity(activity!!)
+      .fragment(this)
+      .configuration(locationConfiguration)
+      .notify(this)
+      .build()
+  }
+
+  override fun gpsPermissionGranted(alreadyHadPermission: Boolean) {
+    if (!alreadyHadPermission) {
+      showShortMessage(personalInfoForm, "Thanks for granting permission, tap the location field to get the current location")
     }
   }
 
-  @AfterPermissionDenied(UsesLocation.REQUEST_CODE)
-  override fun onLocationPermissionDenied() {
-    askForLocationPermission(
-      activity!!.parent,
-      "This app cannot function without access to this device's location, please grant permission"
-    )
+  override fun processLocation(location: android.location.Location?) {
+    location?.let {
+      val loc = UiLocation(it.longitude, it.latitude, it.accuracy)
+      vm.location = loc
+      surveyLocation?.setText(loc.toString())
+    }
   }
 
-  override fun setLocationListener() {
-    surveyLocation?.setOnClickListener {
-      surveyLocationProgress?.visibility = View.VISIBLE
-      (activity as AddHumanSurveyActivity).disposables.add(
-        vm
-          .getLocation()
-          .subscribeOn(Schedulers.io())
-          .observeOn(AndroidSchedulers.mainThread())
-          .subscribeBy (
-            onError = {
-              showShortMessage(personalInfoForm, "Unable to determine location, please try again")
-              surveyLocationProgress?.visibility = View.GONE
-              error { it.localizedMessage }
-            },
-            onNext = {
-              vm.location = it
-              surveyLocation?.setText(it.toString())
-              surveyLocationProgress?.visibility = View.GONE
-            }
-          )
-      )
-    }
+  override fun processLocationError(type: Int) {
+    showShortMessage(personalInfoForm, "Unable to determine location, please try again")
+  }
+
+  override fun dismissLocationProgress() {
+    surveyLocationProgress?.visibility = View.GONE
+  }
+
+  override fun showLocationProgress() {
+    surveyLocationProgress?.visibility = View.GONE
   }
 
 }

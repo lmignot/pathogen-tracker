@@ -1,6 +1,5 @@
 package eu.mignot.pathogentracker.onboarding
 
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -12,11 +11,9 @@ import eu.mignot.pathogentracker.surveys.surveys.SurveysActivity
 import eu.mignot.pathogentracker.util.UsesCamera
 import eu.mignot.pathogentracker.util.UsesGallery
 import eu.mignot.pathogentracker.util.UsesLocation
-import me.zhanghai.android.effortlesspermissions.EffortlessPermissions
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.jetbrains.anko.startActivity
-import pub.devrel.easypermissions.AfterPermissionGranted
 
 class OnBoarding : AppCompatActivity(), AnkoLogger, UsesCamera, UsesLocation, UsesGallery {
 
@@ -75,7 +72,7 @@ class OnBoarding : AppCompatActivity(), AnkoLogger, UsesCamera, UsesLocation, Us
     }
   }
 
-  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {}
+//  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {}
 
   private fun changePage(position: Int) {
     when (position) {

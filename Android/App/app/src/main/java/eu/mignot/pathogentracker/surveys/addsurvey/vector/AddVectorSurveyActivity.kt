@@ -93,7 +93,6 @@ class AddVectorSurveyActivity: BaseSurveyActivity<Vector>(), SpinnerOrOther, Use
 
   override fun unbind() {
 //    unregisterReceiver(broadcastReceiver)
-    super.unbind()
   }
 
   override fun saveAndClose() {
