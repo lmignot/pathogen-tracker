@@ -32,10 +32,15 @@ class AddVectorViewModel (
   }
 
   fun savePhoto(): Boolean {
+    val imgQuality = if (prefs.getOptimizeImageRes()) {
+      AppSettings.Constants.DEFAULT_IMAGE_QUALITY
+    } else {
+      AppSettings.Constants.UNCOMPRESSED_IMAGE_QUALITY
+    }
     return when (photoPath) {
       null -> false
       else -> FileOutputStream(photoPath).use {
-        photo.compress(Bitmap.CompressFormat.JPEG, prefs.getImageQuality(), it)
+        photo.compress(Bitmap.CompressFormat.JPEG, imgQuality, it)
       }
     }
   }
