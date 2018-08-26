@@ -1,7 +1,7 @@
 package eu.mignot.pathogentracker.surveys.addsurvey.vector
 
 import android.graphics.Bitmap
-import eu.mignot.pathogentracker.data.PreferencesProvider
+import eu.mignot.pathogentracker.preferences.PreferencesProvider
 import eu.mignot.pathogentracker.surveys.addsurvey.BaseViewModel
 import eu.mignot.pathogentracker.surveys.data.SurveyRepository
 import eu.mignot.pathogentracker.surveys.data.models.database.Vector

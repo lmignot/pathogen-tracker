@@ -7,9 +7,9 @@ import android.net.wifi.WifiManager
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 import eu.mignot.pathogentracker.data.AppFormDataProvider
-import eu.mignot.pathogentracker.data.AppPreferencesProvider
+import eu.mignot.pathogentracker.preferences.AppPreferencesProvider
 import eu.mignot.pathogentracker.data.FormDataProvider
-import eu.mignot.pathogentracker.data.PreferencesProvider
+import eu.mignot.pathogentracker.preferences.PreferencesProvider
 import eu.mignot.pathogentracker.surveys.data.HumanSurveyRepository
 import eu.mignot.pathogentracker.surveys.data.SurveyRepository
 import eu.mignot.pathogentracker.surveys.data.VectorBatchSurveyRepository

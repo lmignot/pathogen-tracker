@@ -1,7 +1,6 @@
 package eu.mignot.pathogentracker.surveys.surveys
 
 import android.content.Context
-import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -24,10 +23,8 @@ import eu.mignot.pathogentracker.surveys.data.models.ui.UiSurvey
 import eu.mignot.pathogentracker.surveys.surveydetail.HumanDetailActivity
 import eu.mignot.pathogentracker.surveys.surveydetail.VectorBatchDetailActivity
 import eu.mignot.pathogentracker.util.AppSettings
-import eu.mignot.pathogentracker.util.DoesLogin
 import kotlinx.android.synthetic.main.activity_surveys.*
 import kotlinx.android.synthetic.main.fragment_surveys.*
-import kotlinx.android.synthetic.main.nav_header.*
 import org.jetbrains.anko.*
 import org.jetbrains.anko.sdk25.coroutines.onClick
 import kotlin.properties.Delegates
@@ -155,7 +152,7 @@ class SurveysFragment: Fragment(), AnkoLogger {
               alignParentTop()
               alignParentEnd()
             }
-          surveyItemQueue = imageView(R.drawable.cloud_queue) {
+          surveyItemQueue = imageView(R.drawable.cloud_done) {
             adjustViewBounds = false
           }.lparams(dip(18), dip(18)) {
               alignParentBottom()
@@ -197,7 +194,7 @@ class SurveysFragment: Fragment(), AnkoLogger {
       surveyItemAvatar.setImageDrawable(getAvatar(survey.surveyType))
       surveyItemAvatarLetter.text = getAvatarLetter(survey.surveyType)
       surveyItemFlag.visibility = if (survey.isFlagged) View.VISIBLE else View.GONE
-      surveyItemQueue.visibility = if (survey.isQueued) View.VISIBLE else View.GONE
+      surveyItemQueue.visibility = if (survey.isUploaded) View.VISIBLE else View.GONE
       itemView.onClick {
         when (survey.surveyType) {
           is SurveyType.VECTOR -> ctx.startActivity<VectorBatchDetailActivity>(

@@ -10,7 +10,8 @@ import org.jetbrains.anko.AnkoLogger
 class SurveysViewModel(private val repository: UiSurveysRepository): AnkoLogger {
 
   fun getSurveys(): List<UiSurvey> {
-    // TODO: handle which types to load
+    // Check both repositories as a user may switch back and forth between
+    // collecting Patient or Mosquito surveys.
     val humans = repository
       .getHumanSurveys()
       .map {

@@ -1,4 +1,4 @@
-package eu.mignot.pathogentracker.data
+package eu.mignot.pathogentracker.preferences
 
 import eu.mignot.pathogentracker.surveys.data.SurveyType
 import eu.mignot.pathogentracker.util.AppMode

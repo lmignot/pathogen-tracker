@@ -6,7 +6,7 @@ data class UiSurvey (
   val surveyId: String,
   val surveyLocation: String,
   val surveyDate: String,
-  val isQueued: Boolean,
+  val isUploaded: Boolean,
   val surveyType: SurveyType,
   val isFlagged: Boolean = false
 )

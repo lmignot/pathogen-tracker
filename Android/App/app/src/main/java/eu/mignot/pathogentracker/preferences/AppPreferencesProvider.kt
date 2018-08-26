@@ -1,10 +1,9 @@
-package eu.mignot.pathogentracker.data
+package eu.mignot.pathogentracker.preferences
 
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import eu.mignot.pathogentracker.App
 import eu.mignot.pathogentracker.surveys.data.SurveyType
-import eu.mignot.pathogentracker.data.models.User
 import eu.mignot.pathogentracker.util.AppSettings
 
 /**
