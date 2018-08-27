@@ -29,6 +29,7 @@ object AppSettings {
     const val UNCOMPRESSED_IMAGE_QUALITY = 100
     const val DATE_FORMAT = "dd MMMM yyyy"
     const val DATE_TIME_FORMAT = "dd MMMM yyyy, HH:mm"
+    const val PHOTO_TIMESTAMP_FORMAT = "yyyyMMdd_HHmmss"
     const val NO_VALUE = "None provided"
     const val MIN_TEMP = -40
     const val MAX_TEMP = 40
@@ -37,6 +38,7 @@ object AppSettings {
     const val LOCATION_REQUEST_CODE = 1
     const val CAMERA_REQUEST_CODE = 2
     const val GALLERY_REQUEST_CODE = 3
+    const val FIREBASE_PHOTO_PATH = "/photos/mosquitoes"
   }
 
 }

@@ -77,19 +77,6 @@ fun showShortMessage(v: View, msg: String) {
 }
 
 /**
- * Convenience extension to show a long
- * [Snackbar] message
- *
- * @param v The [View] the [Snackbar] will be attached to
- * @param msg The message to display
- */
-fun showLongMessage(v: View, msg: String) {
-  Snackbar
-    .make(v, msg, Snackbar.LENGTH_LONG)
-    .show()
-}
-
-/**
  * Convenience extension function for setting up a
  * toolbar with a specific title and drawable
  *
