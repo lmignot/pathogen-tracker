@@ -18,7 +18,7 @@ class HumanDetailActivity : AppCompatActivity() {
   }
 
   private val survey by lazy {
-    App.getHumanSurveyRepository().getSurvey(batchId)
+    App.getSurveysRepository().getPatientSurvey(batchId)
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {

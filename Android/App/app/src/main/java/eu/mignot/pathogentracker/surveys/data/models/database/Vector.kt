@@ -31,6 +31,10 @@ open class Vector: RealmObject() {
   fun isUploaded(): Boolean = uploadedAt !== null
 }
 
+/**
+ * Extension function, retrieve the next sequence ID for a [Vector]
+ * assigned to a [VectorBatch]
+ */
 fun List<Vector>.getNextVectorSequence(): Int {
   return (this.maxBy { it.sequence }?.sequence ?: AppSettings.Constants.SEQUENCE_ZERO_VALUE) +
     AppSettings.Constants.SEQUENCE_INCREMENT_VALUE

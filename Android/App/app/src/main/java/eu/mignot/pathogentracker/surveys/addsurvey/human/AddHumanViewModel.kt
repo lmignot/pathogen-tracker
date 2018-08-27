@@ -12,7 +12,7 @@ import java.util.*
 
 class AddHumanViewModel(
   private val formDataProvider: FormDataProvider,
-  repository: SurveyRepository<Human>
+  repository: SurveyRepository
 ): AnkoLogger, BaseViewModel<Human>(repository), CurrentDateProvider {
 
   companion object {

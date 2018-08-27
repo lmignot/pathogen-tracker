@@ -4,19 +4,15 @@ import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.wifi.WifiManager
+import android.os.Environment
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 import eu.mignot.pathogentracker.data.AppFormDataProvider
 import eu.mignot.pathogentracker.preferences.AppPreferencesProvider
 import eu.mignot.pathogentracker.data.FormDataProvider
 import eu.mignot.pathogentracker.preferences.PreferencesProvider
-import eu.mignot.pathogentracker.surveys.data.HumanSurveyRepository
-import eu.mignot.pathogentracker.surveys.data.SurveyRepository
-import eu.mignot.pathogentracker.surveys.data.VectorBatchSurveyRepository
-import eu.mignot.pathogentracker.surveys.data.VectorSurveyRepository
-import eu.mignot.pathogentracker.surveys.data.models.database.Human
-import eu.mignot.pathogentracker.surveys.data.models.database.Vector
-import eu.mignot.pathogentracker.surveys.data.models.database.VectorBatch
+import eu.mignot.pathogentracker.surveys.data.*
+import eu.mignot.pathogentracker.util.DevicePhotoRepository
 import eu.mignot.pathogentracker.util.FirebaseLoginProvider
 import eu.mignot.pathogentracker.util.NetworkUtils
 import io.realm.Realm
@@ -27,6 +23,10 @@ class App : Application() {
     LocationServices.getFusedLocationProviderClient(this)
   }*/
 
+  private val deviceFileDir by lazy {
+    getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+  }
+
   private val prefsProvider by lazy {
     AppPreferencesProvider
   }
@@ -35,16 +35,8 @@ class App : Application() {
     AppFormDataProvider
   }
 
-  private val vectorBatchSurveyRepository by lazy {
-    VectorBatchSurveyRepository
-  }
-
-  private val vectorSurveyRepository by lazy {
-    VectorSurveyRepository
-  }
-
-  private val humanSurveyRepository by lazy {
-    HumanSurveyRepository
+  private val realmSurveysRepository by lazy {
+    RealmSurveysRepository
   }
 
   private val connectivityManager by lazy {
@@ -63,6 +55,10 @@ class App : Application() {
     AuthUI.getInstance()
   }
 
+  private val localPhotoRepository by lazy {
+    DevicePhotoRepository
+  }
+
   override fun onCreate() {
     super.onCreate()
     instance = this
@@ -75,15 +71,13 @@ class App : Application() {
       instance.prefsProvider
     fun getFormDataProvider(): FormDataProvider =
       instance.formDataProvider
-    fun getVectorBatchRepository(): SurveyRepository<VectorBatch> =
-      instance.vectorBatchSurveyRepository
-    fun getVectorRepository(): SurveyRepository<Vector> =
-      instance.vectorSurveyRepository
-    fun getHumanSurveyRepository(): SurveyRepository<Human> =
-      instance.humanSurveyRepository
+    fun getSurveysRepository(): SurveyRepository =
+      instance.realmSurveysRepository
     fun getNetworkUtils() = NetworkUtils(instance.connectivityManager, instance.wifiManager)
     fun getLoginProvider(): FirebaseLoginProvider = instance.authProvider
     fun getLoginUI(): AuthUI = instance.authUI
+    fun getDeviceFileDir() = instance.deviceFileDir!!
+    fun getLocalPhotoRepository() = instance.localPhotoRepository
   }
 
 }

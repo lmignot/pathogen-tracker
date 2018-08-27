@@ -33,7 +33,7 @@ class SurveysFragment: Fragment(), AnkoLogger {
 
   private val vm by lazy {
     SurveysViewModel(
-      UiSurveysRepository
+      App.getSurveysRepository()
     )
   }
 

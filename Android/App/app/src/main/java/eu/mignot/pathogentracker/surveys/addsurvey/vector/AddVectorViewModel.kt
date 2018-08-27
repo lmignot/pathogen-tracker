@@ -5,55 +5,31 @@ import eu.mignot.pathogentracker.preferences.PreferencesProvider
 import eu.mignot.pathogentracker.surveys.addsurvey.BaseViewModel
 import eu.mignot.pathogentracker.surveys.data.SurveyRepository
 import eu.mignot.pathogentracker.surveys.data.models.database.Vector
-import eu.mignot.pathogentracker.util.AppSettings
+import eu.mignot.pathogentracker.util.DevicePhotoRepository
 import org.jetbrains.anko.AnkoLogger
 import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
-import java.text.SimpleDateFormat
-import java.util.*
 
 class AddVectorViewModel (
   override val id: String,
-  repository: SurveyRepository<Vector>,
-  private val prefs: PreferencesProvider
+  repository: SurveyRepository,
+  private val prefs: PreferencesProvider,
+  private val photoRepository: DevicePhotoRepository
 ): AnkoLogger, BaseViewModel<Vector>(repository) {
-
-  private var photoPath: String? = null
 
   lateinit var photo: Bitmap
 
+  private var photoPath: String? = null
+
   fun getPhotoPath() = photoPath
 
-  fun getTempImageFile(storageDir: File): File? {
-    val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.UK).format(Date())
-    val fileName = "${id}_$timeStamp"
-    return createTempFile(storageDir, fileName, ".jpg")
-  }
-
-  fun savePhoto(): Boolean {
-    val imgQuality = if (prefs.getOptimizeImageRes()) {
-      AppSettings.Constants.DEFAULT_IMAGE_QUALITY
-    } else {
-      AppSettings.Constants.UNCOMPRESSED_IMAGE_QUALITY
-    }
-    return when (photoPath) {
-      null -> false
-      else -> FileOutputStream(photoPath).use {
-        photo.compress(Bitmap.CompressFormat.JPEG, imgQuality, it)
-      }
+  fun getTempImageFile(): File? {
+    return photoRepository.getTempImageFile(id)?.let {
+      photoPath = it.absolutePath
+      it
     }
   }
 
-  private fun createTempFile(storageDir: File, fileName: String, suffix: String): File? {
-    return try {
-      createTempFile(fileName, suffix, storageDir).let {
-        photoPath = it.absolutePath
-        it
-      }
-    } catch (e: IOException) {
-      null
-    }
-  }
+  fun savePhoto(): Boolean =
+    photoRepository.savePhoto(photoPath, photo, prefs.getOptimizeImageRes())
 
 }

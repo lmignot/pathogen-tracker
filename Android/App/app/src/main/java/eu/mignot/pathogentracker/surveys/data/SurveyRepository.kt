@@ -1,14 +1,23 @@
 package eu.mignot.pathogentracker.surveys.data
 
-import com.vicpin.krealmextensions.save
-import io.realm.RealmObject
+import eu.mignot.pathogentracker.surveys.data.models.database.Human
+import eu.mignot.pathogentracker.surveys.data.models.database.Vector
+import eu.mignot.pathogentracker.surveys.data.models.database.VectorBatch
 
-interface SurveyRepository<T: RealmObject> {
+interface SurveyRepository {
 
-  fun getSurvey(surveyId: String): T?
+  fun getPatientSurvey(surveyId: String): Human?
 
-  fun getSurveys(): List<T>
+  fun getPatientSurveys(): List<Human>
 
-  fun saveSurvey(survey: T) = survey.save()
+  fun getVectorBatchSurvey(surveyId: String): VectorBatch?
+
+  fun getVectorBatchSurveys(): List<VectorBatch>
+
+  fun getVectorSurvey(surveyId: String): Vector?
+
+  fun getVectorSurveys(): List<Vector>
+
+  fun getVectorSurveysFor(parentId: String): List<Vector>
 
 }

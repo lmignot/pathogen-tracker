@@ -48,7 +48,7 @@ class AddVectorBatchSurveyActivity: BaseSurveyActivity<VectorBatch>(), LocationV
 
   override val vm by lazy {
     AddVectorBatchViewModel(
-      App.getVectorBatchRepository()
+      App.getSurveysRepository()
     )
   }
 

@@ -8,7 +8,7 @@ import pub.devrel.easypermissions.AfterPermissionGranted
 
 interface UsesLocation {
   companion object {
-    const val REQUEST_CODE = 1
+    const val REQUEST_CODE = AppSettings.Constants.LOCATION_REQUEST_CODE
     const val PERMISSION = (Manifest.permission.ACCESS_FINE_LOCATION)
   }
 

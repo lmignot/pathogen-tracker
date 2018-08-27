@@ -19,7 +19,7 @@ class AddHumanSurveyActivity: BaseSurveyActivity<Human>(), StepperLayout.Stepper
   override val vm by lazy {
     AddHumanViewModel(
       App.getFormDataProvider(),
-      App.getHumanSurveyRepository()
+      App.getSurveysRepository()
     )
   }
 

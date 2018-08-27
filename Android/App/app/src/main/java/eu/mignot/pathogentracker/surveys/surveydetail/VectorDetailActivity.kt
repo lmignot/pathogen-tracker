@@ -29,7 +29,7 @@ class VectorDetailActivity : AppCompatActivity() {
   }
 
   private val survey by lazy {
-    App.getVectorRepository().getSurvey(surveyId)
+    App.getSurveysRepository().getVectorSurvey(surveyId)
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {

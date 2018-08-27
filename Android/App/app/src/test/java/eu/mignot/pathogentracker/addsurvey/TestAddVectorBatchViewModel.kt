@@ -1,6 +1,7 @@
 package eu.mignot.pathogentracker.addsurvey
 
 import eu.mignot.pathogentracker.surveys.addsurvey.vector.AddVectorBatchViewModel
+import eu.mignot.pathogentracker.surveys.data.RealmSurveysRepository
 import io.kotlintest.matchers.shouldBe
 import io.kotlintest.specs.ShouldSpec
 import java.util.*
@@ -17,7 +18,7 @@ class TestAddVectorBatchViewModel: ShouldSpec() {
   init {
 
     val vm = AddVectorBatchViewModel(
-      eu.mignot.pathogentracker.surveys.data.VectorBatchSurveyRepository
+      RealmSurveysRepository
     )
 
     should("generate an id starting with VB-") {

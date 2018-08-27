@@ -12,7 +12,6 @@ import android.widget.*
 import eu.mignot.pathogentracker.App
 import eu.mignot.pathogentracker.R
 import eu.mignot.pathogentracker.surveys.addsurvey.vector.AddVectorSurveyActivity
-import eu.mignot.pathogentracker.surveys.data.VectorSurveyRepository
 import eu.mignot.pathogentracker.surveys.data.models.database.Vector
 import eu.mignot.pathogentracker.surveys.data.models.database.getNextVectorSequence
 import eu.mignot.pathogentracker.util.setupToolbar
@@ -35,11 +34,11 @@ class VectorBatchDetailActivity: AppCompatActivity() {
   }
 
   private val survey by lazy {
-    App.getVectorBatchRepository().getSurvey(batchId)
+    App.getSurveysRepository().getVectorBatchSurvey(batchId)
   }
 
   private val vectorSurveys by lazy {
-    (App.getVectorRepository() as VectorSurveyRepository).getSurveys(batchId)
+    App.getSurveysRepository().getVectorSurveysFor(batchId)
   }
 
   private val adapter by lazy {

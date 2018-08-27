@@ -6,7 +6,6 @@ object AppSettings {
     const val SECONDARY_SURVEY_KEY = "SECONDARY_SURVEY_KEY"
     const val USE_CELLULAR_KEY = "USE_CELLULAR_KEY"
     const val IMAGE_RESOLUTION_KEY = "IMAGE_RESOLUTION_KEY"
-    const val IMAGE_QUALITY_KEY = "IMAGE_QUALITY_KEY"
     const val ON_BOARDING_COMPLETE_KEY = "ON_BOARDING_COMPLETE_KEY"
     const val PI_NETWORK_ID_KEY = "PI_NETWORK_ID_KEY"
   }
@@ -35,6 +34,9 @@ object AppSettings {
     const val MAX_TEMP = 40
     const val VECTOR_TYPE_VALUE = "Mosquito"
     const val PATIENT_TYPE_VALUE = "Patient"
+    const val LOCATION_REQUEST_CODE = 1
+    const val CAMERA_REQUEST_CODE = 2
+    const val GALLERY_REQUEST_CODE = 3
   }
 
 }

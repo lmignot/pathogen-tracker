@@ -9,7 +9,7 @@ import eu.mignot.pathogentracker.surveys.data.models.database.VectorBatch
 import org.jetbrains.anko.AnkoLogger
 
 class AddVectorBatchViewModel(
-  surveyRepository: SurveyRepository<VectorBatch>
+  surveyRepository: SurveyRepository
 ): AnkoLogger, BaseViewModel<VectorBatch>(surveyRepository), CurrentDateProvider {
 
   companion object {

@@ -5,7 +5,6 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
 import android.support.design.widget.BottomSheetBehavior
 import android.support.v4.content.FileProvider
@@ -51,7 +50,12 @@ class AddVectorSurveyActivity: BaseSurveyActivity<Vector>(), SpinnerOrOther, Use
   }
 
   override val vm by lazy {
-    AddVectorViewModel(vectorId, App.getVectorRepository(), App.getPreferenceProvider())
+    AddVectorViewModel(
+      vectorId,
+      App.getSurveysRepository(),
+      App.getPreferenceProvider(),
+      App.getLocalPhotoRepository()
+    )
   }
 
   private val photoSheetBehavior by lazy {
@@ -126,10 +130,9 @@ class AddVectorSurveyActivity: BaseSurveyActivity<Vector>(), SpinnerOrOther, Use
   private fun setupPhotoSheetButton() {
     photoSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
     photoButton.setOnClickListener {
-      if (photoSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
-        photoSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-      } else {
-        photoSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+      when (photoSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
+        true -> photoSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+        false -> photoSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
       }
     }
   }
@@ -162,9 +165,7 @@ class AddVectorSurveyActivity: BaseSurveyActivity<Vector>(), SpinnerOrOther, Use
   }
 
   private fun setupPhotoListener() {
-    if (fromCamera.visibility != View.GONE) {
-      setupCameraListener()
-    }
+    if (fromCamera.visibility != View.GONE) setupCameraListener()
     setupGalleryListener()
   }
 
@@ -192,7 +193,7 @@ class AddVectorSurveyActivity: BaseSurveyActivity<Vector>(), SpinnerOrOther, Use
 
   private fun setupCameraListener() {
     fromCamera.setOnClickListener {
-      vm.getTempImageFile(getExternalFilesDir(Environment.DIRECTORY_PICTURES))?.let {
+      vm.getTempImageFile()?.let {
         takePhotoIntent(it)
       }
     }
