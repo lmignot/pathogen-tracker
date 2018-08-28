@@ -24,7 +24,7 @@ open class Vector: RealmObject() {
 
   var dna: String = ""
 
-  var photoPath: String? = null
+  var photo: Photo? = null
 
   var uploadedAt: Date? = null
 

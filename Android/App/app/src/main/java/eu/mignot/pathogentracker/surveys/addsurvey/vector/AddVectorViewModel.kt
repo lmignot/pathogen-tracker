@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import eu.mignot.pathogentracker.preferences.PreferencesProvider
 import eu.mignot.pathogentracker.surveys.addsurvey.BaseViewModel
 import eu.mignot.pathogentracker.surveys.data.SurveyRepository
+import eu.mignot.pathogentracker.surveys.data.models.database.Photo
 import eu.mignot.pathogentracker.surveys.data.models.database.Vector
 import eu.mignot.pathogentracker.util.DevicePhotoRepository
 import org.jetbrains.anko.AnkoLogger
@@ -16,7 +17,7 @@ class AddVectorViewModel (
   private val photoRepository: DevicePhotoRepository
 ): AnkoLogger, BaseViewModel<Vector>(repository) {
 
-  lateinit var photo: Bitmap
+  var photo: Bitmap? = null
 
   private var photoPath: String? = null
 
@@ -29,7 +30,7 @@ class AddVectorViewModel (
     }
   }
 
-  fun savePhoto(): Boolean =
-    photoRepository.savePhoto(photoPath, photo, prefs.getOptimizeImageRes())
+  fun savePhoto(model: Photo) =
+    photoRepository.storePhoto(model, prefs.getOptimizeImageRes(), photo)
 
 }

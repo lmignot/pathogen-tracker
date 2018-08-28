@@ -2,6 +2,7 @@ package eu.mignot.pathogentracker.util
 
 import android.graphics.Bitmap
 import eu.mignot.pathogentracker.App
+import eu.mignot.pathogentracker.surveys.data.models.database.Photo
 import eu.mignot.pathogentracker.util.AppSettings.Constants.PHOTO_TIMESTAMP_FORMAT
 import java.io.File
 import java.io.FileOutputStream
@@ -15,17 +16,14 @@ object DevicePhotoRepository: PhotoRepository {
     App.getDeviceFileDir()
   }
 
-  override fun savePhoto(photoPath: String?, photo: Bitmap, isOptimized: Boolean): Boolean {
+  override fun storePhoto(model: Photo, isOptimized: Boolean, photo: Bitmap?) {
     val imgQuality = when (isOptimized) {
       true -> AppSettings.Constants.DEFAULT_IMAGE_QUALITY
       false -> AppSettings.Constants.UNCOMPRESSED_IMAGE_QUALITY
     }
 
-    return when (photoPath) {
-      null -> false
-      else -> FileOutputStream(photoPath).use {
-        photo.compress(Bitmap.CompressFormat.JPEG, imgQuality, it)
-      }
+    FileOutputStream(model.path).use {
+      photo!!.compress(Bitmap.CompressFormat.JPEG, imgQuality, it)
     }
   }
 

@@ -59,8 +59,8 @@ class VectorDetailActivity : AppCompatActivity() {
       vectorDetailStage.text = it.stage
       vectorDetailDidFeed.text = it.didFeed.asYesOrNo()
       vectorDetailDna.text = it.dna
-      it.photoPath?.let {
-        val photo = BitmapFactory.decodeFile(it)
+      it.photo?.let {
+        val photo = BitmapFactory.decodeFile(it.path)
         vectorDetailPhoto.setImageBitmap(photo)
         vectorDetailPhoto.visibility = View.VISIBLE
       }

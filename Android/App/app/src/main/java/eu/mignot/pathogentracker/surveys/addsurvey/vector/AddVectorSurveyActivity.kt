@@ -12,6 +12,7 @@ import android.view.View
 import eu.mignot.pathogentracker.App
 import eu.mignot.pathogentracker.R
 import eu.mignot.pathogentracker.surveys.addsurvey.BaseSurveyActivity
+import eu.mignot.pathogentracker.surveys.data.models.database.Photo
 import eu.mignot.pathogentracker.surveys.data.models.database.Vector
 import eu.mignot.pathogentracker.surveys.surveydetail.VectorBatchDetailActivity
 import eu.mignot.pathogentracker.surveys.surveys.SurveysActivity
@@ -27,6 +28,7 @@ import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.uiThread
 import pub.devrel.easypermissions.AfterPermissionGranted
 import java.io.File
+import java.util.*
 
 class AddVectorSurveyActivity: BaseSurveyActivity<Vector>(), SpinnerOrOther, UsesCamera, UsesGallery {
 
@@ -123,8 +125,17 @@ class AddVectorSurveyActivity: BaseSurveyActivity<Vector>(), SpinnerOrOther, Use
     result.didFeed = vectorDidFeed.asBoolean()
     if (vectorDna.text.toString() != getString(R.string.dna_field_label))
       result.dna = vectorDna.text.toString()
-    if (vm.savePhoto()) result.photoPath = vm.getPhotoPath()
+    if (vm.photo != null) result.photo = savePhoto()
     return result
+  }
+
+  private fun savePhoto(): Photo {
+    return with (Photo()) {
+      fileName = File(vm.getPhotoPath()).name
+      parentId = vm.id
+      path = vm.getPhotoPath()!!
+      this
+    }
   }
 
   private fun setupPhotoSheetButton() {
