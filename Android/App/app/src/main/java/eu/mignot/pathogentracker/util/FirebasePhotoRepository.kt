@@ -23,7 +23,9 @@ class FirebasePhotoRepository(private val storageRef: StorageReference): PhotoRe
     return FileInputStream(file).use {
       info { "Started uploading photo ${photo.fileName} at ${System.currentTimeMillis()}" }
       uploadRef.putStream(it)
-        .addOnFailureListener { error(it.localizedMessage) }
+        .addOnFailureListener {
+          error( "Photo ${photo.fileName} upload failed with error:\n ${it.localizedMessage}")
+        }
         .addOnSuccessListener {
           photo.uploadedAt = Date()
           photo.save()

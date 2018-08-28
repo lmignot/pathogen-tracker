@@ -5,6 +5,7 @@ import com.vicpin.krealmextensions.queryAll
 import com.vicpin.krealmextensions.queryFirst
 import com.vicpin.krealmextensions.save
 import eu.mignot.pathogentracker.surveys.data.models.database.Human
+import eu.mignot.pathogentracker.surveys.data.models.database.Photo
 import eu.mignot.pathogentracker.surveys.data.models.database.Vector
 import eu.mignot.pathogentracker.surveys.data.models.database.VectorBatch
 import io.realm.RealmObject
@@ -27,10 +28,22 @@ object RealmSurveysRepository: SurveyRepository {
   override fun getVectorSurveys(): List<Vector> = Vector().queryAll()
 
   override fun getVectorSurveysFor(parentId: String): List<Vector> = Vector()
-    .query { equalTo("batchId", parentId)}
+    .query { equalTo("batchId", parentId) }
     .sortedByDescending {
       it.sequence
     }
+
+  override fun getPhotosToUpload(): List<Photo> = Photo()
+    .query { isNotNull("uploadedAt") }
+
+  override fun getVectorsToUpload(): List<Vector> = Vector()
+    .query { isNotNull("uploadedAt") }
+
+  override fun getVectorBatchesToUpload(): List<VectorBatch> = VectorBatch()
+    .query { isNotNull("uploadedAt") }
+
+  override fun getHumansToUpload(): List<Human> = Human()
+    .query { isNotNull("uploadedAt") }
 
   fun <T: RealmObject> saveSurvey(survey: T) = survey.save()
 

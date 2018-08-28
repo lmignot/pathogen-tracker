@@ -88,7 +88,14 @@
     </activity>
     <service
       android:exported="false"
-      android:name=".syncservice.FirebaseSyncService">
+      android:name=".syncservice.FirebaseDataSyncService">
+      <intent-filter>
+        <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>
+      </intent-filter>
+    </service>
+    <service
+      android:exported="false"
+      android:name=".syncservice.FirebasePhotoSyncService">
       <intent-filter>
         <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>
       </intent-filter>

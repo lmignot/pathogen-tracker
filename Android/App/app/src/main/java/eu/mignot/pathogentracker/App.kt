@@ -7,6 +7,8 @@ import android.net.wifi.WifiManager
 import android.os.Environment
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import eu.mignot.pathogentracker.data.AppFormDataProvider
 import eu.mignot.pathogentracker.preferences.AppPreferencesProvider
 import eu.mignot.pathogentracker.data.FormDataProvider
@@ -14,14 +16,11 @@ import eu.mignot.pathogentracker.preferences.PreferencesProvider
 import eu.mignot.pathogentracker.surveys.data.*
 import eu.mignot.pathogentracker.util.DevicePhotoRepository
 import eu.mignot.pathogentracker.util.FirebaseLoginProvider
+import eu.mignot.pathogentracker.util.FirebasePhotoRepository
 import eu.mignot.pathogentracker.util.NetworkUtils
 import io.realm.Realm
 
 class App : Application() {
-
-  /*private val locationProvider by lazy {
-    LocationServices.getFusedLocationProviderClient(this)
-  }*/
 
   private val deviceFileDir by lazy {
     getExternalFilesDir(Environment.DIRECTORY_PICTURES)
@@ -59,10 +58,18 @@ class App : Application() {
     DevicePhotoRepository
   }
 
+  private val remotePhotoRepository by lazy {
+    FirebasePhotoRepository(FirebaseStorage.getInstance().reference)
+  }
+
   override fun onCreate() {
     super.onCreate()
     instance = this
     Realm.init(this)
+  }
+
+  private fun startPhotoJob() {
+    
   }
 
   companion object {
@@ -78,6 +85,7 @@ class App : Application() {
     fun getLoginUI(): AuthUI = instance.authUI
     fun getDeviceFileDir() = instance.deviceFileDir!!
     fun getLocalPhotoRepository() = instance.localPhotoRepository
+    fun getRemotePhotoRepository() = instance.remotePhotoRepository
   }
 
 }
