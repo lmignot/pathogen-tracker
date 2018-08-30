@@ -1,5 +1,9 @@
 package eu.mignot.pathogentracker.surveys.surveys
 
+import android.app.job.JobInfo
+import android.app.job.JobScheduler
+import android.content.ComponentName
+import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.content.ContextCompat
@@ -11,10 +15,12 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import eu.mignot.pathogentracker.App
 import eu.mignot.pathogentracker.R
+import eu.mignot.pathogentracker.launcher.AppLauncher
 import eu.mignot.pathogentracker.preferences.AppPreferencesActivity
 import eu.mignot.pathogentracker.surveys.addsurvey.human.AddHumanSurveyActivity
 import eu.mignot.pathogentracker.surveys.addsurvey.vector.AddVectorBatchSurveyActivity
 import eu.mignot.pathogentracker.surveys.data.SurveyType
+import eu.mignot.pathogentracker.syncservice.FirebasePhotoSyncService
 import eu.mignot.pathogentracker.util.AppSettings
 import eu.mignot.pathogentracker.util.setupToolbar
 import eu.mignot.pathogentracker.util.showShortMessage
@@ -34,6 +40,10 @@ class SurveysActivity: AppCompatActivity(), AnkoLogger {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+
+    if (!loginProvider.hasUser()) {
+      startActivity<AppLauncher>()
+    }
 
     setContentView(R.layout.activity_surveys)
 
@@ -61,6 +71,38 @@ class SurveysActivity: AppCompatActivity(), AnkoLogger {
       } else {
         showSurveySelection()
       }
+    }
+  }
+
+  override fun onStart() {
+    super.onStart()
+    info { "TRYING TO START A JOB"}
+    if (loginProvider.hasUser()) startPhotoJob()
+  }
+
+  private fun startPhotoJob() {
+    info { "START PHOTO JOB CALLED"}
+    val jobScheduler: JobScheduler = (applicationContext.getSystemService(Context.JOB_SCHEDULER_SERVICE)) as JobScheduler
+    val componentName = ComponentName(this, FirebasePhotoSyncService::class.java)
+    val job: JobInfo = getJobInfo(90210, prefsProvider.getUseCellular(), componentName)
+    jobScheduler.schedule(job)
+    info { "PHOTO JOB SCHEDULED [MAYBE]"}
+  }
+
+  /**
+   * Configure a background upload job
+   *
+   */
+  private fun getJobInfo(id: Int, useCellular: Boolean, componentName: ComponentName): JobInfo {
+    return when (useCellular) {
+      true -> JobInfo.Builder(id, componentName)
+        .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+        .setPersisted(true)
+        .build()
+      false -> JobInfo.Builder(id, componentName)
+        .setRequiredNetworkType(JobInfo.NETWORK_TYPE_UNMETERED)
+        .setPersisted(true)
+        .build()
     }
   }
 
@@ -111,7 +153,7 @@ class SurveysActivity: AppCompatActivity(), AnkoLogger {
 
   private fun doLogout() {
     loginProvider.signOut()
-    startActivity<eu.mignot.pathogentracker.launcher.LauncherActivity>()
+    startActivity<AppLauncher>()
   }
 
   private fun showSettings() {

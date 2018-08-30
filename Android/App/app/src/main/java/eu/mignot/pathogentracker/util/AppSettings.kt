@@ -39,6 +39,8 @@ object AppSettings {
     const val CAMERA_REQUEST_CODE = 2
     const val GALLERY_REQUEST_CODE = 3
     const val FIREBASE_PHOTO_PATH = "/photos/mosquitoes"
+    const val REALM_DB_NAME = "pt-local-db"
+    const val REALM_SCHEMA_VERSION = 1L
   }
 
 }

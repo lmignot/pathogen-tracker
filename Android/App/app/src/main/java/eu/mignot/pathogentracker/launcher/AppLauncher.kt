@@ -14,9 +14,10 @@ import eu.mignot.pathogentracker.util.showShortMessage
 import kotlinx.android.synthetic.main.content_launcher.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.error
+import org.jetbrains.anko.info
 import org.jetbrains.anko.startActivity
 
-class LauncherActivity : AppCompatActivity(), AnkoLogger {
+class AppLauncher : AppCompatActivity(), AnkoLogger {
 
   private val prefsProvider by lazy {
     App.getPreferenceProvider()

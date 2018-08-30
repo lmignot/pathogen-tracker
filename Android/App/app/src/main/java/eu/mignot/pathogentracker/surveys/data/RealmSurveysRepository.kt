@@ -34,16 +34,16 @@ object RealmSurveysRepository: SurveyRepository {
     }
 
   override fun getPhotosToUpload(): List<Photo> = Photo()
-    .query { isNotNull("uploadedAt") }
+    .query { isNull("uploadedAt") }
 
   override fun getVectorsToUpload(): List<Vector> = Vector()
-    .query { isNotNull("uploadedAt") }
+    .query { isNull("uploadedAt") }
 
   override fun getVectorBatchesToUpload(): List<VectorBatch> = VectorBatch()
-    .query { isNotNull("uploadedAt") }
+    .query { isNull("uploadedAt") }
 
   override fun getHumansToUpload(): List<Human> = Human()
-    .query { isNotNull("uploadedAt") }
+    .query { isNull("uploadedAt") }
 
   fun <T: RealmObject> saveSurvey(survey: T) = survey.save()
 

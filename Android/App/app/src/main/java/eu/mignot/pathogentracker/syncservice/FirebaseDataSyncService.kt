@@ -1,30 +1,24 @@
 package eu.mignot.pathogentracker.syncservice
 
-import com.firebase.jobdispatcher.JobParameters
-import com.firebase.jobdispatcher.JobService
-import io.realm.RealmObject
+import android.app.job.JobParameters
+import android.app.job.JobService
+import eu.mignot.pathogentracker.App
+import eu.mignot.pathogentracker.surveys.data.SurveyRepository
+import org.jetbrains.anko.AnkoLogger
 
-class FirebaseDataSyncService: JobService() {
+class FirebaseDataSyncService: JobService(), AnkoLogger {
 
-  private lateinit var uploadQueue: List<RealmObject>
-
-  /*
-   * 1. Return if upload queue is empty
-   */
-  override fun onStopJob(job: JobParameters?): Boolean {
-
-    return uploadQueue.isNotEmpty() // Answers the question: "Is there still work going on?"
+  private val repository: SurveyRepository by lazy {
+    App.getSurveysRepository()
   }
 
-  /*
-   * 1. get all Human, VectorBatch, Vector items where isUploaded = false
-   * 2. if empty, return false
-   * 3. if not empty prep items and add to queue
-   * 4. trigger upload
-   */
-  override fun onStartJob(job: JobParameters?): Boolean {
 
-    return false // Answers the question: "Should this job be retried?"
+  override fun onStopJob(job: JobParameters?): Boolean {
+    return false
+  }
+
+  override fun onStartJob(job: JobParameters?): Boolean {
+    return false
   }
 
 }

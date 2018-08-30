@@ -9,6 +9,7 @@ import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import java.io.File
 import java.io.FileInputStream
+import java.io.IOException
 import java.util.*
 
 class FirebasePhotoRepository(private val storageRef: StorageReference): PhotoRepository, AnkoLogger {
@@ -20,17 +21,24 @@ class FirebasePhotoRepository(private val storageRef: StorageReference): PhotoRe
   private fun storePhotoToFirebase(photo: Photo) {
     val file = File(photo.path)
     val uploadRef = storageRef.child("$FIREBASE_PHOTO_PATH/${photo.fileName}")
-    return FileInputStream(file).use {
+
+    val stream = FileInputStream(file)
+
+    try {
       info { "Started uploading photo ${photo.fileName} at ${System.currentTimeMillis()}" }
-      uploadRef.putStream(it)
+      uploadRef.putStream(stream)
         .addOnFailureListener {
+          stream.close()
           error( "Photo ${photo.fileName} upload failed with error:\n ${it.localizedMessage}")
         }
         .addOnSuccessListener {
+          stream.close()
           photo.uploadedAt = Date()
           photo.save()
           info { "Photo ${photo.fileName} uploaded successfully at ${System.currentTimeMillis()}" }
         }
+    } catch (e: IOException) {
+      error( "File Stream Error: ${e.localizedMessage}" )
     }
   }
 

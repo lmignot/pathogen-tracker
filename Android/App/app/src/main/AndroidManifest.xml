@@ -11,6 +11,7 @@
   <uses-permission android:name="android.permission.CAMERA" />
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
   <uses-feature android:name="android.hardware.location.gps" />
   <uses-feature android:name="android.hardware.location.network" />
@@ -78,7 +79,7 @@
     </provider>
 
     <activity
-      android:name=".launcher.LauncherActivity"
+      android:name=".launcher.AppLauncher"
       android:label="@string/title_activity_launcher"
       android:theme="@style/AppTheme.OverlapSystemBar">
       <intent-filter>
@@ -87,19 +88,13 @@
       </intent-filter>
     </activity>
     <service
-      android:exported="false"
-      android:name=".syncservice.FirebaseDataSyncService">
-      <intent-filter>
-        <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>
-      </intent-filter>
-    </service>
+      android:exported="true"
+      android:name=".syncservice.FirebaseDataSyncService"
+      android:permission="android.permission.BIND_JOB_SERVICE" />
     <service
-      android:exported="false"
-      android:name=".syncservice.FirebasePhotoSyncService">
-      <intent-filter>
-        <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>
-      </intent-filter>
-    </service>
+      android:exported="true"
+      android:name=".syncservice.FirebasePhotoSyncService"
+      android:permission="android.permission.BIND_JOB_SERVICE" />
   </application>
 
 </manifest>

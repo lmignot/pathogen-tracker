@@ -8,17 +8,17 @@ import android.os.Environment
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
+import com.vicpin.krealmextensions.RealmConfigStore
 import eu.mignot.pathogentracker.data.AppFormDataProvider
-import eu.mignot.pathogentracker.preferences.AppPreferencesProvider
 import eu.mignot.pathogentracker.data.FormDataProvider
+import eu.mignot.pathogentracker.preferences.AppPreferencesProvider
 import eu.mignot.pathogentracker.preferences.PreferencesProvider
-import eu.mignot.pathogentracker.surveys.data.*
-import eu.mignot.pathogentracker.util.DevicePhotoRepository
-import eu.mignot.pathogentracker.util.FirebaseLoginProvider
-import eu.mignot.pathogentracker.util.FirebasePhotoRepository
-import eu.mignot.pathogentracker.util.NetworkUtils
+import eu.mignot.pathogentracker.surveys.data.RealmSurveysRepository
+import eu.mignot.pathogentracker.surveys.data.SurveyRepository
+import eu.mignot.pathogentracker.surveys.data.models.database.*
+import eu.mignot.pathogentracker.util.*
 import io.realm.Realm
+import io.realm.RealmConfiguration
 
 class App : Application() {
 
@@ -65,11 +65,29 @@ class App : Application() {
   override fun onCreate() {
     super.onCreate()
     instance = this
-    Realm.init(this)
+    initRealm()
   }
 
-  private fun startPhotoJob() {
-    
+  /**
+   * Initialises app [Realm] instance with a specific configuration
+   */
+  private fun initRealm() {
+    Realm.init(this)
+    val config = RealmConfiguration
+      .Builder()
+      .name(AppSettings.Constants.REALM_DB_NAME)
+      .schemaVersion(AppSettings.Constants.REALM_SCHEMA_VERSION)
+      .deleteRealmIfMigrationNeeded()
+      .build()
+    RealmConfigStore.initModule(Human::class.java, config)
+    RealmConfigStore.initModule(Country::class.java, config)
+    RealmConfigStore.initModule(Infection::class.java, config)
+    RealmConfigStore.initModule(Location::class.java, config)
+    RealmConfigStore.initModule(Photo::class.java, config)
+    RealmConfigStore.initModule(SampleType::class.java, config)
+    RealmConfigStore.initModule(Symptom::class.java, config)
+    RealmConfigStore.initModule(Vector::class.java, config)
+    RealmConfigStore.initModule(VectorBatch::class.java, config)
   }
 
   companion object {

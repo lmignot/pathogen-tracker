@@ -12,24 +12,7 @@
 -keepattributes Signature
 -keepattributes *Annotation*
 
-# rxjava
--dontwarn sun.misc.**
-
--keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
-   long producerIndex;
-   long consumerIndex;
-}
-
--keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
-    rx.internal.util.atomic.LinkedQueueNode producerNode;
-}
-
--keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
-    rx.internal.util.atomic.LinkedQueueNode consumerNode;
-}
-
--dontnote rx.internal.util.PlatformDependent
-
+# Realm extensions for Kotlin
 -keepnames public class * extends io.realm.RealmObject
 -keep class io.realm.annotations.RealmModule
 -keep @io.realm.annotations.RealmModule class *
