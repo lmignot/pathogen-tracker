@@ -3,103 +3,113 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'realm-android'
+apply plugin: "idea"
 
 android {
-    compileSdkVersion 27
-    defaultConfig {
-        applicationId "eu.mignot.pathogentracker"
-        minSdkVersion 23
-        targetSdkVersion 27
-        versionCode 2
-        versionName "Beta-1.4.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        multiDexEnabled false
-        resConfigs "en"
+  compileSdkVersion 27
+  buildToolsVersion '28.0.0'
+  defaultConfig {
+    minSdkVersion 23
+    targetSdkVersion 27
+    targetSdkVersion 27
+    versionCode 3
+    versionName 'Beta'
+    applicationId "eu.mignot.pathogentracker"
+    versionNameSuffix '1.0.5'
+    resConfigs "en"
+    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+  }
+  buildTypes {
+    debug {
+      testCoverageEnabled = true
     }
-    buildTypes {
-        debug {
-
-        }
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
+    release {
+      minifyEnabled true
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
-    dexOptions {
-        preDexLibraries = false
+  }
+  // Always show the result of every unit test, even if it passes.
+  testOptions.unitTests.all {
+    testLogging {
+      events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
     }
-    packagingOptions {
-        exclude 'META-INF/rxjava.properties'
-    }
-}
-
-// enable @ParametersAreNonnullByDefault annotation. See https://blog.jetbrains.com/kotlin/2017/08/kotlin-1-1-4-is-out/
-tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
-    kotlinOptions {
-        freeCompilerArgs = ["-Xjsr305=strict"]
-    }
+  }
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+  sourceSets {
+    androidTest.java.srcDirs += "src/androidTest/kotlin"
+    test.java.srcDirs += "src/test/kotlin"
+    main.java.srcDirs += "src/main/kotlin"
+  }
+  productFlavors {
+  }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
-    testImplementation 'junit:junit:4.12'
-    testImplementation 'org.mockito:mockito-core:2.8.47'
-    testImplementation 'io.kotlintest:kotlintest:2.0.4'
-    androidTestImplementation 'org.mockito:mockito-core:2.8.47'
-    androidTestImplementation 'io.kotlintest:kotlintest:2.0.4'
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-        exclude group: 'com.android.support', module: 'appcompat-v7'
-        exclude group: 'com.android.support', module: 'support-v4'
-        exclude group: 'com.android.support', module: 'design'
-        exclude group: 'com.android.support', module: 'recyclerview-v7'
-        exclude group: 'com.android.support', module: 'preference-v7'
-        exclude group: 'com.google.android.gms', module: 'play-services-location'
-        exclude group: 'com.google.android.gms', module: 'play-services-auth'
-    })
-    // kotlin and anko
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation "org.jetbrains.anko:anko-common:$anko_version"
-    implementation "org.jetbrains.anko:anko-sdk25:$anko_version"
-    implementation "org.jetbrains.anko:anko-appcompat-v7:$anko_version"
-    implementation "org.jetbrains.anko:anko-sdk25-coroutines:$anko_version"
-    implementation "org.jetbrains.anko:anko-appcompat-v7-coroutines:$anko_version"
-    // android support
-    implementation "com.android.support:appcompat-v7:$android_support_version"
-    implementation "com.android.support:recyclerview-v7:$android_support_version"
-    implementation "com.android.support:design:$android_support_version"
-    implementation "com.android.support:preference-v7:$android_support_version"
-    // play services
-    implementation "com.google.android.gms:play-services-location:15.0.1"
-    implementation "com.google.android.gms:play-services-auth:16.0.0"
-    // permissions
-    implementation 'me.zhanghai.android.effortlesspermissions:library:1.0.0'
-    // location
-    implementation 'com.github.yayaa:LocationManager:2.0.4'
-    // firebase libraries
-    implementation "com.google.firebase:firebase-core:16.0.3"
-    implementation "com.google.firebase:firebase-auth:16.0.3"
-    implementation "com.google.firebase:firebase-database:16.0.1"
-    implementation "com.google.firebase:firebase-firestore:17.1.0"
-    implementation "com.google.firebase:firebase-storage:16.0.1"
-    implementation "com.google.firebase:firebase-config:16.0.0"
-    implementation "com.google.firebase:firebase-crash:16.2.0"
-    implementation "com.firebaseui:firebase-ui-auth:4.1.0"
-    // other tools
-    implementation 'com.stepstone.stepper:material-stepper:3.3.0'
-    // realm extensions for kotlin
-    implementation 'com.github.vicpinm:krealmextensions:2.2.0'
+
+  // Android Support
+  implementation "com.android.support:appcompat-v7:$rootProject.ext.supportLibVersion"
+  implementation "com.android.support:recyclerview-v7:$rootProject.ext.supportLibVersion"
+  implementation "com.android.support:design:$rootProject.ext.supportLibVersion"
+  implementation "com.android.support:preference-v7:$rootProject.ext.supportLibVersion"
+  implementation "com.android.support.constraint:constraint-layout:$rootProject.ext.constraintLayoutVersion"
+
+  // Kotlin and Anko
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$rootProject.ext.kotlinVersion"
+  implementation "org.jetbrains.anko:anko-common:$rootProject.ext.ankoVersion"
+  implementation "org.jetbrains.anko:anko-sdk25:$rootProject.ext.ankoVersion"
+  implementation "org.jetbrains.anko:anko-appcompat-v7:$rootProject.ext.ankoVersion"
+  implementation "org.jetbrains.anko:anko-sdk25-coroutines:$rootProject.ext.ankoVersion"
+  implementation "org.jetbrains.anko:anko-appcompat-v7-coroutines:$rootProject.ext.ankoVersion"
+
+  // Google Play Services
+  implementation "com.google.android.gms:play-services-location:$rootProject.ext.playLocationVersion"
+  implementation "com.google.android.gms:play-services-auth:$rootProject.ext.playAuthVersion"
+
+  // Firebase
+  implementation "com.google.firebase:firebase-core:$rootProject.ext.fbCoreVersion"
+  implementation "com.google.firebase:firebase-auth:$rootProject.ext.fbAuthVersion"
+  implementation "com.google.firebase:firebase-firestore:$rootProject.ext.fbFirestoreVersion"
+  implementation "com.google.firebase:firebase-storage:$rootProject.ext.fbStorageVersion"
+  implementation "com.google.firebase:firebase-crash:$rootProject.ext.fbCrashVersion"
+  implementation "com.firebaseui:firebase-ui-auth:$rootProject.ext.fbUIAuthVersion"
+
+  // Third-Party Libraries
+  implementation "me.zhanghai.android.effortlesspermissions:library:$rootProject.ext.effPermVersion"
+  implementation "com.github.yayaa:LocationManager:$rootProject.ext.locManVersion"
+  implementation "com.stepstone.stepper:material-stepper:$rootProject.ext.stepperVersion"
+  implementation "com.github.vicpinm:krealmextensions:$rootProject.ext.kRealmExtVersion"
+
+  // Testing
+  testImplementation "junit:junit:$rootProject.ext.junitVersion"
+  testImplementation "org.mockito:mockito-all:$rootProject.ext.mockitoVersion"
+  testImplementation "org.hamcrest:hamcrest-all:$rootProject.ext.hamcrestVersion"
+  androidTestImplementation "com.android.support.test:runner:$rootProject.ext.runnerVersion"
+  androidTestImplementation "com.android.support.test:rules:$rootProject.ext.rulesVersion"
+  androidTestImplementation "com.android.support.test.espresso:espresso-core:$rootProject.ext.espressoVersion"
+  androidTestImplementation "com.android.support.test.espresso:espresso-contrib:$rootProject.ext.espressoVersion"
+  androidTestImplementation "com.android.support.test.espresso:espresso-intents:$rootProject.ext.espressoVersion"
+
+  // UIAutomator Testing. Learn about this dependency in this projects README file.
+  androidTestImplementation "com.android.support.test.uiautomator:uiautomator-v18:$rootProject.ext.uiautomatorVersion"
+
+  // Resolve conflicts between main and test APK:
+  androidTestImplementation "com.android.support:support-annotations:$rootProject.supportLibVersion"
 }
 
 kotlin {
-    experimental {
-        coroutines "enable"
-    }
+  experimental {
+    coroutines "enable"
+  }
 }
 
-kapt {
-    mapDiagnosticLocations = true
+idea {
+  module {
+    sourceDirs += files("build/generated/source/kapt/main", "build/generated/source/kaptKotlin/main")
+    generatedSourceDirs += files("build/generated/source/kapt/main", "build/generated/source/kaptKotlin/main")
+  }
 }
 
-apply plugin: 'com.google.gms.google-services'
+apply plugin: "com.google.gms.google-services"
