@@ -1,4 +1,4 @@
-package eu.mignot.pathogentracker.surveys.data.models.database
+package eu.mignot.pathogentracker.data.models.database
 
 import eu.mignot.pathogentracker.util.AppSettings
 import io.realm.RealmObject
@@ -8,7 +8,9 @@ import io.realm.annotations.Required
 import java.util.*
 
 open class Vector: RealmObject() {
-  @PrimaryKey @Required var id: String = ""
+  @PrimaryKey
+  @Required
+  var id: String = ""
 
   @Index @Required var batchId: String = ""
 
@@ -22,13 +24,12 @@ open class Vector: RealmObject() {
 
   var didFeed: Boolean = false
 
-  var dna: String = ""
-
   var photo: Photo? = null
 
   var uploadedAt: Date? = null
 
   fun isUploaded(): Boolean = uploadedAt !== null
+
 }
 
 /**

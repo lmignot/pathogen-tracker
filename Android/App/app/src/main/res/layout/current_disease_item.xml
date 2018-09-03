@@ -13,7 +13,6 @@
       android:id="@+id/disease"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="Zika"
       android:textSize="18sp"/>
 
     <TextView
@@ -21,7 +20,6 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="4dp"
-      android:text="Symptoms: Headache, Fever"
       android:textSize="14sp"/>
 
   </LinearLayout>
@@ -33,6 +31,7 @@
     android:layout_alignParentStart="true"
     android:layout_centerVertical="true"
     android:background="@color/transparent"
-    android:src="@drawable/close_black"/>
+    android:src="@drawable/close_black"
+    android:contentDescription="@string/remove"/>
 
 </RelativeLayout>

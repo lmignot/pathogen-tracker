@@ -3,7 +3,7 @@ buildscript {
     kotlinVersion = "1.2.60"
     ankoVersion = "0.10.5"
     supportLibVersion = "27.1.1"
-    constraintLayoutVersion = "1.1.2"
+    constraintLayoutVersion = "1.1.3"
     playLocationVersion = "15.0.1"
     playAuthVersion = "16.0.0"
     fbCoreVersion = "16.0.3"

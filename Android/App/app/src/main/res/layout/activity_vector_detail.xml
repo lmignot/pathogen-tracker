@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:paddingStart="56dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-        android:text="Survey ID and sequence"
+        android:text="@string/survey_id_and_sequence"
         />
 
       <TextView
@@ -43,7 +43,6 @@
         android:ellipsize="end"
         android:gravity="center_vertical"
         android:lines="1"
-        android:text="H-1781717-1231231-1231231asdfa-1"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
       <TextView
@@ -51,7 +50,7 @@
         android:layout_height="wrap_content"
         android:paddingStart="56dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-        android:text="Species"
+        android:text="@string/species"
         />
       <TextView
         android:id="@+id/vectorDetailSpecies"
@@ -62,7 +61,6 @@
         android:drawablePadding="32dp"
         android:drawableStart="@drawable/mosquito"
         android:lines="1"
-        android:text="Anopheles Funestus"
         android:gravity="center_vertical"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
@@ -71,7 +69,7 @@
         android:layout_height="wrap_content"
         android:paddingStart="56dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-        android:text="Gender"
+        android:text="@string/gender"
         />
       <TextView
         android:id="@+id/vectorDetailGender"
@@ -82,7 +80,6 @@
         android:drawablePadding="32dp"
         android:drawableStart="@drawable/gender_male_female"
         android:lines="1"
-        android:text="Male"
         android:gravity="center_vertical"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
@@ -91,7 +88,7 @@
         android:layout_height="wrap_content"
         android:paddingStart="56dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-        android:text="Stage"
+        android:text="@string/stage"
         />
       <TextView
         android:id="@+id/vectorDetailStage"
@@ -101,7 +98,6 @@
         android:layout_marginBottom="16dp"
         android:layout_marginStart="56dp"
         android:lines="1"
-        android:text="Larvae"
         android:gravity="center_vertical"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
@@ -110,7 +106,7 @@
         android:layout_height="wrap_content"
         android:paddingStart="56dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-        android:text="Has the mosquito fed?"
+        android:text="@string/has_the_mosquito_fed"
         />
       <TextView
         android:id="@+id/vectorDetailDidFeed"
@@ -121,30 +117,8 @@
         android:drawablePadding="32dp"
         android:drawableStart="@drawable/food_variant"
         android:lines="1"
-        android:text="Yes"
         android:gravity="center_vertical"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
-
-      <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="56dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-        android:text="DNA"
-        />
-      <TextView
-        android:id="@+id/vectorDetailDna"
-        android:layout_width="match_parent"
-        android:layout_height="36dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:drawablePadding="32dp"
-        android:drawableStart="@drawable/dna"
-        android:lines="1"
-        android:text="Dna string"
-        android:gravity="center_vertical"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
-
 
       <TextView
         android:layout_width="match_parent"
@@ -152,7 +126,7 @@
         android:paddingStart="56dp"
         android:layout_marginBottom="24dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-        android:text="Photo"
+        android:text="@string/photo"
         />
       <ImageView
         android:id="@+id/vectorDetailPhoto"

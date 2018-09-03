@@ -6,16 +6,15 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import eu.mignot.pathogentracker.App
 import eu.mignot.pathogentracker.R
-import eu.mignot.pathogentracker.surveys.data.SurveyType
+import eu.mignot.pathogentracker.data.SurveyType
 import eu.mignot.pathogentracker.surveys.surveys.SurveysActivity
 import eu.mignot.pathogentracker.util.UsesCamera
-import eu.mignot.pathogentracker.util.UsesGallery
 import eu.mignot.pathogentracker.util.UsesLocation
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.jetbrains.anko.startActivity
 
-class OnBoarding : AppCompatActivity(), AnkoLogger, UsesCamera, UsesLocation, UsesGallery {
+class OnBoarding : AppCompatActivity(), AnkoLogger, UsesCamera, UsesLocation {
 
   private val vm by lazy {
     OnBoardingViewModel(App.getPreferenceProvider())

@@ -1,7 +1,7 @@
 package eu.mignot.pathogentracker.onboarding
 
+import eu.mignot.pathogentracker.data.SurveyType
 import eu.mignot.pathogentracker.preferences.PreferencesProvider
-import eu.mignot.pathogentracker.surveys.data.SurveyType
 
 class OnBoardingViewModel(private val prefs: PreferencesProvider) {
 

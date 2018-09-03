@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import eu.mignot.pathogentracker.R
-import eu.mignot.pathogentracker.surveys.data.SurveyType
+import eu.mignot.pathogentracker.data.SurveyType
 import kotlinx.android.synthetic.main.fragment_choose_primary_activity.*
 import org.jetbrains.anko.sdk25.coroutines.onClick
 
@@ -20,11 +20,11 @@ class ChoosePrimaryUserActivity: Fragment() {
     super.onStart()
 
     primaryActivityVector.onClick {
-      (activity as OnBoarding).onChoosePrimaryActivity(SurveyType.VECTOR())
+      (activity as OnBoarding).onChoosePrimaryActivity(SurveyType.VECTOR)
     }
 
     primaryActivityPatient.onClick {
-      (activity as OnBoarding).onChoosePrimaryActivity(SurveyType.PATIENT())
+      (activity as OnBoarding).onChoosePrimaryActivity(SurveyType.PATIENT)
     }
   }
 

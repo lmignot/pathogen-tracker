@@ -35,12 +35,12 @@ class AskForPermissionFragment : Fragment() {
 
   companion object {
       fun newInstance(permissionCode: Int, permissionRationaleId: Int): AskForPermissionFragment {
-        val f = AskForPermissionFragment()
+        val fragment = AskForPermissionFragment()
         val args = Bundle()
         args.putInt(AppSettings.Constants.PERMISSION_CODE, permissionCode)
         args.putInt(AppSettings.Constants.PERMISSION_RATIONALE_ID, permissionRationaleId)
-        f.arguments = args
-        return f
+        fragment.arguments = args
+        return fragment
       }
   }
 }

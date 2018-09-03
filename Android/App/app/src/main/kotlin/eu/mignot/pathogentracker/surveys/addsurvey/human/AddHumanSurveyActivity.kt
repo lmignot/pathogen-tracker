@@ -6,8 +6,8 @@ import com.stepstone.stepper.StepperLayout
 import com.stepstone.stepper.VerificationError
 import eu.mignot.pathogentracker.App
 import eu.mignot.pathogentracker.R
+import eu.mignot.pathogentracker.data.models.database.Human
 import eu.mignot.pathogentracker.surveys.addsurvey.BaseSurveyActivity
-import eu.mignot.pathogentracker.surveys.data.models.database.Human
 import eu.mignot.pathogentracker.surveys.surveys.SurveysActivity
 import eu.mignot.pathogentracker.util.AppSettings
 import eu.mignot.pathogentracker.util.setupToolbar
@@ -50,9 +50,9 @@ class AddHumanSurveyActivity: BaseSurveyActivity<Human>(), StepperLayout.Stepper
 
   override fun getModel(): Human =
     (stepperLayout.adapter as StepAdapter)
-      .getAllSteps().fold( Human(), { model, step ->
-        step.getModel(model)
-      })
+      .getAllSteps().fold(Human()) { model, step ->
+          step.getModel(model)
+      }
 
   private fun setupStepper() {
     stepperLayout.adapter = StepAdapter(supportFragmentManager, this, 3)

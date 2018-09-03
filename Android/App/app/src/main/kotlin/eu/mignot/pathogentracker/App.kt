@@ -1,23 +1,21 @@
 package eu.mignot.pathogentracker
 
 import android.app.Application
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.wifi.WifiManager
 import android.os.Environment
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.google.firebase.storage.FirebaseStorage
 import com.vicpin.krealmextensions.RealmConfigStore
 import eu.mignot.pathogentracker.data.AppFormDataProvider
 import eu.mignot.pathogentracker.data.FormDataProvider
+import eu.mignot.pathogentracker.data.models.database.*
 import eu.mignot.pathogentracker.preferences.AppPreferencesProvider
 import eu.mignot.pathogentracker.preferences.PreferencesProvider
-import eu.mignot.pathogentracker.surveys.data.FirebaseSurveysRepository
-import eu.mignot.pathogentracker.surveys.data.RealmSurveysRepository
-import eu.mignot.pathogentracker.surveys.data.SurveyRepository
-import eu.mignot.pathogentracker.surveys.data.models.database.*
-import eu.mignot.pathogentracker.util.*
+import eu.mignot.pathogentracker.repository.*
+import eu.mignot.pathogentracker.util.AppSettings
+import eu.mignot.pathogentracker.util.FirebaseLoginProvider
 import io.realm.Realm
 import io.realm.RealmConfiguration
 
@@ -39,16 +37,20 @@ class App : Application() {
     RealmSurveysRepository
   }
 
+  private val fireStoreInstance by lazy {
+    val settings = FirebaseFirestoreSettings.Builder()
+      .setPersistenceEnabled(false)
+      .setTimestampsInSnapshotsEnabled(true)
+      .build()
+    val db = FirebaseFirestore.getInstance()
+    db.firestoreSettings = settings
+    db
+  }
+
   private val remoteSurveysRepository by lazy {
-    FirebaseSurveysRepository
-  }
-
-  private val connectivityManager by lazy {
-    instance.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-  }
-
-  private val wifiManager by lazy {
-    instance.getSystemService(Context.WIFI_SERVICE) as WifiManager
+    FirebaseSurveysRepository(
+      fireStoreInstance
+    )
   }
 
   private val authProvider by lazy {
@@ -105,7 +107,6 @@ class App : Application() {
       instance.localSurveysRepository
     fun getRemoteSurveysRepository(): SurveyRepository =
       instance.remoteSurveysRepository
-    fun getNetworkUtils() = NetworkUtils(instance.connectivityManager, instance.wifiManager)
     fun getLoginProvider(): FirebaseLoginProvider = instance.authProvider
     fun getLoginUI(): AuthUI = instance.authUI
     fun getDeviceFileDir() = instance.deviceFileDir!!

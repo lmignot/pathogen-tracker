@@ -1,9 +1,9 @@
-package eu.mignot.pathogentracker.util
+package eu.mignot.pathogentracker.repository
 
 import android.graphics.Bitmap
 import com.google.firebase.storage.StorageReference
 import com.vicpin.krealmextensions.save
-import eu.mignot.pathogentracker.surveys.data.models.database.Photo
+import eu.mignot.pathogentracker.data.models.database.Photo
 import eu.mignot.pathogentracker.util.AppSettings.Constants.FIREBASE_PHOTO_PATH
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info

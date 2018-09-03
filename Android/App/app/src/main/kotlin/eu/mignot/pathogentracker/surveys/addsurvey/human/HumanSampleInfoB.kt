@@ -8,11 +8,11 @@ import android.widget.BaseAdapter
 import android.widget.CheckBox
 import android.widget.LinearLayout
 import eu.mignot.pathogentracker.R
+import eu.mignot.pathogentracker.data.models.database.Human
+import eu.mignot.pathogentracker.data.models.database.Infection
+import eu.mignot.pathogentracker.data.models.database.Symptom
+import eu.mignot.pathogentracker.data.models.ui.CurrentDisease
 import eu.mignot.pathogentracker.util.asBoolean
-import eu.mignot.pathogentracker.surveys.data.models.database.Human
-import eu.mignot.pathogentracker.surveys.data.models.database.Infection
-import eu.mignot.pathogentracker.surveys.data.models.database.Symptom
-import eu.mignot.pathogentracker.surveys.data.models.ui.CurrentDisease
 import io.realm.RealmList
 import kotlinx.android.synthetic.main.fragment_sample_info_2.*
 import org.jetbrains.anko.*
@@ -45,7 +45,7 @@ class HumanSampleInfoB : StepFragment() {
   override fun getModel(model: Human): Human {
     model.currentInfections.addAll(vm.currentDiseases.map {
       val rl = RealmList<Symptom>()
-      rl.addAll(it.symptoms.map { Symptom(it) })
+      rl.addAll(it.symptoms.map { s -> Symptom(s) })
       Infection(it.disease, rl)
     })
     model.isFamilyMemberIll = surveyIsHouseholdMemberIll.asBoolean()
@@ -54,7 +54,7 @@ class HumanSampleInfoB : StepFragment() {
   }
 
   private fun addCurrentDiseaseListener() {
-    surveyAddCurrentDisease?.setOnClickListener {
+    surveyAddCurrentDisease?.setOnClickListener { _ ->
       alert {
         customView {
           linearLayout {
@@ -81,21 +81,22 @@ class HumanSampleInfoB : StepFragment() {
               marginStart = dip(4)
               bottomMargin = dip(12)
             }
-            val checkboxes: List<CheckBox> = vm.symptoms().fold(listOf(), {
-              ls: List<CheckBox>, s ->
-                ls.plus(checkBox {
-                  text = s
-                })
+            val checkboxes: List<CheckBox> = vm.symptoms().fold(listOf()) { ls: List<CheckBox>, s ->
+              ls.plus(checkBox {
+                text = s
               })
+            }
             positiveButton("Save") {
               val disease = spinner.selectedItem.toString()
               val symptoms: List<String> = checkboxes
-                .filter { it.isChecked }
-                .map { it.text.toString() }.toList()
-              currentDiseasesAdapter.addItem(CurrentDisease(
-                UUID.randomUUID().toString(),
-                disease,
-                symptoms)
+                .filter { cb -> cb.isChecked }
+                .map { cb -> cb.text.toString() }.toList()
+              currentDiseasesAdapter.addItem(
+                CurrentDisease(
+                  UUID.randomUUID().toString(),
+                  disease,
+                  symptoms
+                )
               )
               surveyCurrentDiseases.requestLayout()
             }

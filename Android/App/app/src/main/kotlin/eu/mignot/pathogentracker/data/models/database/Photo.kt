@@ -1,4 +1,4 @@
-package eu.mignot.pathogentracker.surveys.data.models.database
+package eu.mignot.pathogentracker.data.models.database
 
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey

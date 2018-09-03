@@ -1,10 +1,10 @@
 package eu.mignot.pathogentracker.surveys.addsurvey.vector
 
+import eu.mignot.pathogentracker.data.models.database.VectorBatch
+import eu.mignot.pathogentracker.data.models.ui.UiLocation
+import eu.mignot.pathogentracker.repository.SurveyRepository
 import eu.mignot.pathogentracker.surveys.addsurvey.BaseViewModel
 import eu.mignot.pathogentracker.surveys.addsurvey.CurrentDateProvider
-import eu.mignot.pathogentracker.surveys.data.SurveyRepository
-import eu.mignot.pathogentracker.surveys.data.models.database.VectorBatch
-import eu.mignot.pathogentracker.surveys.data.models.ui.UiLocation
 import org.jetbrains.anko.AnkoLogger
 import java.util.*
 

@@ -12,12 +12,12 @@ import com.yayandroid.locationmanager.configuration.PermissionConfiguration
 import eu.mignot.pathogentracker.App
 import eu.mignot.pathogentracker.R
 import eu.mignot.pathogentracker.data.LocationView
+import eu.mignot.pathogentracker.data.models.database.Human
+import eu.mignot.pathogentracker.data.models.database.Location
+import eu.mignot.pathogentracker.data.models.ui.UiLocation
 import eu.mignot.pathogentracker.util.asBoolean
 import eu.mignot.pathogentracker.util.selectedValue
 import eu.mignot.pathogentracker.util.showShortMessage
-import eu.mignot.pathogentracker.surveys.data.models.database.Human
-import eu.mignot.pathogentracker.surveys.data.models.database.Location
-import eu.mignot.pathogentracker.surveys.data.models.ui.UiLocation
 import kotlinx.android.synthetic.main.fragment_personal_info.*
 import org.jetbrains.anko.sdk25.coroutines.onCheckedChange
 import java.util.*
@@ -76,7 +76,11 @@ class HumanPersonalInfo: StepFragment(), LocationView {
     model.id = vm.id
     model.collectedOn = vm.date.time
     model.locationCollected = vm.location?.let {
-      Location(it.longitude, it.latitude, it.accuracy)
+      Location(
+        it.longitude,
+        it.latitude,
+        it.accuracy
+      )
     }
     model.dateOfBirth = vm.dateOfBirth.time
     model.gender = vm.gender
@@ -91,13 +95,13 @@ class HumanPersonalInfo: StepFragment(), LocationView {
       val date = vm.date
       DatePickerDialog(
         activity,
-        DatePickerDialog.OnDateSetListener({ _, year, month, dayOfMonth ->
+        DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
           date.set(Calendar.YEAR, year)
           date.set(Calendar.MONTH, month)
           date.set(Calendar.DATE, dayOfMonth)
           vm.date = date
           getDateCollected()
-        }),
+        },
         date.get(Calendar.YEAR),
         date.get(Calendar.MONTH),
         date.get(Calendar.DATE)
@@ -112,13 +116,13 @@ class HumanPersonalInfo: StepFragment(), LocationView {
       val date = vm.dateOfBirth
       DatePickerDialog(
         activity,
-        DatePickerDialog.OnDateSetListener({ _, year, month, dayOfMonth ->
+        DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
           date.set(Calendar.YEAR, year)
           date.set(Calendar.MONTH, month)
           date.set(Calendar.DATE, dayOfMonth)
           vm.dateOfBirth = date
           getDateOfBirth()
-        }),
+        },
         date.get(Calendar.YEAR),
         date.get(Calendar.MONTH),
         date.get(Calendar.DATE)
@@ -143,7 +147,8 @@ class HumanPersonalInfo: StepFragment(), LocationView {
 
   override fun processLocation(location: android.location.Location?) {
     location?.let {
-      val loc = UiLocation(it.longitude, it.latitude, it.accuracy)
+      val loc =
+        UiLocation(it.longitude, it.latitude, it.accuracy)
       vm.location = loc
       surveyLocation?.setText(loc.toString())
     }

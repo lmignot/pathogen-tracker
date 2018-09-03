@@ -2,9 +2,19 @@
   <!-- Base application theme. -->
   <style name="AppTheme" parent="Base.AppTheme" />
 
-  <style name="AppTheme.OverlapSystemBar" parent="Base.AppTheme" />
+  <style name="AppTheme.OverlapSystemBar" parent="Base.AppTheme">
+    <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+    <item name="android:statusBarColor">@android:color/transparent</item>
+    <item name="android:windowTranslucentStatus">true</item>
+  </style>
 
-  <style name="AppTheme.OverlapSystemBarVector" parent="Vector.AppTheme" />
+  <style name="AppThemeVector" parent="Vector.AppTheme" />
+
+  <style name="AppTheme.OverlapSystemBarVector" parent="Vector.AppTheme">
+    <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+    <item name="android:statusBarColor">@android:color/transparent</item>
+    <item name="android:windowTranslucentStatus">true</item>
+  </style>
 
   <style name="Base.AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
     <!-- Customize your theme here. -->

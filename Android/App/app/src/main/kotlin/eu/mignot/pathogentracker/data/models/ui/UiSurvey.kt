@@ -1,6 +1,6 @@
-package eu.mignot.pathogentracker.surveys.data.models.ui
+package eu.mignot.pathogentracker.data.models.ui
 
-import eu.mignot.pathogentracker.surveys.data.SurveyType
+import eu.mignot.pathogentracker.data.SurveyType
 
 data class UiSurvey (
   val surveyId: String,

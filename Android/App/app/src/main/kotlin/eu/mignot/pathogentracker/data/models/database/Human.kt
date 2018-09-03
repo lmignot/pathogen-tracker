@@ -1,10 +1,10 @@
-package eu.mignot.pathogentracker.surveys.data.models.database
+package eu.mignot.pathogentracker.data.models.database
 
-import java.util.*
 import io.realm.RealmList
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 import io.realm.annotations.Required
+import java.util.*
 
 open class Human: RealmObject() {
   @PrimaryKey
@@ -37,4 +37,5 @@ open class Human: RealmObject() {
   var uploadedAt: Date? = null
 
   fun isUploaded(): Boolean = uploadedAt !== null
+
 }

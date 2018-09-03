@@ -5,7 +5,6 @@ import android.support.v4.app.FragmentManager
 import com.stepstone.stepper.Step
 import com.stepstone.stepper.adapter.AbstractFragmentStepAdapter
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
 
 /**
  * @see AbstractFragmentStepAdapter
@@ -38,9 +37,9 @@ class StepAdapter(
    * @return List of initialised steps as [StepFragment]
    */
   fun getAllSteps(): List<StepFragment> =
-    (0 until count).fold(listOf(), { ls: List<StepFragment>, i: Int ->
+    (0 until count).fold(listOf()) { ls: List<StepFragment>, i: Int ->
       val step = findStep(i)?.let { it as StepFragment }
       if (step != null) ls.plus(step) else ls
-    })
+    }
 
 }

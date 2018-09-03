@@ -15,13 +15,16 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import eu.mignot.pathogentracker.App
 import eu.mignot.pathogentracker.R
+import eu.mignot.pathogentracker.data.SurveyType
 import eu.mignot.pathogentracker.launcher.AppLauncher
 import eu.mignot.pathogentracker.preferences.AppPreferencesActivity
 import eu.mignot.pathogentracker.surveys.addsurvey.human.AddHumanSurveyActivity
 import eu.mignot.pathogentracker.surveys.addsurvey.vector.AddVectorBatchSurveyActivity
-import eu.mignot.pathogentracker.surveys.data.SurveyType
+import eu.mignot.pathogentracker.syncservice.FirebaseHumanSyncService
 import eu.mignot.pathogentracker.syncservice.FirebasePhotoSyncService
-import eu.mignot.pathogentracker.util.AppSettings
+import eu.mignot.pathogentracker.syncservice.FirebaseVectorBatchSyncService
+import eu.mignot.pathogentracker.syncservice.FirebaseVectorSyncService
+import eu.mignot.pathogentracker.util.AppSettings.Constants
 import eu.mignot.pathogentracker.util.setupToolbar
 import eu.mignot.pathogentracker.util.showShortMessage
 import kotlinx.android.synthetic.main.activity_surveys.*
@@ -29,6 +32,10 @@ import org.jetbrains.anko.*
 import org.jetbrains.anko.sdk25.coroutines.onClick
 
 class SurveysActivity: AppCompatActivity(), AnkoLogger {
+
+  private val jobScheduler: JobScheduler by lazy {
+    (applicationContext.getSystemService(Context.JOB_SCHEDULER_SERVICE)) as JobScheduler
+  }
 
   private val prefsProvider by lazy {
     App.getPreferenceProvider()
@@ -47,7 +54,7 @@ class SurveysActivity: AppCompatActivity(), AnkoLogger {
 
     setContentView(R.layout.activity_surveys)
 
-    intent.getStringExtra(AppSettings.Constants.MESSAGE_KEY)?.let {
+    intent.getStringExtra(Constants.MESSAGE_KEY)?.let {
       showShortMessage(surveyListRoot, it)
     }
 
@@ -76,18 +83,29 @@ class SurveysActivity: AppCompatActivity(), AnkoLogger {
 
   override fun onStart() {
     super.onStart()
-    info { "TRYING TO START A JOB"}
-    if (loginProvider.hasUser()) startPhotoJob()
+    info { "TRYING TO START THE JOBS"}
+    if (loginProvider.hasUser()) {
+      startJobs()
+    }
   }
 
-  private fun startPhotoJob() {
-    info { "START PHOTO JOB CALLED"}
-    val jobScheduler: JobScheduler = (applicationContext.getSystemService(Context.JOB_SCHEDULER_SERVICE)) as JobScheduler
-    val componentName = ComponentName(this, FirebasePhotoSyncService::class.java)
-    val job: JobInfo = getJobInfo(90210, prefsProvider.getUseCellular(), componentName)
-    jobScheduler.schedule(job)
-    info { "PHOTO JOB SCHEDULED [MAYBE]"}
+  private fun startJobs() {
+    startJob(FirebaseHumanSyncService::class.java, Constants.JOB_ID_HUMANS)
+    startJob(FirebaseVectorBatchSyncService::class.java, Constants.JOB_ID_VECTOR_BATCHES)
+    startJob(FirebaseVectorSyncService::class.java, Constants.JOB_ID_VECTORS)
+    startJob(FirebasePhotoSyncService::class.java, Constants.JOB_ID_PHOTOS)
   }
+
+  private fun startJob(cls: Class<*>, id: Int) {
+    info { "START JOB CALLED"}
+    val componentName = getComponentName(cls)
+    val job: JobInfo = getJobInfo(id, prefsProvider.getUseCellular(), componentName)
+    jobScheduler.schedule(job)
+    info { "JOB SCHEDULED"}
+  }
+
+  private fun getComponentName(cls: Class<*>): ComponentName =
+    ComponentName(this, cls)
 
   /**
    * Configure a background upload job
@@ -201,5 +219,4 @@ class SurveysActivity: AppCompatActivity(), AnkoLogger {
       negativeButton("Cancel") {}
     }.show()
   }
-
 }

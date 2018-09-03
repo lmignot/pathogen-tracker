@@ -12,10 +12,10 @@ import com.yayandroid.locationmanager.configuration.PermissionConfiguration
 import eu.mignot.pathogentracker.App
 import eu.mignot.pathogentracker.R
 import eu.mignot.pathogentracker.data.LocationView
+import eu.mignot.pathogentracker.data.models.database.Location
+import eu.mignot.pathogentracker.data.models.database.VectorBatch
+import eu.mignot.pathogentracker.data.models.ui.UiLocation
 import eu.mignot.pathogentracker.surveys.addsurvey.BaseSurveyActivity
-import eu.mignot.pathogentracker.surveys.data.models.database.Location
-import eu.mignot.pathogentracker.surveys.data.models.database.VectorBatch
-import eu.mignot.pathogentracker.surveys.data.models.ui.UiLocation
 import eu.mignot.pathogentracker.surveys.surveys.SurveysActivity
 import eu.mignot.pathogentracker.util.*
 import kotlinx.android.synthetic.main.activity_add_vector_batch_survey.*
@@ -73,9 +73,9 @@ class AddVectorBatchSurveyActivity: BaseSurveyActivity<VectorBatch>(), LocationV
 
     // show temperature selector
     batchTemperature?.setOnClickListener {
-      selector("Choose temperature", temperatures, {_, i ->
-        batchTemperature.setText(temperatures[i])
-      })
+      selector("Choose temperature", temperatures) { _, i ->
+          batchTemperature.setText(temperatures[i])
+      }
     }
 
     if (getLocationManager().isWaitingForLocation && !getLocationManager().isAnyDialogShowing) {
@@ -92,7 +92,11 @@ class AddVectorBatchSurveyActivity: BaseSurveyActivity<VectorBatch>(), LocationV
     model.id = vm.id
     model.collectedOn = vm.date.time
     model.locationCollected = vm.location?.let {
-      Location(it.longitude, it.latitude, it.accuracy)
+      Location(
+        it.longitude,
+        it.latitude,
+        it.accuracy
+      )
     }
     model.temperature = batchTemperature.asIntOrDefault(0)
     model.weatherCondition = batchWeatherConditions.text.toString()
@@ -123,13 +127,13 @@ class AddVectorBatchSurveyActivity: BaseSurveyActivity<VectorBatch>(), LocationV
       val date = vm.date
       DatePickerDialog(
         this,
-        DatePickerDialog.OnDateSetListener({_, year, month, dayOfMonth ->
+        DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
           date.set(Calendar.YEAR, year)
           date.set(Calendar.MONTH, month)
           date.set(Calendar.DATE, dayOfMonth)
           vm.date = date
           getDate()
-        }),
+        },
         date.get(Calendar.YEAR),
         date.get(Calendar.MONTH),
         date.get(Calendar.DATE)
@@ -157,7 +161,8 @@ class AddVectorBatchSurveyActivity: BaseSurveyActivity<VectorBatch>(), LocationV
 
   override fun processLocation(location: android.location.Location?) {
     location?.let {
-      val loc = UiLocation(it.longitude, it.latitude, it.accuracy)
+      val loc =
+        UiLocation(it.longitude, it.latitude, it.accuracy)
       vm.location = loc
       batchLocation?.setText(loc.toString())
     }

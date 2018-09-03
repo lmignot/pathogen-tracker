@@ -2,9 +2,7 @@ package eu.mignot.pathogentracker.util
 
 import android.Manifest
 import android.app.Activity
-import me.zhanghai.android.effortlesspermissions.AfterPermissionDenied
 import me.zhanghai.android.effortlesspermissions.EffortlessPermissions
-import pub.devrel.easypermissions.AfterPermissionGranted
 
 interface UsesLocation {
   companion object {

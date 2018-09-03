@@ -8,10 +8,9 @@ import android.view.ViewGroup
 import com.stepstone.stepper.Step
 import com.stepstone.stepper.VerificationError
 import eu.mignot.pathogentracker.util.showShortMessage
-import eu.mignot.pathogentracker.surveys.data.models.database.Human
+import eu.mignot.pathogentracker.data.models.database.Human
 import kotlinx.android.synthetic.main.activity_add_human_survey.*
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
 
 abstract class StepFragment : Fragment(), Step, AnkoLogger {
 

@@ -1,7 +1,7 @@
 package eu.mignot.pathogentracker.addsurvey
 
 import eu.mignot.pathogentracker.surveys.addsurvey.vector.AddVectorBatchViewModel
-import eu.mignot.pathogentracker.surveys.data.RealmSurveysRepository
+import eu.mignot.pathogentracker.repository.RealmSurveysRepository
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.util.*

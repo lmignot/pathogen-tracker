@@ -18,8 +18,8 @@ import android.widget.TextView
 import android.widget.Toast
 import eu.mignot.pathogentracker.App
 import eu.mignot.pathogentracker.R
-import eu.mignot.pathogentracker.surveys.data.*
-import eu.mignot.pathogentracker.surveys.data.models.ui.UiSurvey
+import eu.mignot.pathogentracker.data.SurveyType
+import eu.mignot.pathogentracker.data.models.ui.UiSurvey
 import eu.mignot.pathogentracker.surveys.surveydetail.HumanDetailActivity
 import eu.mignot.pathogentracker.surveys.surveydetail.VectorBatchDetailActivity
 import eu.mignot.pathogentracker.util.AppSettings

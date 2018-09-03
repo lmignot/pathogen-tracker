@@ -1,6 +1,6 @@
 package eu.mignot.pathogentracker.preferences
 
-import eu.mignot.pathogentracker.surveys.data.SurveyType
+import eu.mignot.pathogentracker.data.SurveyType
 
 /**
  * Provides preferences to the app

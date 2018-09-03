@@ -6,19 +6,18 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.provider.MediaStore
-import android.support.design.widget.BottomSheetBehavior
 import android.support.v4.content.FileProvider
 import android.view.View
 import eu.mignot.pathogentracker.App
 import eu.mignot.pathogentracker.R
+import eu.mignot.pathogentracker.data.models.database.Photo
+import eu.mignot.pathogentracker.data.models.database.Vector
 import eu.mignot.pathogentracker.surveys.addsurvey.BaseSurveyActivity
-import eu.mignot.pathogentracker.surveys.data.models.database.Photo
-import eu.mignot.pathogentracker.surveys.data.models.database.Vector
 import eu.mignot.pathogentracker.surveys.surveydetail.VectorBatchDetailActivity
 import eu.mignot.pathogentracker.surveys.surveys.SurveysActivity
 import eu.mignot.pathogentracker.util.*
+import eu.mignot.pathogentracker.util.AppSettings.Constants.FILEPROVIDER_AUTHORITY
 import kotlinx.android.synthetic.main.activity_add_vector_survey.*
-import kotlinx.android.synthetic.main.photo_bottom_sheet.*
 import kotlinx.android.synthetic.main.vector_form.*
 import me.zhanghai.android.effortlesspermissions.AfterPermissionDenied
 import me.zhanghai.android.effortlesspermissions.EffortlessPermissions
@@ -29,7 +28,7 @@ import org.jetbrains.anko.uiThread
 import pub.devrel.easypermissions.AfterPermissionGranted
 import java.io.File
 
-class AddVectorSurveyActivity: BaseSurveyActivity<Vector>(), SpinnerOrOther, UsesCamera, UsesGallery {
+class AddVectorSurveyActivity: BaseSurveyActivity<Vector>(), SpinnerOrOther, UsesCamera {
 
   private val vectorId by lazy {
     intent.getStringExtra(AppSettings.Constants.VECTOR_ID_KEY)?.let {
@@ -59,26 +58,9 @@ class AddVectorSurveyActivity: BaseSurveyActivity<Vector>(), SpinnerOrOther, Use
     )
   }
 
-  private val photoSheetBehavior by lazy {
-    BottomSheetBehavior.from(photoSheet)
-  }
-
-  private val networkUtils by lazy {
-    App.getNetworkUtils()
-  }
-
-//  private val broadcastReceiver by lazy {
-//    object: BroadcastReceiver() {
-//      override fun onReceive(context: Context?, intent: Intent?) {
-//        if(networkUtils.isPiSSIDAvailable()) {
-//          if (networkUtils.hasConnectedToPi()) networkUtils.connectToPi()
-//        }
-//      }
-//    }
-//  }
-
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    // If no vector id provided or no batch id provided
     if (vectorId == AppSettings.Constants.NO_ID_VALUE || batchId == AppSettings.Constants.NO_ID_VALUE) {
       startActivity<SurveysActivity>(
         AppSettings.Constants.MESSAGE_KEY to getString(R.string.error_no_surveyId)
@@ -90,15 +72,11 @@ class AddVectorSurveyActivity: BaseSurveyActivity<Vector>(), SpinnerOrOther, Use
 
   override fun bind() {
     setupSpinner(this, R.array.mosquitoSpecies, vectorSpecies, vectorSpeciesOtherLayout)
-    setupPhotoSheetButton()
+//    setupPhotoButton()
     onRequestCameraPermission()
-    setDnaRequestListener()
-//    registerReceiver(broadcastReceiver, IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION))
   }
 
-  override fun unbind() {
-//    unregisterReceiver(broadcastReceiver)
-  }
+  override fun unbind() {}
 
   override fun saveAndClose() {
     val model = getModel()
@@ -122,8 +100,6 @@ class AddVectorSurveyActivity: BaseSurveyActivity<Vector>(), SpinnerOrOther, Use
     result.gender = vectorGender.selectedValue()
     result.stage = vectorStage.selectedValue()
     result.didFeed = vectorDidFeed.asBoolean()
-    if (vectorDna.text.toString() != getString(R.string.dna_field_label))
-      result.dna = vectorDna.text.toString()
     if (vm.photo != null) result.photo = savePhoto()
     return result
   }
@@ -133,17 +109,8 @@ class AddVectorSurveyActivity: BaseSurveyActivity<Vector>(), SpinnerOrOther, Use
       fileName = File(vm.getPhotoPath()).name
       parentId = vm.id
       path = vm.getPhotoPath()!!
+      vm.savePhoto(this)
       this
-    }
-  }
-
-  private fun setupPhotoSheetButton() {
-    photoSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-    photoButton.setOnClickListener {
-      when (photoSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
-        true -> photoSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-        false -> photoSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-      }
     }
   }
 
@@ -162,7 +129,7 @@ class AddVectorSurveyActivity: BaseSurveyActivity<Vector>(), SpinnerOrOther, Use
           this,
           UsesCamera.STORAGE_PERMISSION
         ) -> {
-          fromCamera?.visibility = View.GONE
+          photoButton?.visibility = View.GONE
         }
         else -> askForCameraPermission(this, "Please allow access to the camera")
     }
@@ -171,64 +138,44 @@ class AddVectorSurveyActivity: BaseSurveyActivity<Vector>(), SpinnerOrOther, Use
   @AfterPermissionDenied(UsesCamera.REQUEST_CODE)
   override fun onCameraPermissionDenied() {
     info("Camera permission denied")
-    fromCamera?.visibility = View.GONE
+    photoButton?.visibility = View.GONE
   }
 
   private fun setupPhotoListener() {
-    if (fromCamera.visibility != View.GONE) setupCameraListener()
-    setupGalleryListener()
+    photoButton?.setOnClickListener {
+      if (EffortlessPermissions.hasPermissions(
+          this, UsesCamera.CAMERA_PERMISSION, UsesCamera.STORAGE_PERMISSION
+        )) {
+        vm.getTempImageFile()?.let { f -> takePhotoIntent(f) }
+      } else {
+        askForCameraPermission(this, "Please allow access to the camera")
+      }
+    }
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
     if (resultCode == Activity.RESULT_OK) {
-      when (requestCode) {
-        UsesCamera.REQUEST_CODE -> {
-          val bitmap = BitmapFactory.decodeFile(vm.getPhotoPath())
-          vm.photo = bitmap
-          setPhotoToView(bitmap)
-        }
-        UsesGallery.REQUEST_CODE -> {
-          data?.data?.let {
-            val bmp = MediaStore.Images.Media.getBitmap(contentResolver, it) as Bitmap
-            setPhotoToView(bmp)
-          }
-        }
-        else -> {}
+      if (requestCode == UsesCamera.REQUEST_CODE) {
+        val bitmap = BitmapFactory.decodeFile(vm.getPhotoPath())
+        vm.photo = bitmap
+        setPhotoToView(bitmap)
       }
     } else {
-      showShortMessage(vectorSurveyRoot, "There was an error choosing or taking the photoPath")
-    }
-  }
-
-  private fun setupCameraListener() {
-    fromCamera.setOnClickListener {
-      vm.getTempImageFile()?.let {
-        takePhotoIntent(it)
-      }
+      showShortMessage(vectorSurveyRoot, "No Photo Selected")
     }
   }
 
   private fun takePhotoIntent(file: File) {
     val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
     cameraIntent.resolveActivity(packageManager)?.let {
-      photoSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
       val photoURI = FileProvider.getUriForFile(
         this,
-        "eu.mignot.pathogentracker.fileprovider",
+        FILEPROVIDER_AUTHORITY,
         file
       )
       cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
       startActivityForResult(cameraIntent, UsesCamera.REQUEST_CODE)
-    }
-  }
-
-  private fun setupGalleryListener() {
-    fromGallery.setOnClickListener {
-      photoSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-      val galleryIntent = Intent(Intent.ACTION_GET_CONTENT)
-      galleryIntent.type = "image/*"
-      startActivityForResult(galleryIntent, UsesGallery.REQUEST_CODE)
     }
   }
 
@@ -237,14 +184,4 @@ class AddVectorSurveyActivity: BaseSurveyActivity<Vector>(), SpinnerOrOther, Use
     photoView.visibility = View.VISIBLE
     photoButton.setText(R.string.action_replace_photo)
   }
-
-  private fun setDnaRequestListener() {
-    vectorDna.setOnClickListener {
-      showShortMessage(vectorSurveyRoot, "This hasn't been implemented yet")
-    }
-  }
-
-//  private fun getDnaData() {
-//    showShortMessage(vectorSurveyRoot, "getting dna data...")
-//  }
 }

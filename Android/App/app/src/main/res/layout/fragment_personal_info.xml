@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="text"
-        android:hint="Patient ID"
+        android:hint="@string/patient_id"
         android:maxLines="1"
         android:focusable="false"
         android:clickable="false"/>
@@ -43,7 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Survey Date"
+        android:hint="@string/survey_date"
         android:clickable="true"
         android:focusable="false"
         android:inputType="date"
@@ -61,8 +61,8 @@
         android:drawableEnd="@drawable/location_search"
         android:clickable="true"
         android:focusable="false"
-        android:hint="Location Collected"
-        android:text="Tap to update location"
+        android:hint="@string/hint_location_collected"
+        android:text="@string/tap_to_update_location"
         android:inputType="text"
         android:maxLines="1"/>
 
@@ -87,7 +87,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Date Of Birth"
+        android:hint="@string/date_of_birth"
         android:clickable="true"
         android:focusable="false"
         android:inputType="date"
@@ -102,7 +102,7 @@
         android:layout_marginStart="4dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Gender"
+        android:text="@string/gender"
         android:textSize="12sp"
         />
 
@@ -117,19 +117,19 @@
           android:layout_width="84dp"
           android:layout_height="wrap_content"
           android:checked="false"
-          android:text="Female"/>
+          android:text="@string/female"/>
 
         <RadioButton
           android:layout_width="84dp"
           android:layout_height="wrap_content"
           android:layout_marginStart="16dp"
-          android:text="Male"/>
+          android:text="@string/male"/>
 
         <RadioButton
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginStart="16dp"
-          android:text="Other"/>
+          android:text="@string/other"/>
       </RadioGroup>
 
     </RelativeLayout>
@@ -151,7 +151,7 @@
         android:layout_marginStart="4dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Is the subject pregnant?"
+        android:text="@string/is_the_subject_pregnant"
         android:textSize="12sp"
         />
 
@@ -166,13 +166,13 @@
           android:layout_width="84dp"
           android:layout_height="wrap_content"
           android:checked="false"
-          android:text="Yes"/>
+          android:text="@string/yes"/>
 
         <RadioButton
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginStart="16dp"
-          android:text="No"/>
+          android:text="@string/no"/>
       </RadioGroup>
 
     </RelativeLayout>

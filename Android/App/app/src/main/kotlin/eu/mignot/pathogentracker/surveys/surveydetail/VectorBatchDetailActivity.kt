@@ -11,17 +11,16 @@ import android.view.ViewGroup
 import android.widget.*
 import eu.mignot.pathogentracker.App
 import eu.mignot.pathogentracker.R
+import eu.mignot.pathogentracker.data.models.database.Vector
+import eu.mignot.pathogentracker.data.models.database.VectorBatch
+import eu.mignot.pathogentracker.data.models.database.getNextVectorSequence
 import eu.mignot.pathogentracker.surveys.addsurvey.vector.AddVectorSurveyActivity
-import eu.mignot.pathogentracker.surveys.data.models.database.Vector
-import eu.mignot.pathogentracker.surveys.data.models.database.VectorBatch
-import eu.mignot.pathogentracker.surveys.data.models.database.getNextVectorSequence
-import eu.mignot.pathogentracker.util.setupToolbar
 import eu.mignot.pathogentracker.surveys.surveys.SurveysActivity
 import eu.mignot.pathogentracker.util.AppSettings
 import eu.mignot.pathogentracker.util.formatTime
+import eu.mignot.pathogentracker.util.setupToolbar
 import kotlinx.android.synthetic.main.activity_vector_batch_detail.*
 import org.jetbrains.anko.*
-import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.sdk25.coroutines.onClick
 import java.util.*
 import kotlin.properties.Delegates
@@ -72,7 +71,7 @@ class VectorBatchDetailActivity: AppCompatActivity() {
       vectorBatchSurveyDetailId.text = it.id
       vectorBatchSurveyDetailDate.text = it.collectedOn.formatTime()
       it.locationCollected?.let {
-        vectorBatchSurveyDetailLoc.text = it.toString()
+        loc -> vectorBatchSurveyDetailLoc.text = loc.toString()
       }
       vectorBatchSurveyDetailTerritory.text = it.territory
       vectorBatchSurveyDetailTemp.text = it.temperature.toString()

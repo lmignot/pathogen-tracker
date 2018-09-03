@@ -14,7 +14,6 @@ import eu.mignot.pathogentracker.util.showShortMessage
 import kotlinx.android.synthetic.main.content_launcher.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.error
-import org.jetbrains.anko.info
 import org.jetbrains.anko.startActivity
 
 class AppLauncher : AppCompatActivity(), AnkoLogger {
@@ -33,6 +32,9 @@ class AppLauncher : AppCompatActivity(), AnkoLogger {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+
+//    prefsProvider.setDidCompleteOnBoarding(false)
+//    loginProvider.signOut()
 
     if (!loginProvider.hasUser()) {
       doLogin()

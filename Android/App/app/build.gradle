@@ -76,6 +76,9 @@ dependencies {
   implementation "com.google.firebase:firebase-crash:$rootProject.ext.fbCrashVersion"
   implementation "com.firebaseui:firebase-ui-auth:$rootProject.ext.fbUIAuthVersion"
 
+  // required for Firestore
+  implementation "io.reactivex.rxjava2:rxjava:2.1.8"
+
   // Third-Party Libraries
   implementation "me.zhanghai.android.effortlesspermissions:library:$rootProject.ext.effPermVersion"
   implementation "com.github.yayaa:LocationManager:$rootProject.ext.locManVersion"

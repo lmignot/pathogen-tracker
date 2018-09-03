@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:paddingStart="56dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-        android:text="Survey ID"
+        android:text="@string/survey_id"
         />
 
       <TextView
@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:paddingStart="56dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-        android:text="Survey date"
+        android:text="@string/survey_date"
         />
       <TextView
         android:id="@+id/humanSurveyDetailDate"
@@ -61,7 +61,6 @@
         android:drawablePadding="32dp"
         android:drawableStart="@drawable/date"
         android:lines="1"
-        android:text="21 June 2017"
         android:gravity="center_vertical"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
@@ -70,7 +69,7 @@
         android:layout_height="wrap_content"
         android:paddingStart="56dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-        android:text="Survey Location"
+        android:text="@string/survey_location"
         />
       <TextView
         android:id="@+id/humanSurveyDetailLoc"
@@ -89,7 +88,7 @@
         android:layout_height="wrap_content"
         android:paddingStart="56dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-        android:text="Patient Date of Birth"
+        android:text="@string/patient_date_of_birth"
         />
       <TextView
         android:id="@+id/humanSurveyDetailDob"
@@ -108,7 +107,7 @@
         android:layout_height="wrap_content"
         android:paddingStart="56dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-        android:text="Patient Gender"
+        android:text="@string/patient_gender"
         />
       <TextView
         android:id="@+id/humanSurveyDetailGender"
@@ -119,7 +118,6 @@
         android:drawablePadding="32dp"
         android:drawableStart="@drawable/gender_male_female"
         android:lines="1"
-        android:text="None"
         android:gravity="center_vertical"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
@@ -128,7 +126,7 @@
         android:layout_height="wrap_content"
         android:paddingStart="56dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-        android:text="Is the patient pregnant?"
+        android:text="@string/is_the_patient_pregnant"
         />
       <TextView
         android:id="@+id/humanSurveyDetailIsPreggers"
@@ -139,7 +137,6 @@
         android:drawablePadding="32dp"
         android:drawableStart="@drawable/preggers"
         android:lines="1"
-        android:text="Yup"
         android:gravity="center_vertical"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
@@ -148,7 +145,7 @@
         android:layout_height="wrap_content"
         android:paddingStart="56dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-        android:text="Samples collected"
+        android:text="@string/samples_collected"
         />
       <TextView
         android:id="@+id/humanSurveyDetailSamples"
@@ -159,7 +156,6 @@
         android:drawablePadding="32dp"
         android:drawableStart="@drawable/flask_outline"
         android:lines="1"
-        android:text="Blood, Urine"
         android:gravity="center_vertical"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
@@ -168,7 +164,7 @@
         android:layout_height="wrap_content"
         android:paddingStart="56dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-        android:text="Patient recent travel history"
+        android:text="@string/patient_recent_travel_history"
         />
       <TextView
         android:id="@+id/humanSurveyDetailTravel"
@@ -179,7 +175,6 @@
         android:drawablePadding="32dp"
         android:drawableStart="@drawable/airport"
         android:lines="1"
-        android:text="Cape Verde, Cameroon"
         android:gravity="center_vertical"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
@@ -188,7 +183,7 @@
         android:layout_height="wrap_content"
         android:paddingStart="56dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-        android:text="Previous Sickness"
+        android:text="@string/previous_sickness"
         />
       <TextView
         android:id="@+id/humanSurveyDetailPastDiseases"
@@ -199,7 +194,6 @@
         android:drawablePadding="32dp"
         android:drawableStart="@drawable/hospital"
         android:lines="1"
-        android:text="Dengue, Zika"
         android:gravity="center_vertical"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
@@ -208,7 +202,7 @@
         android:layout_height="wrap_content"
         android:paddingStart="56dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-        android:text="Are other members of the household ill?"
+        android:text="@string/are_other_members_of_the_household_ill"
         />
       <TextView
         android:id="@+id/humanSurveyDetailIsFamilyIll"
@@ -219,7 +213,6 @@
         android:drawablePadding="32dp"
         android:drawableStart="@drawable/family"
         android:lines="1"
-        android:text="No"
         android:gravity="center_vertical"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
@@ -228,7 +221,7 @@
         android:layout_height="wrap_content"
         android:paddingStart="56dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-        android:text="Current Sickness"
+        android:text="@string/current_sickness"
         />
       <TextView
         android:id="@+id/humanSurveyDetailCurrentDiseases"
@@ -237,7 +230,6 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:paddingStart="56dp"
-        android:text="Asdf"
         android:gravity="center_vertical"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 

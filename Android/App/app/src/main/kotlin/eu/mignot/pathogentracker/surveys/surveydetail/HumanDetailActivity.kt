@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import eu.mignot.pathogentracker.App
 import eu.mignot.pathogentracker.R
-import eu.mignot.pathogentracker.surveys.data.models.database.Human
+import eu.mignot.pathogentracker.data.models.database.Human
 import eu.mignot.pathogentracker.surveys.surveys.SurveysActivity
 import eu.mignot.pathogentracker.util.*
 import kotlinx.android.synthetic.main.activity_human_detail.*
@@ -39,22 +39,22 @@ class HumanDetailActivity : AppCompatActivity() {
       humanSurveyDetailId.text = it.id
       humanSurveyDetailDate.text = it.collectedOn.formatTime()
       it.locationCollected?.let {
-        humanSurveyDetailLoc.text = it.toString()
+        loc -> humanSurveyDetailLoc.text = loc.toString()
       }
       it.dateOfBirth?.let {
-        humanSurveyDetailDob.text = it.formatDate()
+        dob -> humanSurveyDetailDob.text = dob.formatDate()
       }
       it.gender?.let {
-        humanSurveyDetailGender.text = it
+        gen -> humanSurveyDetailGender.text = gen
       }
       humanSurveyDetailIsPreggers.text = it.isPregnant.asYesOrNo()
       humanSurveyDetailSamples.text = it.samples.joinToString()
       humanSurveyDetailTravel.text = it.travelHistory.joinToString()
       humanSurveyDetailPastDiseases.text = it.pastInfections.joinToString()
       humanSurveyDetailIsFamilyIll.text = it.isFamilyMemberIll.asYesOrNo()
-      humanSurveyDetailCurrentDiseases.text = it.currentInfections.fold("", {acc, s ->
-        acc + s.toString() + "\n"
-      })
+      humanSurveyDetailCurrentDiseases.text = it.currentInfections.fold("") { acc, s ->
+          acc + s.toString() + "\n"
+      }
 
     }
   }

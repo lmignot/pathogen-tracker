@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:paddingStart="56dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-        android:text="Survey ID"
+        android:text="@string/survey_id"
         />
 
       <TextView
@@ -43,7 +43,6 @@
         android:ellipsize="end"
         android:gravity="center_vertical"
         android:lines="1"
-        android:text="H-1781717-1231231-1231231asdfa"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
       <TextView
@@ -51,7 +50,7 @@
         android:layout_height="wrap_content"
         android:paddingStart="56dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-        android:text="Survey date"
+        android:text="@string/survey_date"
         />
       <TextView
         android:id="@+id/vectorBatchSurveyDetailDate"
@@ -62,7 +61,6 @@
         android:drawablePadding="32dp"
         android:drawableStart="@drawable/date"
         android:lines="1"
-        android:text="21 June 2017"
         android:gravity="center_vertical"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
@@ -71,7 +69,7 @@
         android:layout_height="wrap_content"
         android:paddingStart="56dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-        android:text="Survey Location"
+        android:text="@string/survey_location"
         />
       <TextView
         android:id="@+id/vectorBatchSurveyDetailLoc"
@@ -90,7 +88,7 @@
         android:layout_height="wrap_content"
         android:paddingStart="56dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-        android:text="Territory"
+        android:text="@string/territory"
         />
       <TextView
         android:id="@+id/vectorBatchSurveyDetailTerritory"
@@ -101,7 +99,6 @@
         android:drawablePadding="32dp"
         android:drawableStart="@drawable/terrain"
         android:lines="1"
-        android:text="Urban"
         android:gravity="center_vertical"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
@@ -110,7 +107,7 @@
         android:layout_height="wrap_content"
         android:paddingStart="56dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-        android:text="Temperature"
+        android:text="@string/temperature"
         />
       <TextView
         android:id="@+id/vectorBatchSurveyDetailTemp"
@@ -121,7 +118,6 @@
         android:drawablePadding="32dp"
         android:drawableStart="@drawable/temperature_celsius"
         android:lines="1"
-        android:text="-40"
         android:gravity="center_vertical"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
@@ -130,7 +126,7 @@
         android:layout_height="wrap_content"
         android:paddingStart="56dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-        android:text="Weather conditions"
+        android:text="@string/weather_conditions"
         />
       <TextView
         android:id="@+id/vectorBatchSurveyDetailWeather"
@@ -141,7 +137,6 @@
         android:drawablePadding="32dp"
         android:drawableStart="@drawable/weather_partlycloudy"
         android:lines="1"
-        android:text="Cape Verde, Cameroon"
         android:gravity="center_vertical"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
@@ -155,7 +150,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-          android:text="Batch Mosquitoes"/>
+          android:text="@string/batch_mosquitoes"/>
 
         <android.support.v7.widget.RecyclerView
           android:id="@+id/vectorBatchDetailList"

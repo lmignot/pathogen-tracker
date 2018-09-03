@@ -13,11 +13,6 @@
   <string name="navigation_drawer_open">Open navigation drawer</string>
   <string name="navigation_drawer_close">Close navigation drawer</string>
 
-  <string name="login_action_sign_in">Sign in</string>
-  <string name="login_email_hint">Email address</string>
-  <string name="login_password_hint">Password</string>
-  <string name="login_title">Sign in to PathogenTracker</string>
-
   <string name="survey_type_avatar">Survey type avatar</string>
   <string name="survey_item_is_flagged">Survey item is flagged</string>
   <string name="survey_item_is_queued_for_upload">Survey item is queued for upload</string>
@@ -25,7 +20,6 @@
   <string name="cancel_survey_rationale">This survey has not been saved…</string>
   <string name="specify_species">Please specify</string>
   <string name="survey_photo">Vector Photo</string>
-  <string name="notice_saving">Saving survey…</string>
   <string name="sample_types">Sample type(s)</string>
   <string name="past_infections">Past infection(s)</string>
   <string name="travel_history">Recent travel history</string>
@@ -38,11 +32,9 @@
   <string name="action_stay">Stay</string>
   <string name="action_add_another">Add another</string>
   <string name="action_replace_photo">Replace photo</string>
-  <string name="action_insert_photo">Add a photo</string>
+  <string name="action_insert_photo">Take a photo</string>
 
   <string name="hint_remove">Remove</string>
-  <string name="hint_select_photo">Select photo from gallery</string>
-  <string name="hint_take_new_photo">Take new photo</string>
 
   <string name="survey_type_select">Select survey type</string>
   <string name="survey_type_human">Patient Survey</string>
@@ -54,19 +46,66 @@
   <string name="error_vector_no_batch_record">Unable to load mosquito batch</string>
   <string name="error_no_primary_activity">No Primary activity specified</string>
   <string name="title_activity_onboarding">Bienvenue</string>
-  <string name="section_format">Hello World from section: %1$d</string>
 
   <string name="what_is_primary_activity">Is your primary activity collecting Patient or Mosquito data?</string>
   <string name="what_is_secondary_activity">Will you also be collecting %1$s data?</string>
-  <string name="permission_location_rationale">In order to improve data accuracy we need permission to access your location</string>
-  <string name="permission_camera_rationale">For Mosquito surveys we need permission to access the Camera and Photos, as well as storage to save new photos</string>
+  <string name="permission_location_rationale">This app needs permission to access your location</string>
+  <string name="permission_camera_rationale">This app needs permission to access the Camera and Device Storage</string>
   <string name="request_permission_location">Allow this app to access device Location</string>
   <string name="request_permission_camera">Allow this app to access the Camera and save Photos?</string>
-  <string name="dna_field_label">Tap to connect and retrieve</string>
   <string name="empty_surveys_title">No surveys available</string>
   <string name="empty_surveys_message">Add a survey using\nthe big pink button</string>
   <string name="welcome_user">Welcome %1$s</string>
   <string name="anonymous">stranger</string>
   <string name="title_activity_launcher">PathogenTracker</string>
+  <string name="photo">Photo</string>
+  <string name="mosquito_species">Mosquito Species</string>
+  <string name="gender">Gender</string>
+  <string name="male">Male</string>
+  <string name="female">Female</string>
+  <string name="stage">Stage</string>
+  <string name="larva">Larva</string>
+  <string name="adult">Adult</string>
+  <string name="has_the_mosquito_fed">Has the mosquito fed?</string>
+  <string name="yes">Yes</string>
+  <string name="no">No</string>
+  <string name="survey_id">Survey ID</string>
+  <string name="survey_id_and_sequence">Survey ID and sequence</string>
+  <string name="species">Species</string>
+  <string name="survey_date">Survey date</string>
+  <string name="survey_location">Survey Location</string>
+  <string name="territory">Territory</string>
+  <string name="temperature">Temperature</string>
+  <string name="weather_conditions">Weather conditions</string>
+  <string name="batch_mosquitoes">Batch Mosquitoes</string>
+  <string name="patient_date_of_birth">Patient Date of Birth</string>
+  <string name="date_of_birth">Date of Birth</string>
+  <string name="patient_gender">Patient Gender</string>
+  <string name="is_the_patient_pregnant">Is the patient pregnant?</string>
+  <string name="samples_collected">Samples collected</string>
+  <string name="patient_recent_travel_history">Patient recent travel history</string>
+  <string name="previous_sickness">Previous Sickness</string>
+  <string name="are_other_members_of_the_household_ill">Are other members of the household ill?</string>
+  <string name="current_sickness">Current Sickness</string>
+  <string name="mosquito">Mosquito</string>
+  <string name="patient">Patient</string>
+  <string name="give_permission">Give permission</string>
+  <string name="other">Other</string>
+  <string name="is_the_subject_pregnant">Is the subject pregnant?</string>
+  <string name="current_diseases">Current diseases</string>
+  <string name="is_anyone_else_in_the_household_ill">Is anyone else in the household ill?</string>
+  <string name="flag_this_survey_for_further_review">Flag this survey for further review?</string>
+  <string name="batch_id">Batch ID</string>
+  <string name="date_collected">Date Collected</string>
+  <string name="location_collected">Location Collected</string>
+  <string name="tap_to_update_location">Tap to update location</string>
+  <string name="urban">Urban</string>
+  <string name="suburban">Suburban</string>
+  <string name="temperature_c">Temperature (Cº)</string>
+  <string name="weather_conditions_eg_cloudy">Weather Conditions (eg. Cloudy)</string>
+  <string name="remove">Remove</string>
+  <string name="add_entry">Add Entry</string>
+  <string name="patient_id">Patient ID</string>
+  <string name="hint_location_collected">Location Collected</string>
 
 </resources>

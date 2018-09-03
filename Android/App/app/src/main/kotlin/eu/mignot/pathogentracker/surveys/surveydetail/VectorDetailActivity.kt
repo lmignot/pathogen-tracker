@@ -7,7 +7,7 @@ import android.view.MenuItem
 import android.view.View
 import eu.mignot.pathogentracker.App
 import eu.mignot.pathogentracker.R
-import eu.mignot.pathogentracker.surveys.data.models.database.Vector
+import eu.mignot.pathogentracker.data.models.database.Vector
 import eu.mignot.pathogentracker.surveys.surveys.SurveysActivity
 import eu.mignot.pathogentracker.util.AppSettings
 import eu.mignot.pathogentracker.util.asYesOrNo
@@ -59,9 +59,8 @@ class VectorDetailActivity : AppCompatActivity() {
       vectorDetailGender.text = it.gender
       vectorDetailStage.text = it.stage
       vectorDetailDidFeed.text = it.didFeed.asYesOrNo()
-      vectorDetailDna.text = it.dna
-      it.photo?.let {
-        val photo = BitmapFactory.decodeFile(it.path)
+      it.photo?.let { p ->
+        val photo = BitmapFactory.decodeFile(p.path)
         vectorDetailPhoto.setImageBitmap(photo)
         vectorDetailPhoto.visibility = View.VISIBLE
       }

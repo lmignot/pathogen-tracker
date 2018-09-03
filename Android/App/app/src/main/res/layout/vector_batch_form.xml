@@ -21,7 +21,7 @@
       android:layout_height="wrap_content"
       android:ems="10"
       android:inputType="text"
-      android:hint="Batch ID"
+      android:hint="@string/batch_id"
       android:maxLines="1"
       android:focusable="false"
       android:clickable="false"/>
@@ -36,7 +36,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:ems="10"
-      android:hint="Date Collected"
+      android:hint="@string/date_collected"
       android:clickable="true"
       android:focusable="false"
       android:inputType="date"
@@ -54,8 +54,8 @@
       android:drawableEnd="@drawable/location_search"
       android:clickable="true"
       android:focusable="false"
-      android:hint="Location Collected"
-      android:text="Tap to update location"
+      android:hint="@string/location_collected"
+      android:text="@string/tap_to_update_location"
       android:inputType="text"
       android:maxLines="1"/>
 
@@ -79,7 +79,7 @@
       android:layout_marginStart="4dp"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="Territory"
+      android:text="@string/territory"
       android:textSize="12sp"
       />
 
@@ -94,13 +94,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:checked="false"
-        android:text="Urban"/>
+        android:text="@string/urban"/>
 
       <RadioButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
-        android:text="Suburban"/>
+        android:text="@string/suburban"/>
     </RadioGroup>
 
   </RelativeLayout>
@@ -127,7 +127,7 @@
       android:clickable="true"
       android:focusable="false"
       android:ems="10"
-      android:hint="Temperature (Cº)"
+      android:hint="@string/temperature_c"
       android:inputType="numberSigned"
       android:maxLines="1"/>
   </android.support.design.widget.TextInputLayout>
@@ -143,7 +143,7 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/survey_field_top_margin"
       android:ems="10"
-      android:hint="Weather Conditions (eg. Cloudy)"
+      android:hint="@string/weather_conditions_eg_cloudy"
       android:inputType="text|textCapSentences|textAutoCorrect|textMultiLine"
       android:maxLines="5"/>
   </android.support.design.widget.TextInputLayout>

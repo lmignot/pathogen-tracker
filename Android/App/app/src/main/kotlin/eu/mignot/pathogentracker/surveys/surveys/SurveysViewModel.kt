@@ -1,10 +1,10 @@
 package eu.mignot.pathogentracker.surveys.surveys
 
-import eu.mignot.pathogentracker.surveys.data.SurveyRepository
-import eu.mignot.pathogentracker.surveys.data.models.ui.UiSurvey
-import eu.mignot.pathogentracker.surveys.data.SurveyType
-import eu.mignot.pathogentracker.surveys.data.models.database.Human
-import eu.mignot.pathogentracker.surveys.data.models.database.VectorBatch
+import eu.mignot.pathogentracker.repository.SurveyRepository
+import eu.mignot.pathogentracker.data.models.ui.UiSurvey
+import eu.mignot.pathogentracker.data.SurveyType
+import eu.mignot.pathogentracker.data.models.database.Human
+import eu.mignot.pathogentracker.data.models.database.VectorBatch
 import eu.mignot.pathogentracker.util.AppSettings
 import eu.mignot.pathogentracker.util.formatTime
 import org.jetbrains.anko.AnkoLogger
@@ -22,7 +22,7 @@ class SurveysViewModel(private val repository: SurveyRepository): AnkoLogger {
           it.locationCollected?.toString() ?: AppSettings.Constants.NO_VALUE,
           it.collectedOn.formatTime(),
           it.uploadedAt != null,
-          SurveyType.PATIENT(),
+          SurveyType.PATIENT,
           it.isFlagged
         )
       }
@@ -34,7 +34,7 @@ class SurveysViewModel(private val repository: SurveyRepository): AnkoLogger {
             it.locationCollected?.toString() ?: AppSettings.Constants.NO_VALUE,
             it.collectedOn.formatTime(),
             it.uploadedAt != null,
-            SurveyType.VECTOR()
+            SurveyType.VECTOR
           )
         }
     ).sortedByDescending {

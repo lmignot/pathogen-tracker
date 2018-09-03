@@ -1,4 +1,4 @@
-package eu.mignot.pathogentracker.surveys.data.models.ui
+package eu.mignot.pathogentracker.data.models.ui
 
 data class UiLocation(
   val longitude: Double = 0.0,

@@ -1,7 +1,7 @@
-package eu.mignot.pathogentracker.util
+package eu.mignot.pathogentracker.repository
 
 import android.graphics.Bitmap
-import eu.mignot.pathogentracker.surveys.data.models.database.Photo
+import eu.mignot.pathogentracker.data.models.database.Photo
 
 interface PhotoRepository {
 

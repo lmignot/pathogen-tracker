@@ -1,4 +1,4 @@
-package eu.mignot.pathogentracker.surveys.data
+package eu.mignot.pathogentracker.repository
 
 import com.vicpin.krealmextensions.query
 import com.vicpin.krealmextensions.queryAll
@@ -16,8 +16,6 @@ object RealmSurveysRepository: SurveyRepository {
 
   override fun <T: RealmObject> getSurvey(surveyType: T, surveyId: String): T? =
     surveyType.queryFirst { equalTo("id", surveyId) }
-
-  override fun <T: RealmObject, L: List<T>> storeSurveys(surveys: L) = surveys.forEach { it.save() }
 
   override fun <T: RealmObject> storeSurvey(survey: T) = survey.save()
 

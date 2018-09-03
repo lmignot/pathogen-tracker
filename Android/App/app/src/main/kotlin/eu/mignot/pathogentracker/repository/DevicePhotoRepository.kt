@@ -1,8 +1,9 @@
-package eu.mignot.pathogentracker.util
+package eu.mignot.pathogentracker.repository
 
 import android.graphics.Bitmap
 import eu.mignot.pathogentracker.App
-import eu.mignot.pathogentracker.surveys.data.models.database.Photo
+import eu.mignot.pathogentracker.data.models.database.Photo
+import eu.mignot.pathogentracker.util.AppSettings
 import eu.mignot.pathogentracker.util.AppSettings.Constants.PHOTO_TIMESTAMP_FORMAT
 import java.io.File
 import java.io.FileOutputStream
@@ -30,7 +31,11 @@ object DevicePhotoRepository: PhotoRepository {
   fun getTempImageFile(id: String): File? {
     val timeStamp = SimpleDateFormat(PHOTO_TIMESTAMP_FORMAT, Locale.UK).format(Date())
     val fileName = "${id}_$timeStamp"
-    return getTempFile(storageDir, fileName, ".jpg")
+    return getTempFile(
+      storageDir,
+      fileName,
+      ".jpg"
+    )
   }
 
   private fun getTempFile(storageDir: File, fileName: String, suffix: String): File? {

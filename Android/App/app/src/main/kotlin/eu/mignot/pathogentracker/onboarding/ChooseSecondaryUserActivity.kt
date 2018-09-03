@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import eu.mignot.pathogentracker.R
-import eu.mignot.pathogentracker.surveys.data.SurveyType
+import eu.mignot.pathogentracker.data.SurveyType
 import eu.mignot.pathogentracker.util.AppSettings
 import kotlinx.android.synthetic.main.fragment_choose_secondary_activity.*
 import org.jetbrains.anko.sdk25.coroutines.onClick
@@ -14,8 +14,8 @@ import org.jetbrains.anko.sdk25.coroutines.onClick
 class ChooseSecondaryUserActivity : Fragment() {
 
   private fun getSecondaryActivityChoice(primary: SurveyType) = when (primary) {
-    is SurveyType.PATIENT -> SurveyType.VECTOR()
-    is SurveyType.VECTOR -> SurveyType.PATIENT()
+    is SurveyType.PATIENT -> SurveyType.VECTOR
+    is SurveyType.VECTOR -> SurveyType.PATIENT
     SurveyType.NONE -> SurveyType.NONE
   }
 

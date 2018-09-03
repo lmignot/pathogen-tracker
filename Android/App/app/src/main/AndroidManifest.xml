@@ -18,7 +18,7 @@
 
   <application
     android:name=".App"
-    android:allowBackup="true"
+    android:allowBackup="false"
     android:icon="@mipmap/ic_launcher"
     android:label="@string/app_name"
     android:roundIcon="@mipmap/ic_launcher"
@@ -89,7 +89,15 @@
     </activity>
     <service
       android:exported="true"
-      android:name=".syncservice.FirebaseDataSyncService"
+      android:name=".syncservice.FirebaseHumanSyncService"
+      android:permission="android.permission.BIND_JOB_SERVICE" />
+    <service
+      android:exported="true"
+      android:name=".syncservice.FirebaseVectorBatchSyncService"
+      android:permission="android.permission.BIND_JOB_SERVICE" />
+    <service
+      android:exported="true"
+      android:name=".syncservice.FirebaseVectorSyncService"
       android:permission="android.permission.BIND_JOB_SERVICE" />
     <service
       android:exported="true"

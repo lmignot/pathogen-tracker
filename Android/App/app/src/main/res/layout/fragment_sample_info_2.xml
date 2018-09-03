@@ -1,12 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<android.support.v4.widget.NestedScrollView-->
-  <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
-  <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-  <!--android:layout_width="match_parent"-->
-  <!--android:layout_height="match_parent"-->
-  <!--android:clipToPadding="false"-->
-  <!--app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
-
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:id="@+id/sampleInfoForm2"
@@ -32,7 +24,7 @@
         android:layout_marginStart="4dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Current diseases"
+        android:text="@string/current_diseases"
         android:textSize="12sp"
         />
 
@@ -49,7 +41,7 @@
         android:layout_marginTop="8dp"
         android:background="@color/transparent"
         android:paddingStart="8dp"
-        android:text="Add Entry"
+        android:text="@string/add_entry"
         android:textAlignment="textStart"
         android:textColor="@color/colorPrimaryText"/>
 
@@ -64,7 +56,7 @@
         android:layout_marginStart="4dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Is anyone else in the household ill?"
+        android:text="@string/is_anyone_else_in_the_household_ill"
         android:textSize="12sp"
         />
 
@@ -79,13 +71,13 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:checked="false"
-          android:text="Yes"/>
+          android:text="@string/yes"/>
 
         <RadioButton
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginStart="44dp"
-          android:text="No"/>
+          android:text="@string/no"/>
       </RadioGroup>
 
     </RelativeLayout>
@@ -95,7 +87,7 @@
       android:layout_height="wrap_content"
       android:layout_width="match_parent"
       android:layout_marginTop="@dimen/survey_field_top_margin"
-      android:text="Flag this survey for further review?"
+      android:text="@string/flag_this_survey_for_further_review"
       />
 
   </LinearLayout>
