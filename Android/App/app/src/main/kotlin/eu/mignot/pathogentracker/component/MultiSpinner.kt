@@ -17,6 +17,12 @@ import org.jetbrains.anko.custom.ankoView
 import org.jetbrains.anko.internals.AnkoInternals
 import org.jetbrains.anko.sdk25.coroutines.onClick
 
+/**
+ * A MultiSpinner.
+ *
+ * Custom android widget that allows multiple values to be un/selected
+ * @see [LinearLayout] for constructor params
+ */
 class MultiSpinner(context: Context, attrs: AttributeSet?, defStyleAttr: Int):
   LinearLayout(context, attrs, defStyleAttr) {
 
