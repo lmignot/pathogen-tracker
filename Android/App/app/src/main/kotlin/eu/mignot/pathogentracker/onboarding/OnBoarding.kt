@@ -10,6 +10,7 @@ import eu.mignot.pathogentracker.data.SurveyType
 import eu.mignot.pathogentracker.surveys.surveys.SurveysActivity
 import eu.mignot.pathogentracker.util.UsesCamera
 import eu.mignot.pathogentracker.util.UsesLocation
+import me.zhanghai.android.effortlesspermissions.EffortlessPermissions
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.jetbrains.anko.startActivity
@@ -38,7 +39,7 @@ class OnBoarding : AppCompatActivity(), AnkoLogger, UsesCamera, UsesLocation {
     changePage(2)
   }
 
-  private fun isComplete() {
+  fun isComplete() {
     info("Completing onBoarding")
     vm.setOnBoardingComplete(true)
     startActivity<SurveysActivity>()
@@ -62,7 +63,7 @@ class OnBoarding : AppCompatActivity(), AnkoLogger, UsesCamera, UsesLocation {
         }
         UsesCamera.REQUEST_CODE -> {
           info("Requested camera permission")
-          isComplete()
+          changePage(4)
         }
         else -> info("We shouldn't be here...")
       }
@@ -82,10 +83,29 @@ class OnBoarding : AppCompatActivity(), AnkoLogger, UsesCamera, UsesLocation {
         ChooseSecondaryUserActivity.newInstance(vm.primaryActivity)
       )
       2 -> changeFragment(
-        AskForPermissionFragment.newInstance(UsesLocation.REQUEST_CODE, R.string.permission_location_rationale)
+        if (EffortlessPermissions.hasPermissions(this, (UsesLocation.PERMISSION))) {
+          return changePage(3)
+        } else {
+          AskForPermissionFragment.newInstance(
+            UsesLocation.REQUEST_CODE,
+            R.string.permission_location_rationale
+          )
+        }
+      )
+      3 -> changeFragment(
+        if (EffortlessPermissions.hasPermissions(
+            this, UsesCamera.CAMERA_PERMISSION, UsesCamera.STORAGE_PERMISSION)
+        ) {
+          return changePage(4)
+        } else {
+          AskForPermissionFragment.newInstance(
+            UsesCamera.REQUEST_CODE,
+            R.string.permission_camera_rationale
+          )
+        }
       )
       else -> changeFragment(
-        AskForPermissionFragment.newInstance(UsesCamera.REQUEST_CODE, R.string.permission_camera_rationale)
+        EncryptionMessageFragment.newInstance()
       )
     }
   }

@@ -155,6 +155,7 @@ class SurveysActivity: AppCompatActivity(), AnkoLogger {
     nView.setNavigationItemSelectedListener { item ->
       when (item.itemId) {
         R.id.menuItemLogout -> {
+          prefsProvider.setDidCompleteOnBoarding(false)
           doLogout()
           drawerLayout.closeDrawers()
           true

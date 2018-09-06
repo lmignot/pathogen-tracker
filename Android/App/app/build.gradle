@@ -6,6 +6,14 @@ apply plugin: 'realm-android'
 apply plugin: "idea"
 
 android {
+  signingConfigs {
+    Release {
+      keyAlias 'zika'
+      keyPassword 'Susana$Taane'
+      storeFile file('/Users/lmignot/PathogenTracker/Android/zika.keystore')
+      storePassword 'Susana$Taane'
+    }
+  }
   compileSdkVersion 27
   buildToolsVersion '28.0.0'
   defaultConfig {
@@ -18,14 +26,16 @@ android {
     versionNameSuffix '1.0.5'
     resConfigs "en"
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    signingConfig signingConfigs.Release
   }
   buildTypes {
     debug {
+      minifyEnabled false
       testCoverageEnabled = true
     }
     release {
-      minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+      signingConfig signingConfigs.Release
     }
   }
   // Always show the result of every unit test, even if it passes.
@@ -77,7 +87,7 @@ dependencies {
   implementation "com.firebaseui:firebase-ui-auth:$rootProject.ext.fbUIAuthVersion"
 
   // required for Firestore
-  implementation "io.reactivex.rxjava2:rxjava:2.1.8"
+  implementation 'io.reactivex.rxjava2:rxjava:2.1.8'
 
   // Third-Party Libraries
   implementation "me.zhanghai.android.effortlesspermissions:library:$rootProject.ext.effPermVersion"
