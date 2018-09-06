@@ -107,7 +107,7 @@
   <string name="add_entry">Add Entry</string>
   <string name="patient_id">Patient ID</string>
   <string name="hint_location_collected">Location Collected</string>
-  <string name="encrpytion_rationale">Please ensure your smartphone device is encrypted if mandated by your organization</string>
+  <string name="encrpytion_rationale">Please ensure your \nsmartphone device is encrypted if mandated by your organization</string>
   <string name="done">Done</string>
 
 </resources>

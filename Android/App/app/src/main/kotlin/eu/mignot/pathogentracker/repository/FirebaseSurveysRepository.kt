@@ -28,6 +28,11 @@ class FirebaseSurveysRepository(
   override fun <T : RealmObject> getSurveysFor(surveyType: T, parentId: String): List<T> =
     TODO(NOT_IMPLEMENTED_RATIONALE)
 
+  /**
+   * Stores a survey in Firebase Firestore
+   *
+   * @param survey the survey to store
+   */
   override fun <T: RealmObject> storeSurvey(survey: T) {
     when(survey) {
       is Human -> uploadHumanSurvey(survey)
