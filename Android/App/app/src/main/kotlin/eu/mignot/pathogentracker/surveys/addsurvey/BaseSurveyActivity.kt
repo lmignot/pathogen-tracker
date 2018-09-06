@@ -30,6 +30,19 @@ abstract class BaseSurveyActivity<T: RealmObject>: AppCompatActivity(), AddSurve
     super.onPause()
   }
 
+  /**
+   * Prevent accidental survey loss when back
+   * button is pressed
+   */
+  override fun onBackPressed() {
+    cancelAndClose()
+  }
+
+  /**
+   * @see [AppCompatActivity.onOptionsItemSelected]
+   *
+   * Manage toolbar actions
+   */
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     return when (item.itemId) {
       R.id.actionSave -> {
@@ -44,16 +57,27 @@ abstract class BaseSurveyActivity<T: RealmObject>: AppCompatActivity(), AddSurve
     }
   }
 
+  /**
+   * @see [AppCompatActivity.onCreateOptionsMenu]
+   */
   override fun onCreateOptionsMenu(menu: Menu): Boolean {
     menuInflater.inflate(R.menu.add_survey_menu_white, menu)
     return true
   }
 
+  /**
+   * @see [AppCompatActivity.onRequestPermissionsResult]
+   */
   override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
     super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     EffortlessPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
   }
 
+  /**
+   * @see [AddSurvey.cancelAndClose]
+   *
+   * Alert the user and give the option to remain in the survey
+   */
   override fun cancelAndClose() {
     alert(getString(R.string.cancel_survey_title), getString(R.string.cancel_survey_rationale)){
       positiveButton(getString(R.string.action_leave)) {

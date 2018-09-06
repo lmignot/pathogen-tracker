@@ -23,7 +23,7 @@ android {
     versionCode 3
     versionName 'Beta'
     applicationId "eu.mignot.pathogentracker"
-    versionNameSuffix '1.0.5'
+    versionNameSuffix '1.5.0'
     resConfigs "en"
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     signingConfig signingConfigs.Release

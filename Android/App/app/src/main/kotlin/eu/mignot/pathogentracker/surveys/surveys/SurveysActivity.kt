@@ -89,6 +89,12 @@ class SurveysActivity: AppCompatActivity(), AnkoLogger {
     }
   }
 
+  override fun onBackPressed() {
+    if (drawerLayout.isDrawerOpen(navView)) {
+      drawerLayout.closeDrawer(navView)
+    }
+  }
+
   private fun startJobs() {
     startJob(FirebaseHumanSyncService::class.java, Constants.JOB_ID_HUMANS)
     startJob(FirebaseVectorBatchSyncService::class.java, Constants.JOB_ID_VECTOR_BATCHES)
@@ -157,12 +163,12 @@ class SurveysActivity: AppCompatActivity(), AnkoLogger {
         R.id.menuItemLogout -> {
           prefsProvider.setDidCompleteOnBoarding(false)
           doLogout()
-          drawerLayout.closeDrawers()
+          drawerLayout.closeDrawer(navView)
           true
         }
         R.id.menuItemSettings -> {
           showSettings()
-          drawerLayout.closeDrawers()
+          drawerLayout.closeDrawer(navView)
           true
         }
         else -> true

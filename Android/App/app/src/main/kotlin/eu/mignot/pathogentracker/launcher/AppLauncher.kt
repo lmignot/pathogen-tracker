@@ -33,9 +33,6 @@ class AppLauncher : AppCompatActivity(), AnkoLogger {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
-//    prefsProvider.setDidCompleteOnBoarding(false)
-//    loginProvider.signOut()
-
     if (!loginProvider.hasUser()) {
       doLogin()
     } else if (!prefsProvider.getDidCompleteOnBoarding()) {

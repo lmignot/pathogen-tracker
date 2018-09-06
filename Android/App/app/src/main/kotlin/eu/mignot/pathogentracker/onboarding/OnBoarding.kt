@@ -27,6 +27,11 @@ class OnBoarding : AppCompatActivity(), AnkoLogger, UsesCamera, UsesLocation {
     changePage(0)
   }
 
+  // prevent the user from pressing the back button during onboarding
+  override fun onBackPressed() {
+    info { "Back button pressed in onboarding" }
+  }
+
   fun onChoosePrimaryActivity(s: SurveyType) {
     info("Primary activity: $s")
     vm.primaryActivity = s
