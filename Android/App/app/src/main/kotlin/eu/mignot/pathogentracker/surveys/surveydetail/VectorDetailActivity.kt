@@ -1,6 +1,5 @@
 package eu.mignot.pathogentracker.surveys.surveydetail
 
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
@@ -33,6 +32,10 @@ class VectorDetailActivity : AppCompatActivity() {
     App.getLocalSurveysRepository().getSurvey(Vector(), surveyId)
   }
 
+  private val photoRepository by lazy {
+    App.getLocalPhotoRepository()
+  }
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     if (batchId == AppSettings.Constants.NO_BATCH_ID_VALUE) {
@@ -60,7 +63,7 @@ class VectorDetailActivity : AppCompatActivity() {
       vectorDetailStage.text = it.stage
       vectorDetailDidFeed.text = it.didFeed.asYesOrNo()
       it.photo?.let { p ->
-        val photo = BitmapFactory.decodeFile(p.path)
+        val photo = photoRepository.retrievePhoto(p.path)
         vectorDetailPhoto.setImageBitmap(photo)
         vectorDetailPhoto.visibility = View.VISIBLE
       }

@@ -16,6 +16,7 @@ import eu.mignot.pathogentracker.preferences.PreferencesProvider
 import eu.mignot.pathogentracker.repository.*
 import eu.mignot.pathogentracker.util.AppSettings
 import eu.mignot.pathogentracker.util.FirebaseLoginProvider
+import eu.mignot.pathogentracker.util.TemporaryFileProvider
 import io.realm.Realm
 import io.realm.RealmConfiguration
 
@@ -23,6 +24,10 @@ class App : Application() {
 
   private val deviceFileDir by lazy {
     getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+  }
+
+  private val tempFileProvider by lazy {
+    TemporaryFileProvider
   }
 
   private val prefsProvider by lazy {
@@ -112,6 +117,7 @@ class App : Application() {
     fun getDeviceFileDir() = instance.deviceFileDir!!
     fun getLocalPhotoRepository() = instance.localPhotoRepository
     fun getRemotePhotoRepository() = instance.remotePhotoRepository
+    fun getTempFileProvider() = instance.tempFileProvider
   }
 
 }

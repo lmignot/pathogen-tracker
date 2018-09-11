@@ -4,7 +4,12 @@ import android.os.Bundle
 import com.yayandroid.locationmanager.LocationManager
 import com.yayandroid.locationmanager.listener.LocationListener
 
-
+/**
+ * LocationView
+ *
+ * Describes methods used by an activity that require fetching
+ * a device's current location.
+ */
 interface LocationView: LocationListener {
 
   fun getLocationManager(): LocationManager

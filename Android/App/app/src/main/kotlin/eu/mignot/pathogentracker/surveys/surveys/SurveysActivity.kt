@@ -83,7 +83,7 @@ class SurveysActivity: AppCompatActivity(), AnkoLogger {
 
   override fun onStart() {
     super.onStart()
-    info { "TRYING TO START THE JOBS"}
+    // start background service jobs if a user is signed in
     if (loginProvider.hasUser()) {
       startJobs()
     }
@@ -103,11 +103,9 @@ class SurveysActivity: AppCompatActivity(), AnkoLogger {
   }
 
   private fun startJob(cls: Class<*>, id: Int) {
-    info { "START JOB CALLED"}
     val componentName = getComponentName(cls)
     val job: JobInfo = getJobInfo(id, prefsProvider.getUseCellular(), componentName)
     jobScheduler.schedule(job)
-    info { "JOB SCHEDULED"}
   }
 
   private fun getComponentName(cls: Class<*>): ComponentName =

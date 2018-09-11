@@ -53,11 +53,12 @@ class SurveysFragment: Fragment(), AnkoLogger {
     return inflater.inflate(R.layout.fragment_surveys, container, false)
   }
 
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+  }
+
   override fun onResume() {
     super.onResume()
-    surveysList.adapter = adapter
-    surveysList.layoutManager = LinearLayoutManager(context)
-    surveysList.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
 
     // Show the welcome message if no surveys available
     if (vm.getSurveys().isEmpty()) {
@@ -70,6 +71,19 @@ class SurveysFragment: Fragment(), AnkoLogger {
         R.string.welcome_user,
         loginProvider.getCurrentUser()?.displayName ?: getString(R.string.anonymous)
       )
+    }
+
+    // setup the adapter
+    surveysList.adapter = adapter
+    surveysList.layoutManager = LinearLayoutManager(context)
+    surveysList.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+
+    // refresh surveys list if requested
+    swipeContainer.setOnRefreshListener {
+      swipeContainer.isRefreshing = true
+      adapter.clear()
+      adapter.addAll(vm.getSurveys())
+      swipeContainer.isRefreshing = false
     }
   }
 
@@ -88,6 +102,16 @@ class SurveysFragment: Fragment(), AnkoLogger {
     }
 
     override fun getItemCount(): Int = surveys.size
+
+    fun clear() {
+      surveys = listOf()
+      notifyDataSetChanged()
+    }
+
+    fun addAll(newData: List<UiSurvey>){
+      surveys = newData
+      notifyDataSetChanged()
+    }
 
   }
 

@@ -9,7 +9,7 @@ buildscript {
     fbCoreVersion = "16.0.3"
     fbAuthVersion = "16.0.3"
     fbFirestoreVersion = "17.1.0"
-    fbStorageVersion = "16.0.1"
+    fbStorageVersion = "16.0.2"
     fbCrashVersion = "16.2.0"
     fbUIAuthVersion = "4.1.0"
 

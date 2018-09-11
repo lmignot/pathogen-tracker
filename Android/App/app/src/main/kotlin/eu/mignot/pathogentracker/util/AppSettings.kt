@@ -23,6 +23,7 @@ object AppSettings {
     const val VECTOR_ID_KEY = "vectorId"
     const val VECTOR_SEQUENCE_KEY = "sequence"
     const val DEFAULT_IMAGE_QUALITY = 80
+    const val IMAGE_EXTENSION = ".jpg"
     const val UNCOMPRESSED_IMAGE_QUALITY = 100
     const val DATE_FORMAT = "dd MMMM yyyy"
     const val DATE_TIME_FORMAT = "dd MMMM yyyy, HH:mm"

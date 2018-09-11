@@ -54,7 +54,8 @@ class AddVectorSurveyActivity: BaseSurveyActivity<Vector>(), SpinnerOrOther, Use
       vectorId,
       App.getLocalSurveysRepository(),
       App.getPreferenceProvider(),
-      App.getLocalPhotoRepository()
+      App.getLocalPhotoRepository(),
+      App.getTempFileProvider()
     )
   }
 
@@ -147,6 +148,7 @@ class AddVectorSurveyActivity: BaseSurveyActivity<Vector>(), SpinnerOrOther, Use
           this, UsesCamera.CAMERA_PERMISSION, UsesCamera.STORAGE_PERMISSION
         )) {
         vm.getTempImageFile()?.let { f -> takePhotoIntent(f) }
+          ?: showShortMessage(vectorSurveyRoot, "Unable to store a temporary file")
       } else {
         askForCameraPermission(this, "Please allow access to the camera")
       }
