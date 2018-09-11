@@ -1,27 +1,32 @@
 package eu.mignot.pathogentracker.addsurvey
 
+import eu.mignot.pathogentracker.data.AppFormDataProvider
 import eu.mignot.pathogentracker.repository.RealmSurveysRepository
-import eu.mignot.pathogentracker.surveys.addsurvey.vector.AddVectorBatchViewModel
+import eu.mignot.pathogentracker.surveys.addsurvey.human.AddHumanViewModel
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.util.*
 
-class TestAddVectorBatchViewModel {
+class TestAddHumanViewModel {
 
   companion object {
-    const val ID_PREFIX = "VB-"
+    const val ID_PREFIX = "H-"
     const val TEST_YEAR = 2021
     const val TEST_MONTH = 6
     const val TEST_DAY = 10
+    val TEST_SYMPTOMS = listOf("Skin rash", "Fever", "Joint or muscle pain", "Vomiting", "Severe headache", "Other")
   }
 
   private val vm by lazy {
-    AddVectorBatchViewModel(RealmSurveysRepository)
+    AddHumanViewModel(
+      AppFormDataProvider,
+      RealmSurveysRepository
+    )
   }
 
   @Test
-  fun should_generate_id_prefix() {
-    assertEquals(vm.id.substring(0, 3), ID_PREFIX)
+  fun should_have_the_correct_id_prefix() {
+    assertEquals(vm.id.substring(0, 2), ID_PREFIX)
   }
 
   @Test
@@ -40,6 +45,12 @@ class TestAddVectorBatchViewModel {
     assertEquals(vm.date.get(Calendar.YEAR), TEST_YEAR)
     assertEquals(vm.date.get(Calendar.MONTH), TEST_MONTH)
     assertEquals(vm.date.get(Calendar.DATE), TEST_DAY)
+  }
+
+  @Test
+  fun should_provide_list_of_symptoms() {
+    val symptoms = vm.symptoms()
+    assertEquals(symptoms.size, TEST_SYMPTOMS.size)
   }
 
 }
