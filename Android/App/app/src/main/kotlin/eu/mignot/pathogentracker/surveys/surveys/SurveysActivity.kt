@@ -67,21 +67,17 @@ class SurveysActivity: AppCompatActivity(), AnkoLogger {
     // setup the surveys fragment
     setupSurveysFragment(savedInstanceState)
 
+    // setup Floating Action Button
     fabAddSurvey.onClick {
       // if there is no secondary survey, pick the appropriate option
       if (!prefsProvider.hasSecondarySurvey()) {
         when(prefsProvider.getPrimarySurveyActivity()) {
           is SurveyType.PATIENT -> startActivity<AddHumanSurveyActivity>()
           is SurveyType.VECTOR -> startActivity<AddVectorBatchSurveyActivity>()
+          // this case will never occur unless the app's code is changed to allow
+          // primary surveys to be set to None. It's included to exhaust all conditions
+          // in this when statement
           is SurveyType.NONE -> showShortMessage(surveyListRoot, getString(R.string.error_no_primary_activity))
-        }
-      } else if (prefsProvider.getPrimarySurveyActivity() == prefsProvider.getSecondarySurveyActivity()) {
-        // when user has selected same survey type for primary and secondary
-        // ignore the secondary survey type
-        when(prefsProvider.getPrimarySurveyActivity()) {
-          is SurveyType.PATIENT -> startActivity<AddHumanSurveyActivity>()
-          is SurveyType.VECTOR -> startActivity<AddVectorBatchSurveyActivity>()
-          is SurveyType.NONE -> info { "Strange edge case, primary survey can't be NONE" }
         }
       } else {
         showSurveySelection()
