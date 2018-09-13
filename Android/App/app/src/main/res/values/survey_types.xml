@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string-array name="surveyTypes">
+  <string-array name="surveyTypesPrimary">
+    <item>Mosquito</item>
+    <item>Patient</item>
+  </string-array>
+  <string-array name="surveyTypesSecondary">
     <item>Mosquito</item>
     <item>Patient</item>
     <item>None</item>

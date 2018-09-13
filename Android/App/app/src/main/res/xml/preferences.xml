@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.preference.PreferenceScreen
-  xmlns:android="http://schemas.android.com/apk/res/android">
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/preferencesRoot">
   <android.support.v7.preference.PreferenceCategory
     android:title="Surveys">
     <android.support.v7.preference.ListPreference
       android:key="PRIMARY_SURVEY_KEY"
       android:title="Primary survey"
       android:summary="Your primary survey type"
-      android:entries="@array/surveyTypes"
-      android:entryValues="@array/surveyTypes"
+      android:entries="@array/surveyTypesPrimary"
+      android:entryValues="@array/surveyTypesPrimary"
       android:defaultValue="Patient"
       />
     <android.support.v7.preference.ListPreference
       android:key="SECONDARY_SURVEY_KEY"
       android:title="Secondary survey"
       android:summary="Secondary survey type (if any)"
-      android:entries="@array/surveyTypes"
-      android:entryValues="@array/surveyTypes"
+      android:entries="@array/surveyTypesSecondary"
+      android:entryValues="@array/surveyTypesSecondary"
       android:defaultValue="Mosquito"
       />
   </android.support.v7.preference.PreferenceCategory>

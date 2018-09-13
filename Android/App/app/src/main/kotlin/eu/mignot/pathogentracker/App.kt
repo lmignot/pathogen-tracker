@@ -19,30 +19,31 @@ import eu.mignot.pathogentracker.util.FirebaseLoginProvider
 import eu.mignot.pathogentracker.util.TemporaryFileProvider
 import io.realm.Realm
 import io.realm.RealmConfiguration
+import java.io.File
 
 class App : Application() {
 
-  private val deviceFileDir by lazy {
+  private val deviceFileDir: File by lazy {
     getExternalFilesDir(Environment.DIRECTORY_PICTURES)
   }
 
-  private val tempFileProvider by lazy {
+  private val tempFileProvider: TemporaryFileProvider by lazy {
     TemporaryFileProvider
   }
 
-  private val prefsProvider by lazy {
+  private val prefsProvider: PreferencesProvider by lazy {
     AppPreferencesProvider
   }
 
-  private val formDataProvider by lazy {
+  private val formDataProvider: FormDataProvider by lazy {
     AppFormDataProvider
   }
 
-  private val localSurveysRepository by lazy {
+  private val localSurveysRepository: SurveyRepository by lazy {
     RealmSurveysRepository
   }
 
-  private val fireStoreInstance by lazy {
+  private val fireStoreInstance: FirebaseFirestore by lazy {
     val settings = FirebaseFirestoreSettings.Builder()
       .setPersistenceEnabled(false)
       .setTimestampsInSnapshotsEnabled(true)
@@ -52,25 +53,25 @@ class App : Application() {
     db
   }
 
-  private val remoteSurveysRepository by lazy {
+  private val remoteSurveysRepository: SurveyRepository by lazy {
     FirebaseSurveysRepository(
       fireStoreInstance
     )
   }
 
-  private val authProvider by lazy {
+  private val authProvider: FirebaseLoginProvider by lazy {
     FirebaseLoginProvider(FirebaseAuth.getInstance())
   }
 
-  private val authUI by lazy {
+  private val authUI: AuthUI by lazy {
     AuthUI.getInstance()
   }
 
-  private val localPhotoRepository by lazy {
+  private val localPhotoRepository: PhotoRepository by lazy {
     DevicePhotoRepository
   }
 
-  private val remotePhotoRepository by lazy {
+  private val remotePhotoRepository: PhotoRepository by lazy {
     FirebasePhotoRepository(FirebaseStorage.getInstance().reference)
   }
 
@@ -85,12 +86,16 @@ class App : Application() {
    */
   private fun initRealm() {
     Realm.init(this)
+
+    // configure Realm instance
     val config = RealmConfiguration
       .Builder()
       .name(AppSettings.Constants.REALM_DB_NAME)
       .schemaVersion(AppSettings.Constants.REALM_SCHEMA_VERSION)
       .deleteRealmIfMigrationNeeded()
       .build()
+
+    // initialize all Realm modules with configuration
     RealmConfigStore.initModule(Human::class.java, config)
     RealmConfigStore.initModule(Country::class.java, config)
     RealmConfigStore.initModule(Infection::class.java, config)
@@ -104,20 +109,36 @@ class App : Application() {
 
   companion object {
     lateinit var instance: App private set
+
     fun getPreferenceProvider(): PreferencesProvider =
       instance.prefsProvider
+
     fun getFormDataProvider(): FormDataProvider =
       instance.formDataProvider
+
     fun getLocalSurveysRepository(): SurveyRepository =
       instance.localSurveysRepository
+
     fun getRemoteSurveysRepository(): SurveyRepository =
       instance.remoteSurveysRepository
-    fun getLoginProvider(): FirebaseLoginProvider = instance.authProvider
-    fun getLoginUI(): AuthUI = instance.authUI
-    fun getDeviceFileDir() = instance.deviceFileDir!!
-    fun getLocalPhotoRepository() = instance.localPhotoRepository
-    fun getRemotePhotoRepository() = instance.remotePhotoRepository
-    fun getTempFileProvider() = instance.tempFileProvider
+
+    fun getLoginProvider(): FirebaseLoginProvider =
+      instance.authProvider
+
+    fun getLoginUI(): AuthUI =
+      instance.authUI
+
+    fun getDeviceFileDir(): File =
+      instance.deviceFileDir
+
+    fun getLocalPhotoRepository(): PhotoRepository =
+      instance.localPhotoRepository
+
+    fun getRemotePhotoRepository(): PhotoRepository =
+      instance.remotePhotoRepository
+
+    fun getTempFileProvider(): TemporaryFileProvider =
+      instance.tempFileProvider
   }
 
 }

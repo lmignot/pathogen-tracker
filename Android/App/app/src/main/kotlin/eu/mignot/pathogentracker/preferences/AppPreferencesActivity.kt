@@ -6,7 +6,7 @@ import eu.mignot.pathogentracker.R
 import eu.mignot.pathogentracker.util.setupToolbar
 import kotlinx.android.synthetic.main.activity_preferences.*
 
-class AppPreferencesActivity : AppCompatActivity() {
+class AppPreferencesActivity: AppCompatActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
