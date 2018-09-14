@@ -6,8 +6,13 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.provider.MediaStore
+import android.support.design.widget.TextInputLayout
 import android.support.v4.content.FileProvider
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.EditText
+import android.widget.Spinner
 import eu.mignot.pathogentracker.App
 import eu.mignot.pathogentracker.R
 import eu.mignot.pathogentracker.data.models.database.Photo
@@ -28,7 +33,7 @@ import org.jetbrains.anko.uiThread
 import pub.devrel.easypermissions.AfterPermissionGranted
 import java.io.File
 
-class AddVectorSurveyActivity: BaseSurveyActivity<Vector>(), SpinnerOrOther, UsesCamera {
+class AddVectorSurveyActivity: BaseSurveyActivity<Vector>(), UsesCamera {
 
   private val vectorId by lazy {
     intent.getStringExtra(AppSettings.Constants.VECTOR_ID_KEY)?.let {
@@ -72,8 +77,7 @@ class AddVectorSurveyActivity: BaseSurveyActivity<Vector>(), SpinnerOrOther, Use
   }
 
   override fun bind() {
-    setupSpinner(this, R.array.mosquitoSpecies, vectorSpecies, vectorSpeciesOtherLayout)
-//    setupPhotoButton()
+    setupSpinner(R.array.mosquitoSpecies, vectorSpecies, vectorSpeciesOtherLayout)
     onRequestCameraPermission()
   }
 
@@ -185,5 +189,40 @@ class AddVectorSurveyActivity: BaseSurveyActivity<Vector>(), SpinnerOrOther, Use
     photoView.setImageBitmap(bmp)
     photoView.visibility = View.VISIBLE
     photoButton.setText(R.string.action_replace_photo)
+  }
+
+  private fun setupSpinner(
+    arraySource: Int,
+    spinnerField: Spinner,
+    otherField: TextInputLayout
+  ) {
+    val adapter = ArrayAdapter.createFromResource(this, arraySource, android.R.layout.simple_spinner_item)
+    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+    spinnerField.adapter = adapter
+    spinnerField.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+      override fun onItemSelected(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
+        val selected = parent.getItemAtPosition(pos).toString()
+        when(selected) {
+          "Other" -> {toggleOtherField(true, otherField)}
+          else -> {toggleOtherField(field = otherField)}
+        }
+      }
+      override fun onNothingSelected(parent: AdapterView<*>?) {}
+    }
+  }
+
+  private fun getSpinnerValue(spinner: Spinner, textField: EditText, textLayout: TextInputLayout): String {
+    return if (textLayout.visibility == View.VISIBLE) {
+      textField.text.toString()
+    } else {
+      val selected = spinner.getItemAtPosition(spinner.selectedItemPosition)
+      selected.toString()
+    }
+  }
+
+  private fun toggleOtherField(visible: Boolean = false, field: TextInputLayout) = if (visible) {
+    field.visibility = View.VISIBLE
+  } else {
+    field.visibility = View.GONE
   }
 }
