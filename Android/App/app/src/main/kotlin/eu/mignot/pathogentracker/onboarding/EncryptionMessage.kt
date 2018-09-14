@@ -9,7 +9,7 @@ import eu.mignot.pathogentracker.R
 import kotlinx.android.synthetic.main.fragment_encryption_msg.*
 import org.jetbrains.anko.sdk25.coroutines.onClick
 
-class EncryptionMessageFragment : Fragment() {
+class EncryptionMessage : Fragment() {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
     return inflater.inflate(R.layout.fragment_encryption_msg, container, false)
@@ -24,7 +24,7 @@ class EncryptionMessageFragment : Fragment() {
   }
 
   companion object {
-    fun newInstance() = EncryptionMessageFragment()
+    fun newInstance() = EncryptionMessage()
   }
 
 }

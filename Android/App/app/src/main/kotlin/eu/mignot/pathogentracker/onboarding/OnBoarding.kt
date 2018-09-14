@@ -77,21 +77,19 @@ class OnBoarding : AppCompatActivity(), AnkoLogger, UsesCamera, UsesLocation {
     }
   }
 
-//  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {}
-
   private fun changePage(position: Int) {
     when (position) {
       0 -> changeFragment(
-        ChoosePrimaryUserActivity.newInstance()
+        ChoosePrimarySurvey.newInstance()
       )
       1 -> changeFragment(
-        ChooseSecondaryUserActivity.newInstance(vm.primaryActivity)
+        ChooseSecondarySurvey.newInstance(vm.primaryActivity)
       )
       2 -> changeFragment(
         if (EffortlessPermissions.hasPermissions(this, (UsesLocation.PERMISSION))) {
           return changePage(3)
         } else {
-          AskForPermissionFragment.newInstance(
+          AskForPermission.newInstance(
             UsesLocation.REQUEST_CODE,
             R.string.permission_location_rationale
           )
@@ -103,14 +101,14 @@ class OnBoarding : AppCompatActivity(), AnkoLogger, UsesCamera, UsesLocation {
         ) {
           return changePage(4)
         } else {
-          AskForPermissionFragment.newInstance(
+          AskForPermission.newInstance(
             UsesCamera.REQUEST_CODE,
             R.string.permission_camera_rationale
           )
         }
       )
       else -> changeFragment(
-        EncryptionMessageFragment.newInstance()
+        EncryptionMessage.newInstance()
       )
     }
   }

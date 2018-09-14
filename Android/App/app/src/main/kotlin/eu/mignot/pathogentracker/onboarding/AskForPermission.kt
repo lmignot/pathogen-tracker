@@ -10,7 +10,7 @@ import eu.mignot.pathogentracker.util.AppSettings
 import kotlinx.android.synthetic.main.fragment_get_permission.*
 import org.jetbrains.anko.sdk25.coroutines.onClick
 
-class AskForPermissionFragment : Fragment() {
+class AskForPermission : Fragment() {
 
   private val permissionCode by lazy {
     arguments!!.getInt(AppSettings.Constants.PERMISSION_CODE)
@@ -34,8 +34,8 @@ class AskForPermissionFragment : Fragment() {
   }
 
   companion object {
-      fun newInstance(permissionCode: Int, permissionRationaleId: Int): AskForPermissionFragment {
-        val fragment = AskForPermissionFragment()
+      fun newInstance(permissionCode: Int, permissionRationaleId: Int): AskForPermission {
+        val fragment = AskForPermission()
         val args = Bundle()
         args.putInt(AppSettings.Constants.PERMISSION_CODE, permissionCode)
         args.putInt(AppSettings.Constants.PERMISSION_RATIONALE_ID, permissionRationaleId)

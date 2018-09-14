@@ -10,7 +10,7 @@ import eu.mignot.pathogentracker.data.SurveyType
 import kotlinx.android.synthetic.main.fragment_choose_primary_activity.*
 import org.jetbrains.anko.sdk25.coroutines.onClick
 
-class ChoosePrimaryUserActivity: Fragment() {
+class ChoosePrimarySurvey: Fragment() {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
     return inflater.inflate(R.layout.fragment_choose_primary_activity, container, false)
@@ -29,6 +29,6 @@ class ChoosePrimaryUserActivity: Fragment() {
   }
 
   companion object {
-      fun newInstance() = ChoosePrimaryUserActivity()
+      fun newInstance() = ChoosePrimarySurvey()
   }
 }

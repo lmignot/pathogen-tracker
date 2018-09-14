@@ -11,7 +11,7 @@ import eu.mignot.pathogentracker.util.AppSettings
 import kotlinx.android.synthetic.main.fragment_choose_secondary_activity.*
 import org.jetbrains.anko.sdk25.coroutines.onClick
 
-class ChooseSecondaryUserActivity : Fragment() {
+class ChooseSecondarySurvey : Fragment() {
 
   private fun getSecondaryActivityChoice(primary: SurveyType) = when (primary) {
     is SurveyType.PATIENT -> SurveyType.VECTOR
@@ -46,8 +46,8 @@ class ChooseSecondaryUserActivity : Fragment() {
   }
 
   companion object {
-      fun newInstance(s: SurveyType): ChooseSecondaryUserActivity {
-        val f = ChooseSecondaryUserActivity()
+      fun newInstance(s: SurveyType): ChooseSecondarySurvey {
+        val f = ChooseSecondarySurvey()
         val args = Bundle()
         args.putString(AppSettings.Constants.ACTIVITY_CHOICE, s.toString())
         f.arguments = args
