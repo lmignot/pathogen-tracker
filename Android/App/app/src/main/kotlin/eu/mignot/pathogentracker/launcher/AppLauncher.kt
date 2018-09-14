@@ -4,34 +4,35 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.ErrorCodes
 import com.firebase.ui.auth.IdpResponse
 import eu.mignot.pathogentracker.App
+import eu.mignot.pathogentracker.R
+import eu.mignot.pathogentracker.auth.LoginProvider
 import eu.mignot.pathogentracker.onboarding.OnBoarding
+import eu.mignot.pathogentracker.preferences.PreferencesProvider
 import eu.mignot.pathogentracker.surveys.surveys.SurveysActivity
-import eu.mignot.pathogentracker.util.DoesLogin
-import eu.mignot.pathogentracker.util.showShortMessage
-import kotlinx.android.synthetic.main.content_launcher.*
-import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.error
-import org.jetbrains.anko.startActivity
+import eu.mignot.pathogentracker.util.AppSettings.RequestCodes.LOGIN_REQ_CODE
+import org.jetbrains.anko.*
 
 class AppLauncher : AppCompatActivity(), AnkoLogger {
 
-  private val prefsProvider by lazy {
+  private val prefsProvider: PreferencesProvider by lazy {
     App.getPreferenceProvider()
   }
 
-  private val loginProvider by lazy {
+  private val loginProvider: LoginProvider by lazy {
     App.getLoginProvider()
   }
 
-  private val loginUI by lazy {
+  private val loginUI: AuthUI by lazy {
     App.getLoginUI()
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_launcher)
 
     if (!loginProvider.hasUser()) {
       doLogin()
@@ -44,7 +45,7 @@ class AppLauncher : AppCompatActivity(), AnkoLogger {
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
-    if (requestCode == DoesLogin.REQUEST_CODE) {
+    if (requestCode == LOGIN_REQ_CODE) {
       val response = IdpResponse.fromResultIntent(data)
       if (resultCode == Activity.RESULT_OK) {
         if (prefsProvider.getDidCompleteOnBoarding()) {
@@ -54,16 +55,19 @@ class AppLauncher : AppCompatActivity(), AnkoLogger {
         }
       } else {
         if (response == null) {
-          showShortMessage(launcherRoot, "This app requires a signed-in user, please sign in.")
-          doLogin()
+          alert(getString(R.string.login_error_sign_in)) {
+            yesButton { doLogin() }
+          }.show()
           return
         }
         if (response.error!!.errorCode == ErrorCodes.NO_NETWORK) {
-          showShortMessage(launcherRoot, "Please enable a network connection and try signing in again.")
-          doLogin()
+          alert(getString(R.string.error_login_no_network)) {
+            yesButton {
+              doLogin()
+            }
+          }.show()
           return
         }
-        showShortMessage(launcherRoot, "We encountered an unknown error when signing in sorry :(")
         error { response.error.toString() }
       }
     }
@@ -74,7 +78,7 @@ class AppLauncher : AppCompatActivity(), AnkoLogger {
       loginUI
         .createSignInIntentBuilder()
         .build(),
-      DoesLogin.REQUEST_CODE
+      LOGIN_REQ_CODE
     )
   }
 }

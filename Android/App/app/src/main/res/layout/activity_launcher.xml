@@ -1,25 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
+<android.support.design.widget.CoordinatorLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  tools:context=".launcher.AppLauncher">
+  android:fitsSystemWindows="true"
+  tools:context="eu.mignot.pathogentracker.launcher.AppLauncher">
 
-  <android.support.design.widget.AppBarLayout
+  <RelativeLayout
+    android:id="@+id/launcherRoot"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:theme="@style/AppTheme.OverlapSystemBar.AppBarOverlay">
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:gravity="bottom">
 
-    <android.support.v7.widget.Toolbar
-      android:id="@+id/toolbar"
+    <ImageView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:contentDescription="@string/logo"
+      android:layout_centerHorizontal="true"
+      android:layout_marginTop="200dp"
+      android:src="@mipmap/ic_launcher"
+      />
+
+    <TextView
+      android:id="@+id/launcherText"
       android:layout_width="match_parent"
-      android:layout_height="?attr/actionBarSize"
-      android:background="?attr/colorPrimary"
-      app:popupTheme="@style/AppTheme.OverlapSystemBar.PopupOverlay" />
+      android:layout_height="wrap_content"
+      android:textColor="@color/white"
+      android:textSize="24sp"
+      android:textAlignment="center"
+      android:text="@string/welcome_to_pathogentracker"
+      android:layout_marginBottom="240dp"
+      android:layout_marginStart="48dp"
+      android:layout_marginEnd="48dp"
+      android:layout_alignParentBottom="true"
+      />
 
-  </android.support.design.widget.AppBarLayout>
-
-  <include layout="@layout/content_launcher" />
+    </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

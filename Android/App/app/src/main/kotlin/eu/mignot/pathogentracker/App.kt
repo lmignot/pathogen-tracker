@@ -8,6 +8,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.google.firebase.storage.FirebaseStorage
 import com.vicpin.krealmextensions.RealmConfigStore
+import eu.mignot.pathogentracker.auth.FirebaseLoginProvider
+import eu.mignot.pathogentracker.auth.LoginProvider
 import eu.mignot.pathogentracker.data.AppFormDataProvider
 import eu.mignot.pathogentracker.data.FormDataProvider
 import eu.mignot.pathogentracker.data.models.database.*
@@ -15,7 +17,6 @@ import eu.mignot.pathogentracker.preferences.AppPreferencesProvider
 import eu.mignot.pathogentracker.preferences.PreferencesProvider
 import eu.mignot.pathogentracker.repository.*
 import eu.mignot.pathogentracker.util.AppSettings
-import eu.mignot.pathogentracker.util.FirebaseLoginProvider
 import eu.mignot.pathogentracker.util.TemporaryFileProvider
 import io.realm.Realm
 import io.realm.RealmConfiguration
@@ -59,7 +60,7 @@ class App : Application() {
     )
   }
 
-  private val authProvider: FirebaseLoginProvider by lazy {
+  private val authProvider: LoginProvider by lazy {
     FirebaseLoginProvider(FirebaseAuth.getInstance())
   }
 
@@ -122,7 +123,7 @@ class App : Application() {
     fun getRemoteSurveysRepository(): SurveyRepository =
       instance.remoteSurveysRepository
 
-    fun getLoginProvider(): FirebaseLoginProvider =
+    fun getLoginProvider(): LoginProvider =
       instance.authProvider
 
     fun getLoginUI(): AuthUI =

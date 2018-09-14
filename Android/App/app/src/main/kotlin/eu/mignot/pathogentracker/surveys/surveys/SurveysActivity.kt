@@ -15,9 +15,11 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import eu.mignot.pathogentracker.App
 import eu.mignot.pathogentracker.R
+import eu.mignot.pathogentracker.auth.LoginProvider
 import eu.mignot.pathogentracker.data.SurveyType
 import eu.mignot.pathogentracker.launcher.AppLauncher
 import eu.mignot.pathogentracker.preferences.AppPreferencesActivity
+import eu.mignot.pathogentracker.preferences.PreferencesProvider
 import eu.mignot.pathogentracker.surveys.addsurvey.human.AddHumanSurveyActivity
 import eu.mignot.pathogentracker.surveys.addsurvey.vector.AddVectorBatchSurveyActivity
 import eu.mignot.pathogentracker.syncservice.FirebaseHumanSyncService
@@ -37,11 +39,11 @@ class SurveysActivity: AppCompatActivity(), AnkoLogger {
     (applicationContext.getSystemService(Context.JOB_SCHEDULER_SERVICE)) as JobScheduler
   }
 
-  private val prefsProvider by lazy {
+  private val prefsProvider: PreferencesProvider by lazy {
     App.getPreferenceProvider()
   }
 
-  private val loginProvider by lazy {
+  private val loginProvider: LoginProvider by lazy {
     App.getLoginProvider()
   }
 

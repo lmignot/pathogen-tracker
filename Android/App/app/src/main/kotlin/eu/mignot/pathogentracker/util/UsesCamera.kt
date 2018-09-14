@@ -8,7 +8,7 @@ import pub.devrel.easypermissions.AfterPermissionGranted
 
 interface UsesCamera {
   companion object {
-    const val REQUEST_CODE = AppSettings.Constants.CAMERA_REQUEST_CODE
+    const val REQUEST_CODE = AppSettings.RequestCodes.CAMERA_REQ_CODE
     const val CAMERA_PERMISSION = Manifest.permission.CAMERA
     const val STORAGE_PERMISSION = Manifest.permission.WRITE_EXTERNAL_STORAGE
   }

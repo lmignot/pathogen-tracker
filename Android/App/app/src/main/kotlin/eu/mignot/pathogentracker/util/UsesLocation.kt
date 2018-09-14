@@ -6,7 +6,7 @@ import me.zhanghai.android.effortlesspermissions.EffortlessPermissions
 
 interface UsesLocation {
   companion object {
-    const val REQUEST_CODE = AppSettings.Constants.LOCATION_REQUEST_CODE
+    const val REQUEST_CODE = AppSettings.RequestCodes.LOCATION_REQ_CODE
     const val PERMISSION = (Manifest.permission.ACCESS_FINE_LOCATION)
   }
 

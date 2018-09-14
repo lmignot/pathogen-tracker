@@ -33,9 +33,6 @@ object AppSettings {
     const val MAX_TEMP = 40
     const val VECTOR_TYPE_VALUE = "Mosquito"
     const val PATIENT_TYPE_VALUE = "Patient"
-    const val LOCATION_REQUEST_CODE = 1
-    const val CAMERA_REQUEST_CODE = 2
-    const val GALLERY_REQUEST_CODE = 3
     const val FIREBASE_PHOTO_PATH = "/photos/mosquitoes"
     const val HUMAN_COLLECTION = "patients"
     const val VECTOR_COLLECTION = "mosquitoes"
@@ -50,4 +47,9 @@ object AppSettings {
     const val FILEPROVIDER_AUTHORITY = "eu.mignot.pathogentracker.fileprovider"
   }
 
+  object RequestCodes {
+    const val LOCATION_REQ_CODE = 1
+    const val CAMERA_REQ_CODE = 2
+    const val LOGIN_REQ_CODE = 3
+  }
 }

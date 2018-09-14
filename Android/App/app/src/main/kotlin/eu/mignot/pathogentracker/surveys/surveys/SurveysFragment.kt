@@ -18,6 +18,7 @@ import android.widget.TextView
 import android.widget.Toast
 import eu.mignot.pathogentracker.App
 import eu.mignot.pathogentracker.R
+import eu.mignot.pathogentracker.auth.LoginProvider
 import eu.mignot.pathogentracker.data.SurveyType
 import eu.mignot.pathogentracker.data.models.ui.UiSurvey
 import eu.mignot.pathogentracker.surveys.surveydetail.HumanDetailActivity
@@ -41,7 +42,7 @@ class SurveysFragment: Fragment(), AnkoLogger {
     SurveysListAdapter(vm.getSurveys())
   }
 
-  private val loginProvider by lazy {
+  private val loginProvider: LoginProvider by lazy {
     App.getLoginProvider()
   }
 
