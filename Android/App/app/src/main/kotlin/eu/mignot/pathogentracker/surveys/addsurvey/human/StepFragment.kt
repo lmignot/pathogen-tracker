@@ -7,12 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import com.stepstone.stepper.Step
 import com.stepstone.stepper.VerificationError
-import eu.mignot.pathogentracker.util.showShortMessage
 import eu.mignot.pathogentracker.data.models.database.Human
+import eu.mignot.pathogentracker.util.showShortMessage
 import kotlinx.android.synthetic.main.activity_add_human_survey.*
 import org.jetbrains.anko.AnkoLogger
 
-abstract class StepFragment : Fragment(), Step, AnkoLogger {
+abstract class StepFragment: Fragment(), Step, AnkoLogger {
+
+  val vm by lazy {
+    (activity as AddHumanSurveyActivity).vm
+  }
 
   /**
    * Resource ID of layout matching this step
@@ -25,10 +29,6 @@ abstract class StepFragment : Fragment(), Step, AnkoLogger {
    * @return The modified model
    */
   abstract fun getModel(model: Human): Human
-
-  val vm by lazy {
-    (activity as AddHumanSurveyActivity).vm
-  }
 
   /**
    * @see Fragment.onCreateView

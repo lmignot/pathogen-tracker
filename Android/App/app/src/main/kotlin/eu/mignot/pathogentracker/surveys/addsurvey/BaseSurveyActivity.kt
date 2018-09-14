@@ -3,7 +3,6 @@ package eu.mignot.pathogentracker.surveys.addsurvey
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import eu.mignot.pathogentracker.App
 import eu.mignot.pathogentracker.R
 import eu.mignot.pathogentracker.surveys.surveys.SurveysActivity
 import io.realm.RealmObject
@@ -15,10 +14,6 @@ import org.jetbrains.anko.startActivity
 abstract class BaseSurveyActivity<T: RealmObject>: AppCompatActivity(), AddSurvey<T>, AnkoLogger {
 
   abstract val vm: BaseViewModel<T>
-
-  val preferences by lazy {
-    App.getPreferenceProvider()
-  }
 
   override fun onResume() {
     super.onResume()

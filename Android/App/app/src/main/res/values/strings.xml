@@ -114,5 +114,7 @@
   <string name="error_login_no_network">Please enable a network connection and try signing in again.</string>
   <string name="login_error_sign_in">This app requires a signed-in user, please sign in.</string>
   <string name="login_error_unknown">We encountered an unknown error when signing in sorry :(</string>
+  <string name="thanks_for_loc_perm">Thanks for granting permission, tap the location field to get the current location</string>
+  <string name="error_loc_retrieval">Unable to determine location, please try again</string>
 
 </resources>

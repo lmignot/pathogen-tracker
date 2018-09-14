@@ -3,12 +3,12 @@ package eu.mignot.pathogentracker.syncservice
 import android.app.job.JobParameters
 import android.app.job.JobService
 import eu.mignot.pathogentracker.App
-import eu.mignot.pathogentracker.data.models.database.Human
+import eu.mignot.pathogentracker.data.models.database.VectorBatch
 import eu.mignot.pathogentracker.repository.SurveyRepository
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.doAsync
 
-class FirebaseHumanSyncService: JobService(), AnkoLogger {
+class VectorBatchSyncService: JobService(), AnkoLogger {
 
   private val localRepository: SurveyRepository by lazy {
     App.getLocalSurveysRepository()
@@ -23,7 +23,7 @@ class FirebaseHumanSyncService: JobService(), AnkoLogger {
   }
 
   override fun onStartJob(job: JobParameters?): Boolean {
-    val surveysToStore = localRepository.getSurveysToSync(Human())
+    val surveysToStore = localRepository.getSurveysToSync(VectorBatch())
 
     when (surveysToStore.isEmpty()) {
       true -> jobFinished(job!!, true)
@@ -31,7 +31,7 @@ class FirebaseHumanSyncService: JobService(), AnkoLogger {
         surveysToStore.forEach {
           doAsync {
             remoteRepository.storeSurvey(it)
-            if (localRepository.getSurveysToSync(Human()).isEmpty()) {
+            if (localRepository.getSurveysToSync(VectorBatch()).isEmpty()) {
               jobFinished(job!!, false)
             }
           }

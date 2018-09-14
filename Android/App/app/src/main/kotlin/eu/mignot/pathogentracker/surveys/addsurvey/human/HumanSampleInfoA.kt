@@ -13,19 +13,13 @@ class HumanSampleInfoA : StepFragment() {
 
   override fun getModel(model: Human): Human {
     model.samples.addAll(surveySampleTypes.getAllValues().map{
-      SampleType(
-        it
-      )
+      SampleType(it)
     })
     model.travelHistory.addAll(surveyTravelHistory.getAllValues().map{
-      Country(
-        it
-      )
+      Country(it)
     })
     model.pastInfections.addAll(surveyInfectionHistory.getAllValues().map{
-      Infection(
-        it
-      )
+      Infection(it)
     })
     return model
   }

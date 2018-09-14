@@ -54,10 +54,6 @@ class SurveysFragment: Fragment(), AnkoLogger {
     return inflater.inflate(R.layout.fragment_surveys, container, false)
   }
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-  }
-
   override fun onResume() {
     super.onResume()
 

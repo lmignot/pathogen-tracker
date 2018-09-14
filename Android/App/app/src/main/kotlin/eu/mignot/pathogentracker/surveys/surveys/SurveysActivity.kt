@@ -22,10 +22,10 @@ import eu.mignot.pathogentracker.preferences.AppPreferencesActivity
 import eu.mignot.pathogentracker.preferences.PreferencesProvider
 import eu.mignot.pathogentracker.surveys.addsurvey.human.AddHumanSurveyActivity
 import eu.mignot.pathogentracker.surveys.addsurvey.vector.AddVectorBatchSurveyActivity
-import eu.mignot.pathogentracker.syncservice.FirebaseHumanSyncService
-import eu.mignot.pathogentracker.syncservice.FirebasePhotoSyncService
-import eu.mignot.pathogentracker.syncservice.FirebaseVectorBatchSyncService
-import eu.mignot.pathogentracker.syncservice.FirebaseVectorSyncService
+import eu.mignot.pathogentracker.syncservice.HumanSyncService
+import eu.mignot.pathogentracker.syncservice.PhotoSyncService
+import eu.mignot.pathogentracker.syncservice.VectorBatchSyncService
+import eu.mignot.pathogentracker.syncservice.VectorSyncService
 import eu.mignot.pathogentracker.util.AppSettings.Constants
 import eu.mignot.pathogentracker.util.setupToolbar
 import eu.mignot.pathogentracker.util.showShortMessage
@@ -102,10 +102,10 @@ class SurveysActivity: AppCompatActivity(), AnkoLogger {
   }
 
   private fun startJobs() {
-    startJob(FirebaseHumanSyncService::class.java, Constants.JOB_ID_HUMANS)
-    startJob(FirebaseVectorBatchSyncService::class.java, Constants.JOB_ID_VECTOR_BATCHES)
-    startJob(FirebaseVectorSyncService::class.java, Constants.JOB_ID_VECTORS)
-    startJob(FirebasePhotoSyncService::class.java, Constants.JOB_ID_PHOTOS)
+    startJob(HumanSyncService::class.java, Constants.JOB_ID_HUMANS)
+    startJob(VectorBatchSyncService::class.java, Constants.JOB_ID_VECTOR_BATCHES)
+    startJob(VectorSyncService::class.java, Constants.JOB_ID_VECTORS)
+    startJob(PhotoSyncService::class.java, Constants.JOB_ID_PHOTOS)
   }
 
   private fun startJob(cls: Class<*>, id: Int) {

@@ -15,6 +15,7 @@ import eu.mignot.pathogentracker.data.LocationView
 import eu.mignot.pathogentracker.data.models.database.Human
 import eu.mignot.pathogentracker.data.models.database.Location
 import eu.mignot.pathogentracker.data.models.ui.UiLocation
+import eu.mignot.pathogentracker.util.AppSettings
 import eu.mignot.pathogentracker.util.asBoolean
 import eu.mignot.pathogentracker.util.selectedValue
 import eu.mignot.pathogentracker.util.showShortMessage
@@ -88,7 +89,7 @@ class HumanPersonalInfo: StepFragment(), LocationView {
     return model
   }
 
-  private fun getDateCollected() = dateCollected?.setText(DateFormat.format("dd MMMM yyyy", vm.date))
+  private fun getDateCollected() = dateCollected?.setText(DateFormat.format(AppSettings.Constants.DATE_FORMAT, vm.date))
 
   private fun setDateCollectedListener() {
     dateCollected?.setOnClickListener {
@@ -109,7 +110,7 @@ class HumanPersonalInfo: StepFragment(), LocationView {
     }
   }
 
-  private fun getDateOfBirth() = dateOfBirth?.setText(DateFormat.format("dd MMMM yyyy", vm.dateOfBirth))
+  private fun getDateOfBirth() = dateOfBirth?.setText(DateFormat.format(AppSettings.Constants.DATE_FORMAT, vm.dateOfBirth))
 
   private fun setDateOfBirthListener() {
     dateOfBirth?.setOnClickListener {
@@ -141,7 +142,7 @@ class HumanPersonalInfo: StepFragment(), LocationView {
 
   override fun gpsPermissionGranted(alreadyHadPermission: Boolean) {
     if (!alreadyHadPermission) {
-      showShortMessage(personalInfoForm, "Thanks for granting permission, tap the location field to get the current location")
+      showShortMessage(personalInfoForm, getString(R.string.thanks_for_loc_perm))
     }
   }
 
@@ -155,7 +156,7 @@ class HumanPersonalInfo: StepFragment(), LocationView {
   }
 
   override fun processLocationError(type: Int) {
-    showShortMessage(personalInfoForm, "Unable to determine location, please try again")
+    showShortMessage(personalInfoForm, getString(R.string.error_loc_retrieval))
   }
 
   override fun dismissLocationProgress() {

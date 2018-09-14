@@ -89,19 +89,19 @@
     </activity>
     <service
       android:exported="true"
-      android:name=".syncservice.FirebaseHumanSyncService"
+      android:name=".syncservice.HumanSyncService"
       android:permission="android.permission.BIND_JOB_SERVICE" />
     <service
       android:exported="true"
-      android:name=".syncservice.FirebaseVectorBatchSyncService"
+      android:name=".syncservice.VectorBatchSyncService"
       android:permission="android.permission.BIND_JOB_SERVICE" />
     <service
       android:exported="true"
-      android:name=".syncservice.FirebaseVectorSyncService"
+      android:name=".syncservice.VectorSyncService"
       android:permission="android.permission.BIND_JOB_SERVICE" />
     <service
       android:exported="true"
-      android:name=".syncservice.FirebasePhotoSyncService"
+      android:name=".syncservice.PhotoSyncService"
       android:permission="android.permission.BIND_JOB_SERVICE" />
   </application>
 

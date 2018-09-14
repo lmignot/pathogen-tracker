@@ -9,7 +9,7 @@ import eu.mignot.pathogentracker.repository.PhotoRepository
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.doAsync
 
-class FirebasePhotoSyncService: JobService(), AnkoLogger {
+class PhotoSyncService: JobService(), AnkoLogger {
 
   private val repository: SurveyRepository by lazy {
     App.getLocalSurveysRepository()
