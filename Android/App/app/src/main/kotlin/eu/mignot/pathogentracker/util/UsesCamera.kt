@@ -23,9 +23,15 @@ interface UsesCamera {
     )
   }
 
+  /**
+   * Called when permission has been granted
+   */
   @AfterPermissionGranted(REQUEST_CODE)
   fun onRequestCameraPermission() {}
 
+  /**
+   * Called when permission has been denied
+   */
   @AfterPermissionDenied(REQUEST_CODE)
   fun onCameraPermissionDenied() {}
 }

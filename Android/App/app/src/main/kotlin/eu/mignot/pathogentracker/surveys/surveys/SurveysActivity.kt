@@ -33,6 +33,9 @@ import kotlinx.android.synthetic.main.activity_surveys.*
 import org.jetbrains.anko.*
 import org.jetbrains.anko.sdk25.coroutines.onClick
 
+/**
+ * View class for displaying a list of surveys
+ */
 class SurveysActivity: AppCompatActivity(), AnkoLogger {
 
   private val jobScheduler: JobScheduler by lazy {
@@ -90,17 +93,21 @@ class SurveysActivity: AppCompatActivity(), AnkoLogger {
   override fun onStart() {
     super.onStart()
     // start background service jobs if a user is signed in
-    if (loginProvider.hasUser()) {
-      startJobs()
-    }
+    if (loginProvider.hasUser()) { startJobs() }
   }
 
+  /**
+   * Close the drawer if back button was pressed
+   */
   override fun onBackPressed() {
     if (drawerLayout.isDrawerOpen(navView)) {
       drawerLayout.closeDrawer(navView)
     }
   }
 
+  /**
+   * Starts all the background service jobs
+   */
   private fun startJobs() {
     startJob(HumanSyncService::class.java, Constants.JOB_ID_HUMANS)
     startJob(VectorBatchSyncService::class.java, Constants.JOB_ID_VECTOR_BATCHES)
@@ -108,14 +115,19 @@ class SurveysActivity: AppCompatActivity(), AnkoLogger {
     startJob(PhotoSyncService::class.java, Constants.JOB_ID_PHOTOS)
   }
 
+  /**
+   * Starts a job
+   *
+   * @param cls The service's class
+   * @param id The id for this job
+   */
   private fun startJob(cls: Class<*>, id: Int) {
     val componentName = getComponentName(cls)
     val job: JobInfo = getJobInfo(id, prefsProvider.getUseCellular(), componentName)
     jobScheduler.schedule(job)
   }
 
-  private fun getComponentName(cls: Class<*>): ComponentName =
-    ComponentName(this, cls)
+  private fun getComponentName(cls: Class<*>): ComponentName = ComponentName(this, cls)
 
   /**
    * Configure a background upload job

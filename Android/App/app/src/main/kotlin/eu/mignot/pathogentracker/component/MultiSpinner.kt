@@ -20,7 +20,8 @@ import org.jetbrains.anko.sdk25.coroutines.onClick
 /**
  * A MultiSpinner.
  *
- * Custom android widget that allows multiple values to be un/selected
+ * Custom android view component that allows multiple values to be added and removed
+ * from a discrete set. It uses a [Spinner] to display the available values
  * @see [LinearLayout] for constructor params
  */
 class MultiSpinner(context: Context, attrs: AttributeSet?, defStyleAttr: Int):
@@ -34,14 +35,27 @@ class MultiSpinner(context: Context, attrs: AttributeSet?, defStyleAttr: Int):
 
   private var spinnerWidgets: List<Spinner> = listOf()
 
+  /**
+   * Configurable text displayed as the field's label
+   */
   private lateinit var labelText: String
 
+  /**
+   * Configurable text displayed on the "add more" button
+   */
   private lateinit var buttonText: String
 
+  /**
+   * Configurable maximum number of items a user can select
+   */
   private var maxItems: Int = 0
 
+  /**
+   * Configurable array resource containing the values
+   */
   var valuesResId: Int = 0
 
+  // Retrieve configuration attributes from xml layout declaration
   init {
     val a = context.theme.obtainStyledAttributes(attrs, R.styleable.MultiSpinner, 0, 0)
     a?.let {
@@ -54,6 +68,7 @@ class MultiSpinner(context: Context, attrs: AttributeSet?, defStyleAttr: Int):
     init()
   }
 
+  // Use Anko DSL to construct the component's layout
   private fun init() = AnkoContext.createDelegate(this).apply {
     adapter = ArrayAdapter.createFromResource(context, valuesResId, android.R.layout.simple_spinner_item)
     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -102,10 +117,16 @@ class MultiSpinner(context: Context, attrs: AttributeSet?, defStyleAttr: Int):
     }
   }
 
+  /**
+   * Retrieve all the selected values
+   */
   fun getAllValues(): List<String> {
     return spinnerWidgets.map { it.selectedItem.toString() }.filter { it != "Select…" }
   }
 
+  /**
+   * Adds a spinner when the button is clicked
+   */
   private fun addSpinner() {
     val layout = linearLayout {
       orientation = LinearLayout.HORIZONTAL

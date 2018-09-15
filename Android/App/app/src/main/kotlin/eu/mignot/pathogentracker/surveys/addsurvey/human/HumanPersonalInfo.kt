@@ -167,7 +167,7 @@ class HumanPersonalInfo: StepFragment(), LocationView {
   }
 
   override fun processLocationError(type: Int) {
-    showShortMessage(personalInfoForm, getString(R.string.error_loc_retrieval))
+    showShortMessage(personalInfoForm, getString(R.string.loc_error_no_location))
   }
 
   override fun dismissLocationProgress() {

@@ -10,6 +10,9 @@ interface UsesLocation {
     const val PERMISSION = (Manifest.permission.ACCESS_FINE_LOCATION)
   }
 
+  /**
+   * @see EffortlessPermissions.requestPermissions
+   */
   fun askForLocationPermission(activity: Activity, rationale: String) {
     EffortlessPermissions.requestPermissions(
       activity,

@@ -23,6 +23,9 @@ class AddHumanViewModel(
 
   override val currentDate: Calendar by lazy { Calendar.getInstance() }
 
+  /**
+   * @see FormDataProvider.symptoms
+   */
   fun symptoms() = formDataProvider.symptoms()
 
   var currentDiseases: List<CurrentDisease> = listOf()

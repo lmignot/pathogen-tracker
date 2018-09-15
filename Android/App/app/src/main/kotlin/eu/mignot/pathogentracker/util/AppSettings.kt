@@ -1,4 +1,8 @@
 package eu.mignot.pathogentracker.util
+
+/**
+ * Provides constants used throughout PT app
+ */
 object AppSettings {
 
   object PreferenceKeys {

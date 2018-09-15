@@ -10,6 +10,9 @@ import eu.mignot.pathogentracker.util.*
 import kotlinx.android.synthetic.main.activity_human_detail.*
 import org.jetbrains.anko.startActivity
 
+/**
+ * View class for reviewing Human surveys
+ */
 class HumanDetailActivity : AppCompatActivity() {
 
   private val batchId by lazy {
@@ -33,6 +36,9 @@ class HumanDetailActivity : AppCompatActivity() {
     setupToolbar(toolbarHD, getString(R.string.title_human_detail), R.drawable.arrow_back_white)
   }
 
+  /**
+   * Render the model's data to the view
+   */
   override fun onResume() {
     super.onResume()
     survey?.let {

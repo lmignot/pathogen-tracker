@@ -81,8 +81,14 @@ class AddVectorSurveyActivity: BaseSurveyActivity<Vector>(), UsesCamera {
     onRequestCameraPermission()
   }
 
+  /**
+   * @see BaseSurveyActivity.unbind
+   */
   override fun unbind() {}
 
+  /**
+   * @see BaseSurveyActivity.saveAndClose
+   */
   override fun saveAndClose() {
     val model = getModel()
     doAsync {
@@ -96,6 +102,9 @@ class AddVectorSurveyActivity: BaseSurveyActivity<Vector>(), UsesCamera {
     }
   }
 
+  /**
+   * @see BaseSurveyActivity.getModel
+   */
   override fun getModel(): Vector {
     val result = Vector()
     result.id = vm.id
@@ -109,6 +118,10 @@ class AddVectorSurveyActivity: BaseSurveyActivity<Vector>(), UsesCamera {
     return result
   }
 
+  /**
+   * Creates a Photo object and
+   * requests vm to save the bitmap
+   */
   private fun savePhoto(): Photo {
     return with (Photo()) {
       fileName = File(vm.getPhotoPath()).name
@@ -119,6 +132,9 @@ class AddVectorSurveyActivity: BaseSurveyActivity<Vector>(), UsesCamera {
     }
   }
 
+  /**
+   * @see UsesCamera.onRequestCameraPermission
+   */
   @AfterPermissionGranted(UsesCamera.REQUEST_CODE)
   override fun onRequestCameraPermission() {
     when {
@@ -140,12 +156,19 @@ class AddVectorSurveyActivity: BaseSurveyActivity<Vector>(), UsesCamera {
     }
   }
 
+  /**
+   * @see UsesCamera.onCameraPermissionDenied
+   */
   @AfterPermissionDenied(UsesCamera.REQUEST_CODE)
   override fun onCameraPermissionDenied() {
     info("Camera permission denied")
     photoButton?.visibility = View.GONE
   }
 
+  /**
+   * Checks if user has camera permissions
+   * and takes a photo, if not, asks for permission
+   */
   private fun setupPhotoListener() {
     photoButton?.setOnClickListener {
       if (EffortlessPermissions.hasPermissions(
@@ -159,6 +182,11 @@ class AddVectorSurveyActivity: BaseSurveyActivity<Vector>(), UsesCamera {
     }
   }
 
+  /**
+   * @see Activity.onActivityResult
+   *
+   * Handles the response from the camera Intent
+   */
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
     if (resultCode == Activity.RESULT_OK) {
@@ -172,6 +200,9 @@ class AddVectorSurveyActivity: BaseSurveyActivity<Vector>(), UsesCamera {
     }
   }
 
+  /**
+   * Construct the camera intent and starts it
+   */
   private fun takePhotoIntent(file: File) {
     val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
     cameraIntent.resolveActivity(packageManager)?.let {
@@ -191,6 +222,12 @@ class AddVectorSurveyActivity: BaseSurveyActivity<Vector>(), UsesCamera {
     photoButton.setText(R.string.action_replace_photo)
   }
 
+  /**
+   * Setup the spinner for the mosquito species dropdown
+   *
+   * Contains an [EditText] component that is hidden and
+   * shown if "other" is selected
+   */
   private fun setupSpinner(
     arraySource: Int,
     spinnerField: Spinner,
@@ -211,6 +248,10 @@ class AddVectorSurveyActivity: BaseSurveyActivity<Vector>(), UsesCamera {
     }
   }
 
+  /**
+   * Retrieve either the selected value or
+   * the value of the "other" text field
+   */
   private fun getSpinnerValue(spinner: Spinner, textField: EditText, textLayout: TextInputLayout): String {
     return if (textLayout.visibility == View.VISIBLE) {
       textField.text.toString()
@@ -220,6 +261,9 @@ class AddVectorSurveyActivity: BaseSurveyActivity<Vector>(), UsesCamera {
     }
   }
 
+  /**
+   * Toggles the display of the "other" text field
+   */
   private fun toggleOtherField(visible: Boolean = false, field: TextInputLayout) = if (visible) {
     field.visibility = View.VISIBLE
   } else {

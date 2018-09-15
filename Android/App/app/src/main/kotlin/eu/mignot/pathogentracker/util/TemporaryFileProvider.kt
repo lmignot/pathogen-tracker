@@ -8,6 +8,12 @@ import java.util.*
 
 object TemporaryFileProvider {
 
+  /**
+   * Creates a temporary file and returns it
+   *
+   * @param id the filename prefix
+   * @param ext the file extension
+   */
   fun getTempFile(id: String, ext: String): File? {
     val timeStamp = SimpleDateFormat(AppSettings.Constants.PHOTO_TIMESTAMP_FORMAT, Locale.UK)
       .format(Date())

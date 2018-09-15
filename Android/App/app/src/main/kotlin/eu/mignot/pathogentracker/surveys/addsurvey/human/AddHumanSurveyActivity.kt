@@ -14,6 +14,9 @@ import eu.mignot.pathogentracker.util.setupToolbar
 import kotlinx.android.synthetic.main.activity_add_human_survey.*
 import org.jetbrains.anko.*
 
+/**
+ * View class for adding Human surveys
+ */
 class AddHumanSurveyActivity: BaseSurveyActivity<Human>(), StepperLayout.StepperListener {
 
   override val vm by lazy {
@@ -30,10 +33,14 @@ class AddHumanSurveyActivity: BaseSurveyActivity<Human>(), StepperLayout.Stepper
     setupStepper()
   }
 
-  override fun unbind() {
-    info("Unbinding...")
-  }
+  /**
+   * @see BaseSurveyActivity.unbind
+   */
+  override fun unbind() { info("Unbinding...") }
 
+  /**
+   * @see BaseSurveyActivity.saveAndClose
+   */
   override fun saveAndClose() {
     val model = getModel()
     info("Saving.... $model")
@@ -48,6 +55,9 @@ class AddHumanSurveyActivity: BaseSurveyActivity<Human>(), StepperLayout.Stepper
     }
   }
 
+  /**
+   * @see BaseSurveyActivity.getModel
+   */
   override fun getModel(): Human =
     (stepperLayout.adapter as StepAdapter)
       .getAllSteps().fold(Human()) { model, step ->
@@ -59,19 +69,33 @@ class AddHumanSurveyActivity: BaseSurveyActivity<Human>(), StepperLayout.Stepper
     stepperLayout.setListener(this)
   }
 
+  /**
+   * @see StepperLayout.StepperListener.onStepSelected
+   */
   override fun onStepSelected(newStepPosition: Int) {
     info("step selected: $newStepPosition")
     stepperLayout.adapter.findStep(newStepPosition)?.verifyStep()
   }
 
+  /**
+   * @see StepperLayout.StepperListener.onError
+   *
+   * not implemented as there is no step validation being performed
+   */
   override fun onError(verificationError: VerificationError?) {
     error("$verificationError")
   }
 
+  /**
+   * @see StepperLayout.StepperListener.onReturn
+   */
   override fun onReturn() {
     info("returning...")
   }
 
+  /**
+   * @see StepperLayout.StepperListener.onCompleted
+   */
   override fun onCompleted(completeButton: View?) = saveAndClose()
 
 }

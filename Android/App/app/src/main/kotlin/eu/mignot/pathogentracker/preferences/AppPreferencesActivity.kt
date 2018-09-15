@@ -6,6 +6,9 @@ import eu.mignot.pathogentracker.R
 import eu.mignot.pathogentracker.util.setupToolbar
 import kotlinx.android.synthetic.main.activity_preferences.*
 
+/**
+ * Displays the preferences fragment
+ */
 class AppPreferencesActivity: AppCompatActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {

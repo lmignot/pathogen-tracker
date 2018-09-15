@@ -25,6 +25,9 @@ import org.jetbrains.anko.sdk25.coroutines.onClick
 import java.util.*
 import kotlin.properties.Delegates
 
+/**
+ * View class for reviewing VectorBatch surveys
+ */
 class VectorBatchDetailActivity: AppCompatActivity() {
 
   private val batchId by lazy {
@@ -56,6 +59,8 @@ class VectorBatchDetailActivity: AppCompatActivity() {
     }
     setContentView(R.layout.activity_vector_batch_detail)
     setupToolbar(toolbarVBD, getString(R.string.title_vector_batch_detail), R.drawable.arrow_back_white)
+
+    // handle adding vector surveys
     fabAddVector?.onClick {
       startActivity<AddVectorSurveyActivity>(
         AppSettings.Constants.BATCH_ID_KEY to batchId,
@@ -67,6 +72,7 @@ class VectorBatchDetailActivity: AppCompatActivity() {
 
   override fun onResume() {
     super.onResume()
+    // render the vector batch data to the view
     survey?.let {
       vectorBatchSurveyDetailId.text = it.id
       vectorBatchSurveyDetailDate.text = it.collectedOn.formatTime()
@@ -77,11 +83,16 @@ class VectorBatchDetailActivity: AppCompatActivity() {
       vectorBatchSurveyDetailTemp.text = it.temperature.toString()
       vectorBatchSurveyDetailWeather.text = it.weatherCondition
     }
+    // initialize the vector items adapter
     vectorBatchDetailList.adapter = adapter
     vectorBatchDetailList.layoutManager = LinearLayoutManager(this)
     vectorBatchDetailList.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
   }
 
+  /**
+   * Recycler view adapter to display a list
+   * of [Vector] surveys
+   */
   class VectorsListAdapter(private var surveys: List<Vector>):
     RecyclerView.Adapter<ViewHolder>() {
 
@@ -100,6 +111,10 @@ class VectorBatchDetailActivity: AppCompatActivity() {
 
   }
 
+  /**
+   * Constructs a View for each [Vector] survey
+   * using Anko DSL
+   */
   class SurveyItemUi: AnkoComponent<ViewGroup> {
     override fun createView(ui: AnkoContext<ViewGroup>): View {
 
@@ -149,6 +164,7 @@ class VectorBatchDetailActivity: AppCompatActivity() {
     fun bind(survey: Vector) {
       itemId.text = ctx.getString(R.string.survey_vector_item_id, survey.id, String.format("%03d",survey.sequence))
       itemSpecies.text = ctx.getString(R.string.survey_vector_item_species_gender, survey.species, survey.gender)
+      // launch the VectorDetail view when item is clicked
       itemView.onClick {
         ctx.startActivity<VectorDetailActivity>(
           AppSettings.Constants.VECTOR_ID_KEY to survey.id,

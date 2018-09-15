@@ -9,6 +9,8 @@ import eu.mignot.pathogentracker.util.AppSettings
 /**
  * Preference provider, Singleton utility class to handle
  * getting and setting user preferences
+ *
+ * @see PreferencesProvider
  */
 object AppPreferencesProvider: PreferencesProvider {
 

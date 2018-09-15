@@ -24,13 +24,19 @@ import org.jetbrains.anko.*
 import org.jetbrains.anko.sdk25.coroutines.onCheckedChange
 import java.util.*
 
+/**
+ * View class for adding VectorBatch surveys
+ */
 class AddVectorBatchSurveyActivity: BaseSurveyActivity<VectorBatch>(), LocationView {
 
+  // generate a list of temperatures containing all
+  // values between the configured min and max temperature
   private val temperatures by lazy {
     (AppSettings.Constants.MIN_TEMP..AppSettings.Constants.MAX_TEMP)
       .toList().reversed().map { it.toString() }
   }
 
+  // initialize the locationConfiguration instance
   private val locationConfiguration by lazy {
     LocationConfiguration.Builder()
       .keepTracking(false)
@@ -87,6 +93,9 @@ class AddVectorBatchSurveyActivity: BaseSurveyActivity<VectorBatch>(), LocationV
     dismissLocationProgress()
   }
 
+  /**
+   * @see BaseSurveyActivity.getModel
+   */
   override fun getModel(): VectorBatch {
     val model = VectorBatch()
     model.id = vm.id
@@ -104,6 +113,9 @@ class AddVectorBatchSurveyActivity: BaseSurveyActivity<VectorBatch>(), LocationV
     return model
   }
 
+  /**
+   * @see BaseSurveyActivity.saveAndClose
+   */
   override fun saveAndClose() {
     val model = getModel()
     info(model)
@@ -118,10 +130,67 @@ class AddVectorBatchSurveyActivity: BaseSurveyActivity<VectorBatch>(), LocationV
     }
   }
 
+  /**
+   * @see LocationView.getLocationManager
+   */
+  override fun getLocationManager(): LocationManager {
+    return LocationManager.Builder(App.instance)
+      .activity(this)
+      .configuration(locationConfiguration)
+      .notify(this)
+      .build()
+  }
+
+  /**
+   * @see LocationView.gpsPermissionGranted
+   */
+  override fun gpsPermissionGranted(alreadyHadPermission: Boolean) {
+    if (!alreadyHadPermission) {
+      showShortMessage(vectorBatchForm, "Thanks for granting permission, tap the location field to get the current location")
+    }
+  }
+
+  /**
+   * @see LocationView.processLocation
+   */
+  override fun processLocation(location: android.location.Location?) {
+    location?.let {
+      val loc =
+        UiLocation(it.longitude, it.latitude, it.accuracy)
+      vm.location = loc
+      batchLocation?.setText(loc.toString())
+    }
+  }
+
+  /**
+   * @see LocationView.processLocationError
+   */
+  override fun processLocationError(type: Int) {
+    showShortMessage(vectorBatchForm, "Unable to determine location, please try again")
+  }
+
+  /**
+   * @see LocationView.dismissLocationProgress
+   */
+  override fun dismissLocationProgress() {
+    batchLocationProgress?.visibility = View.GONE
+  }
+
+  /**
+   * @see LocationView.showLocationProgress
+   */
+  override fun showLocationProgress() {
+    batchLocationProgress?.visibility = View.GONE
+  }
+
   private fun getId() = batchId?.setText(vm.id)
 
   private fun getDate() = batchDate?.setText(DateFormat.format("dd MMMM yyyy", vm.date))
 
+  /**
+   * Display the date picker dialog when
+   * the field is clicked
+   */
   private fun setDateListener() {
     batchDate?.setOnClickListener {
       val date = vm.date
@@ -143,41 +212,6 @@ class AddVectorBatchSurveyActivity: BaseSurveyActivity<VectorBatch>(), LocationV
 
   private fun setLocationListener() {
     batchLocation?.setOnClickListener { getLocation() }
-  }
-
-  override fun getLocationManager(): LocationManager {
-    return LocationManager.Builder(App.instance)
-      .activity(this)
-      .configuration(locationConfiguration)
-      .notify(this)
-      .build()
-  }
-
-  override fun gpsPermissionGranted(alreadyHadPermission: Boolean) {
-    if (!alreadyHadPermission) {
-      showShortMessage(vectorBatchForm, "Thanks for granting permission, tap the location field to get the current location")
-    }
-  }
-
-  override fun processLocation(location: android.location.Location?) {
-    location?.let {
-      val loc =
-        UiLocation(it.longitude, it.latitude, it.accuracy)
-      vm.location = loc
-      batchLocation?.setText(loc.toString())
-    }
-  }
-
-  override fun processLocationError(type: Int) {
-    showShortMessage(vectorBatchForm, "Unable to determine location, please try again")
-  }
-
-  override fun dismissLocationProgress() {
-    batchLocationProgress?.visibility = View.GONE
-  }
-
-  override fun showLocationProgress() {
-    batchLocationProgress?.visibility = View.GONE
   }
 
 }

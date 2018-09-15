@@ -10,6 +10,8 @@ import eu.mignot.pathogentracker.data.SurveyType
 import eu.mignot.pathogentracker.surveys.surveys.SurveysActivity
 import eu.mignot.pathogentracker.util.UsesCamera
 import eu.mignot.pathogentracker.util.UsesLocation
+import eu.mignot.pathogentracker.util.showShortMessage
+import kotlinx.android.synthetic.main.activity_onboarding.*
 import me.zhanghai.android.effortlesspermissions.EffortlessPermissions
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
@@ -32,18 +34,21 @@ class OnBoarding : AppCompatActivity(), AnkoLogger, UsesCamera, UsesLocation {
     info { "Back button pressed in onboarding" }
   }
 
+  // set the chosen survey type in the vm
   fun onChoosePrimaryActivity(s: SurveyType) {
     info("Primary activity: $s")
     vm.primaryActivity = s
     changePage(1)
   }
 
+  // set the secondary survey type in the vm
   fun onChooseSecondaryActivity(s: SurveyType) {
     info("Secondary activity: $s")
     vm.secondaryActivity = s
     changePage(2)
   }
 
+  // set on-boarding to complete
   fun isComplete() {
     info("Completing onBoarding")
     vm.setOnBoardingComplete(true)
@@ -51,14 +56,20 @@ class OnBoarding : AppCompatActivity(), AnkoLogger, UsesCamera, UsesLocation {
     finish()
   }
 
-  fun getPermission(requestCode: Int) = when(requestCode) {
+  /**
+   * Request the appropriate permission
+   */
+  fun requestPermission(code: Int) = when(code) {
     UsesLocation.REQUEST_CODE ->
       askForLocationPermission(this, getString(R.string.request_permission_location))
     UsesCamera.REQUEST_CODE ->
       askForCameraPermission(this, getString(R.string.request_permission_camera))
-    else -> info("We shouldn't be here...")
+    else -> info("Unexpected code")
   }
 
+  /**
+   * Handle the result of a user granting or denying permissions
+   */
   override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
     if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
       when (requestCode) {
@@ -70,15 +81,20 @@ class OnBoarding : AppCompatActivity(), AnkoLogger, UsesCamera, UsesLocation {
           info("Requested camera permission")
           changePage(4)
         }
-        else -> info("We shouldn't be here...")
+        else -> info("Unexpected condition")
       }
     } else {
-      info("permission was denied - need to handle this")
+      showShortMessage(onBoardingRoot, getString(R.string.error_permissions_denied))
     }
   }
 
-  private fun changePage(position: Int) {
-    when (position) {
+  /**
+   * Change the view fragment
+   *
+   * @param page the desired page that should be displayed
+   */
+  private fun changePage(page: Int) {
+    when (page) {
       0 -> changeFragment(
         ChoosePrimarySurvey.newInstance()
       )
@@ -86,6 +102,7 @@ class OnBoarding : AppCompatActivity(), AnkoLogger, UsesCamera, UsesLocation {
         ChooseSecondarySurvey.newInstance(vm.primaryActivity)
       )
       2 -> changeFragment(
+        // don't show permissions request if already granted
         if (EffortlessPermissions.hasPermissions(this, (UsesLocation.PERMISSION))) {
           return changePage(3)
         } else {
@@ -96,6 +113,7 @@ class OnBoarding : AppCompatActivity(), AnkoLogger, UsesCamera, UsesLocation {
         }
       )
       3 -> changeFragment(
+        // don't show permissions request if already granted
         if (EffortlessPermissions.hasPermissions(
             this, UsesCamera.CAMERA_PERMISSION, UsesCamera.STORAGE_PERMISSION)
         ) {
@@ -113,6 +131,11 @@ class OnBoarding : AppCompatActivity(), AnkoLogger, UsesCamera, UsesLocation {
     }
   }
 
+  /**
+   * Replaces the current fragment
+   *
+   * @param fragment the fragment to display
+   */
   private fun changeFragment(fragment: Fragment) {
     supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer, fragment).commit()
   }

@@ -11,6 +11,9 @@ class HumanSampleInfoA : StepFragment() {
 
   override val layoutResourceId: Int = R.layout.fragment_sample_info_1
 
+  /**
+   * @see StepFragment.getModel
+   */
   override fun getModel(model: Human): Human {
     model.samples.addAll(surveySampleTypes.getAllValues().map{
       SampleType(it)

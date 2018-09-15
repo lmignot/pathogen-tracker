@@ -24,7 +24,7 @@ interface AddSurvey<out T> {
   fun cancelAndClose()
 
   /**
-   * Prepare the survey model with user input
+   * Prepare the survey model from user input
    */
   fun getModel(): T
 

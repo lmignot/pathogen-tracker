@@ -3,8 +3,8 @@ package eu.mignot.pathogentracker.data
 import eu.mignot.pathogentracker.util.AppSettings
 
 /**
- * ADT class describing the types of surveys this
- * application supports
+ * ADT describing the types of surveys PT app
+ * supports
  */
 sealed class SurveyType {
   companion object {

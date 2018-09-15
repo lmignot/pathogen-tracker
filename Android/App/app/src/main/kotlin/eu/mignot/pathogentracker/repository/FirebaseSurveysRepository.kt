@@ -16,22 +16,32 @@ class FirebaseSurveysRepository(
   private val db: FirebaseFirestore
 ): SurveyRepository, AnkoLogger {
 
+  /**
+   * @see SurveyRepository.getSurvey
+   */
   override fun <T : RealmObject> getSurvey(surveyType: T, surveyId: String): T? =
     TODO(NOT_IMPLEMENTED_RATIONALE)
 
+  /**
+   * @see SurveyRepository.getSurveys
+   */
   override fun <T : RealmObject> getSurveys(surveyType: T): List<T> =
     TODO(NOT_IMPLEMENTED_RATIONALE)
 
+  /**
+   * @see SurveyRepository.getSurveysToSync
+   */
   override fun <T : RealmObject> getSurveysToSync(surveyType: T): List<T> =
     TODO(NOT_IMPLEMENTED_RATIONALE)
 
+  /**
+   * @see SurveyRepository.getSurveysFor
+   */
   override fun <T : RealmObject> getSurveysFor(surveyType: T, parentId: String): List<T> =
     TODO(NOT_IMPLEMENTED_RATIONALE)
 
   /**
-   * Stores a survey in Firebase Firestore
-   *
-   * @param survey the survey to store
+   * @see SurveyRepository.storeSurvey
    */
   override fun <T: RealmObject> storeSurvey(survey: T) {
     when(survey) {
@@ -42,7 +52,13 @@ class FirebaseSurveysRepository(
     }
   }
 
+  /**
+   * Transmits a [VectorBatch] survey to Cloud Firestore
+   *
+   * @param survey the [VectorBatch] survey to upload
+   */
   private fun uploadVectorBatchSurvey(survey: VectorBatch) {
+    // map the model for Firestore
     val model = with(survey) {
       RemoteVectorBatch(
         id, collectedOn,
@@ -67,7 +83,13 @@ class FirebaseSurveysRepository(
       }
   }
 
+  /**
+   * Transmits a [Vector] survey to Cloud Firestore
+   *
+   * @param survey the [Vector] survey to upload
+   */
   private fun uploadVectorSurvey(survey: Vector) {
+    // map the model for Firestore
     val model = with(survey) {
       RemoteVector(
         id, batchId, sequence, species, gender, stage, didFeed, photo?.fileName
@@ -86,7 +108,13 @@ class FirebaseSurveysRepository(
       }
   }
 
+  /**
+   * Transmits a [Human] survey to Cloud Firestore
+   *
+   * @param survey the [Human] survey to upload
+   */
   private fun uploadHumanSurvey(survey: Human) {
+    // map the model for Firestore
     val model = with(survey) {
       RemoteHuman(
         id, collectedOn,
@@ -116,10 +144,21 @@ class FirebaseSurveysRepository(
       }
   }
 
+  /**
+   * Helper method to log success
+   *
+   * @param id The survey id
+   */
   private fun logUploadSuccess(id: String) {
     info { "Successfully uploaded survey: $id" }
   }
 
+  /**
+   * Helper method to log upload error
+   *
+   * @param id The survey id
+   * @param err The exception thrown by the upload process
+   */
   private fun logUploadFailure(id: String, err: Exception) {
     error { "Error uploading survey: $id \n ${err.localizedMessage}" }
   }

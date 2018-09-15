@@ -16,9 +16,18 @@ import java.util.*
 
 class FirebasePhotoRepository(private val storageRef: StorageReference): PhotoRepository, AnkoLogger {
 
+  /**
+   * @see PhotoRepository.storePhoto
+   */
   override fun storePhoto(model: Photo, shouldOptimize: Boolean, photo: Bitmap?) =
     storePhotoToFirebase(model)
 
+  /**
+   * Handles transmitting the photo to Firebase Cloud Storage
+   *
+   * @param photo The [Photo] object containing the photo meta data and
+   * path to the file
+   */
   private fun storePhotoToFirebase(photo: Photo) {
     try {
       val file = File(photo.path)
@@ -47,6 +56,9 @@ class FirebasePhotoRepository(private val storageRef: StorageReference): PhotoRe
     }
   }
 
+  /**
+   * @see PhotoRepository.retrievePhoto
+   */
   override fun retrievePhoto(path: String): Bitmap? =
     TODO(AppSettings.Constants.REPOSITORY_NI_RATIONALE)
 

@@ -4,6 +4,8 @@ import eu.mignot.pathogentracker.data.SurveyType
 
 /**
  * Provides preferences to the app
+ *
+ * Methods are all getters/setters and self-explanatory
  */
 interface PreferencesProvider {
   fun getPrimarySurveyActivity(): SurveyType

@@ -14,6 +14,9 @@ import eu.mignot.pathogentracker.util.setupToolbar
 import kotlinx.android.synthetic.main.activity_vector_detail.*
 import org.jetbrains.anko.startActivity
 
+/**
+ * View class for reviewing VectorBatch surveys
+ */
 class VectorDetailActivity : AppCompatActivity() {
 
   private val batchId by lazy {
@@ -38,9 +41,12 @@ class VectorDetailActivity : AppCompatActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+
+    // handle case if no batchId provided
     if (batchId == AppSettings.Constants.NO_BATCH_ID_VALUE) {
       startActivity<SurveysActivity>()
     }
+    // handle case if no surveyId provided
     if (surveyId == AppSettings.Constants.NO_ID_VALUE) {
       startActivity<VectorBatchDetailActivity>(
         AppSettings.Constants.BATCH_ID_KEY to batchId
@@ -52,6 +58,7 @@ class VectorDetailActivity : AppCompatActivity() {
 
   override fun onResume() {
     super.onResume()
+    // render survey data to the view
     survey?.let {
       vectorDetailId.text = getString(
         R.string.survey_vector_item_id,
@@ -70,6 +77,10 @@ class VectorDetailActivity : AppCompatActivity() {
     }
   }
 
+  /**
+   * Return to [VectorBatchDetailActivity] with
+   * the batchId that sent us here
+   */
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     return when (item.itemId) {
       android.R.id.home -> {

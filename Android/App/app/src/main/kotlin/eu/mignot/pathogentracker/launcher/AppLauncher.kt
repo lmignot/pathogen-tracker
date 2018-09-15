@@ -61,7 +61,7 @@ class AppLauncher : AppCompatActivity(), AnkoLogger {
           return
         }
         if (response.error!!.errorCode == ErrorCodes.NO_NETWORK) {
-          alert(getString(R.string.error_login_no_network)) {
+          alert(getString(R.string.login_error_no_network)) {
             yesButton {
               doLogin()
             }

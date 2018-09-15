@@ -30,6 +30,9 @@ import org.jetbrains.anko.*
 import org.jetbrains.anko.sdk25.coroutines.onClick
 import kotlin.properties.Delegates
 
+/**
+ * View class for reviewing Human surveys
+ */
 class SurveysFragment: Fragment(), AnkoLogger {
 
   private val vm by lazy {
@@ -84,6 +87,10 @@ class SurveysFragment: Fragment(), AnkoLogger {
     }
   }
 
+  /**
+   * Recycler view adapter class to present a list
+   * of Surveys
+   */
   class SurveysListAdapter(private var surveys: List<UiSurvey>):
     RecyclerView.Adapter<SurveysViewHolder>() {
 
@@ -112,6 +119,10 @@ class SurveysFragment: Fragment(), AnkoLogger {
 
   }
 
+  /**
+   * Render the UI for a survey item in the list
+   * using Anko DSL
+   */
   class SurveyItemUi: AnkoComponent<ViewGroup> {
     override fun createView(ui: AnkoContext<ViewGroup>): View {
 
@@ -196,6 +207,11 @@ class SurveysFragment: Fragment(), AnkoLogger {
     }
   }
 
+  /**
+   * The ViewHolder class that holds the SurveyItemUI view
+   * Allows values to be set and allows onClick action
+   * to be set
+   */
   class SurveysViewHolder(
     itemView: View,
     private val ctx: Context,

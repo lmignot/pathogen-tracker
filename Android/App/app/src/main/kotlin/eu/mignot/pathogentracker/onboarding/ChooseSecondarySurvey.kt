@@ -19,10 +19,17 @@ class ChooseSecondarySurvey : Fragment() {
     SurveyType.NONE -> SurveyType.NONE
   }
 
+  /**
+   * Get the users primary activity choice
+   */
   private val primaryActivityChoice by lazy {
     SurveyType.get(arguments!!.getString(AppSettings.Constants.ACTIVITY_CHOICE))
   }
 
+  /**
+   * Determine the available secondary choice based
+   * on the user's primary choice
+   */
   private val secondaryActivityChoice by lazy {
     getSecondaryActivityChoice(primaryActivityChoice)
   }
@@ -34,6 +41,7 @@ class ChooseSecondarySurvey : Fragment() {
   override fun onStart() {
     super.onStart()
 
+    // set the question based on the available secondary choice
     questionTextSecondary.text = getString(R.string.what_is_secondary_activity, secondaryActivityChoice.toString())
 
     secondaryActivityTrue.onClick {

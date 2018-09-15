@@ -42,6 +42,9 @@ class HumanSampleInfoB : StepFragment() {
     addCurrentDiseaseListener()
   }
 
+  /**
+   * @see StepFragment.getModel
+   */
   override fun getModel(model: Human): Human {
     model.currentInfections.addAll(vm.currentDiseases.map {
       val rl = RealmList<Symptom>()
@@ -53,6 +56,12 @@ class HumanSampleInfoB : StepFragment() {
     return model
   }
 
+  /**
+   * Display a dialog with the disease spinner and
+   * checkboxes for each symptom
+   *
+   * Dynamically drawn from the form data provided
+   */
   private fun addCurrentDiseaseListener() {
     surveyAddCurrentDisease?.setOnClickListener { _ ->
       alert {
@@ -107,6 +116,13 @@ class HumanSampleInfoB : StepFragment() {
     }
   }
 
+  /**
+   * Custom view adapter to display the selected
+   * current diseases in a list, allowing items to be
+   * added and removed
+   *
+   * @see BaseAdapter
+   */
   private class CurrentDiseasesAdapter(val parent: HumanSampleInfoB): BaseAdapter() {
 
     private var data: List<CurrentDisease> = parent.vm.currentDiseases
@@ -126,6 +142,11 @@ class HumanSampleInfoB : StepFragment() {
       notifyDataSetChanged()
     }
 
+    /**
+     * Use layout DSL to construct the view
+     *
+     * @see BaseAdapter.getView
+     */
     override fun getView(i: Int, v: View?, parent: ViewGroup?): View {
       val item = getItem(i) as CurrentDisease
       return with(parent!!.context) {
@@ -168,10 +189,19 @@ class HumanSampleInfoB : StepFragment() {
       }
     }
 
+    /**
+     * @see BaseAdapter.getItem
+     */
     override fun getItem(position: Int): Any = data[position]
 
+    /**
+     * @see BaseAdapter.getItemId
+     */
     override fun getItemId(position: Int): Long = data.indexOf(data[position]).toLong()
 
+    /**
+     * @see BaseAdapter.getCount
+     */
     override fun getCount(): Int = data.size
 
   }
