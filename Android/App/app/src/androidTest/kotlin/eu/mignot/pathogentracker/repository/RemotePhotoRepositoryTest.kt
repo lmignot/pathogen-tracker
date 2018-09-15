@@ -1,4 +1,4 @@
-package eu.mignot.pathogentracker.data
+package eu.mignot.pathogentracker.repository
 
 import android.graphics.Bitmap
 import android.support.test.runner.AndroidJUnit4
@@ -47,7 +47,8 @@ class RemotePhotoRepositoryTest {
     val photo = with (Photo()) {
       fileName = tempJpeg.name
       path = tempJpeg.path
-      parentId = FILE_PARENT
+      parentId =
+        FILE_PARENT
       this
     }
   }

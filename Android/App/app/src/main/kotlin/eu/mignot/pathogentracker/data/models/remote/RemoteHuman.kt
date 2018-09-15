@@ -1,5 +1,6 @@
 package eu.mignot.pathogentracker.data.models.remote
 
+import com.google.firebase.firestore.ServerTimestamp
 import java.util.*
 
 data class RemoteHuman(
@@ -14,5 +15,7 @@ data class RemoteHuman(
   val samples: List<String>,
   val travelHistory: List<String>,
   val pastInfections: List<String>,
-  val currentInfections: List<RemoteInfection>
+  val currentInfections: List<RemoteInfection>,
+  @ServerTimestamp
+  val uploadedAt: Date? = null
 )

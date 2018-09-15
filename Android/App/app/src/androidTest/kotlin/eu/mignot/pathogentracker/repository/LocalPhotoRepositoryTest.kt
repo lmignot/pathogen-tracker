@@ -1,10 +1,8 @@
-package eu.mignot.pathogentracker.data
+package eu.mignot.pathogentracker.repository
 
 import android.graphics.Bitmap
 import android.support.test.runner.AndroidJUnit4
 import eu.mignot.pathogentracker.data.models.database.Photo
-import eu.mignot.pathogentracker.repository.DevicePhotoRepository
-import eu.mignot.pathogentracker.repository.PhotoRepository
 import eu.mignot.pathogentracker.util.TemporaryFileProvider
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
@@ -37,7 +35,10 @@ class LocalPhotoRepositoryTest {
   @Before
   fun build_up() {
     MockitoAnnotations.initMocks(this)
-    tempJpeg = fileProvider.getTempFile(FILE_ID, EXT_JPG)!!
+    tempJpeg = fileProvider.getTempFile(
+      FILE_ID,
+      EXT_JPG
+    )!!
     bmp = Bitmap.createBitmap(100, 200, Bitmap.Config.ARGB_8888)
   }
 
