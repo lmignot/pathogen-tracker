@@ -62,6 +62,17 @@ class HumanPersonalInfo: StepFragment(), LocationView {
     }
     patientGender?.onCheckedChange { r, _ ->
       r?.selectedValue()?.let { vm.gender = it }
+      r?.selectedValue()?.let {
+        when(it) {
+          "Male" -> {
+            patientIsPregnant.getChildAt(0).isEnabled = false
+            patientIsPregnant.check(patientIsPregnant.getChildAt(1).id)
+          }
+          "Female" -> {
+            patientIsPregnant.getChildAt(0).isEnabled = true
+          }
+        }
+      }
     }
     if (getLocationManager().isWaitingForLocation && !getLocationManager().isAnyDialogShowing) {
       showLocationProgress()
