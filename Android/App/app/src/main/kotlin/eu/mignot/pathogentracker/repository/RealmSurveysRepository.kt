@@ -1,12 +1,24 @@
 package eu.mignot.pathogentracker.repository
 
-import com.vicpin.krealmextensions.query
-import com.vicpin.krealmextensions.queryAll
-import com.vicpin.krealmextensions.queryFirst
-import com.vicpin.krealmextensions.save
+import com.vicpin.krealmextensions.*
+import eu.mignot.pathogentracker.data.models.database.*
+import io.realm.RealmConfiguration
 import io.realm.RealmObject
 
-object RealmSurveysRepository: SurveyRepository {
+class RealmSurveysRepository(config: RealmConfiguration): SurveyRepository {
+
+  init {
+    // initialize all Realm modules with configuration
+    RealmConfigStore.initModule(Human::class.java, config)
+    RealmConfigStore.initModule(Country::class.java, config)
+    RealmConfigStore.initModule(Infection::class.java, config)
+    RealmConfigStore.initModule(Location::class.java, config)
+    RealmConfigStore.initModule(Photo::class.java, config)
+    RealmConfigStore.initModule(SampleType::class.java, config)
+    RealmConfigStore.initModule(Symptom::class.java, config)
+    RealmConfigStore.initModule(Vector::class.java, config)
+    RealmConfigStore.initModule(VectorBatch::class.java, config)
+  }
 
   /**
    * @see SurveyRepository.getSurveys

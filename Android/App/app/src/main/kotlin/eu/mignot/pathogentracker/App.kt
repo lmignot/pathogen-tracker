@@ -7,12 +7,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.google.firebase.storage.FirebaseStorage
-import com.vicpin.krealmextensions.RealmConfigStore
 import eu.mignot.pathogentracker.auth.FirebaseLoginProvider
 import eu.mignot.pathogentracker.auth.LoginProvider
 import eu.mignot.pathogentracker.data.AppFormDataProvider
 import eu.mignot.pathogentracker.data.FormDataProvider
-import eu.mignot.pathogentracker.data.models.database.*
 import eu.mignot.pathogentracker.preferences.AppPreferencesProvider
 import eu.mignot.pathogentracker.preferences.PreferencesProvider
 import eu.mignot.pathogentracker.repository.*
@@ -41,7 +39,14 @@ class App : Application() {
   }
 
   private val localSurveysRepository: SurveyRepository by lazy {
-    RealmSurveysRepository
+    // configure Realm instance
+    val config = RealmConfiguration
+      .Builder()
+      .name(AppSettings.Constants.REALM_DB_NAME)
+      .schemaVersion(AppSettings.Constants.REALM_SCHEMA_VERSION)
+      .deleteRealmIfMigrationNeeded()
+      .build()
+    RealmSurveysRepository(config)
   }
 
   private val fireStoreInstance: FirebaseFirestore by lazy {
@@ -87,25 +92,6 @@ class App : Application() {
    */
   private fun initRealm() {
     Realm.init(this)
-
-    // configure Realm instance
-    val config = RealmConfiguration
-      .Builder()
-      .name(AppSettings.Constants.REALM_DB_NAME)
-      .schemaVersion(AppSettings.Constants.REALM_SCHEMA_VERSION)
-      .deleteRealmIfMigrationNeeded()
-      .build()
-
-    // initialize all Realm modules with configuration
-    RealmConfigStore.initModule(Human::class.java, config)
-    RealmConfigStore.initModule(Country::class.java, config)
-    RealmConfigStore.initModule(Infection::class.java, config)
-    RealmConfigStore.initModule(Location::class.java, config)
-    RealmConfigStore.initModule(Photo::class.java, config)
-    RealmConfigStore.initModule(SampleType::class.java, config)
-    RealmConfigStore.initModule(Symptom::class.java, config)
-    RealmConfigStore.initModule(Vector::class.java, config)
-    RealmConfigStore.initModule(VectorBatch::class.java, config)
   }
 
   companion object {
