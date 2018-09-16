@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'realm-android'
-apply plugin: "idea"
+apply plugin: 'idea'
 
 android {
   signingConfigs {
@@ -23,7 +23,7 @@ android {
     versionCode 3
     versionName 'Beta'
     applicationId "eu.mignot.pathogentracker"
-    versionNameSuffix '1.5.0'
+    versionNameSuffix '1.6.0'
     resConfigs "en"
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     signingConfig signingConfigs.Release
@@ -39,9 +39,14 @@ android {
     }
   }
   // Always show the result of every unit test, even if it passes.
-  testOptions.unitTests.all {
-    testLogging {
-      events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
+  testOptions {
+    unitTests {
+      returnDefaultValues = true
+      all {
+        testLogging {
+          events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
+        }
+      }
     }
   }
   compileOptions {
@@ -98,6 +103,7 @@ dependencies {
   // Testing
   testImplementation "junit:junit:$rootProject.ext.junitVersion"
   testImplementation "org.mockito:mockito-all:$rootProject.ext.mockitoVersion"
+
   androidTestImplementation "com.android.support.test:runner:$rootProject.ext.runnerVersion"
   androidTestImplementation "com.android.support.test:rules:$rootProject.ext.rulesVersion"
   androidTestImplementation "com.android.support.test.espresso:espresso-core:$rootProject.ext.espressoVersion"
@@ -112,6 +118,10 @@ dependencies {
   }
   androidTestImplementation "com.android.support.test.espresso:espresso-intents:$rootProject.ext.espressoVersion"
   androidTestImplementation "org.mockito:mockito-android:$rootProject.ext.mockitoAndroidVersion"
+
+  // mockK
+  testImplementation 'io.mockk:mockk:1.8.7'
+  androidTestImplementation 'io.mockk:mockk-android:1.8.7'
 
   // UIAutomator Testing. Learn about this dependency in this projects README file.
   androidTestImplementation "com.android.support.test.uiautomator:uiautomator-v18:$rootProject.ext.uiautomatorVersion"

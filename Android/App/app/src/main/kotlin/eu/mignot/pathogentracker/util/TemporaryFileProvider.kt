@@ -1,25 +1,20 @@
 package eu.mignot.pathogentracker.util
 
-import eu.mignot.pathogentracker.App
 import java.io.File
 import java.io.IOException
-import java.text.SimpleDateFormat
-import java.util.*
 
 object TemporaryFileProvider {
 
   /**
    * Creates a temporary file and returns it
    *
-   * @param id the filename prefix
+   * @param fileName the filename
    * @param ext the file extension
+   * @param fileDir the path where the file will be stored
    */
-  fun getTempFile(id: String, ext: String): File? {
-    val timeStamp = SimpleDateFormat(AppSettings.Constants.PHOTO_TIMESTAMP_FORMAT, Locale.UK)
-      .format(Date())
-    val fileName = "${id}_$timeStamp"
+  fun getTempFile(fileName: String, ext: String, fileDir: File): File? {
     return try {
-      createTempFile(fileName, ext, App.getDeviceFileDir()).let { it }
+      createTempFile(fileName, ext, fileDir).let { it }
     } catch (e: IOException) { null }
   }
 

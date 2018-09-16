@@ -26,6 +26,9 @@ class OnBoarding : AppCompatActivity(), AnkoLogger, UsesCamera, UsesLocation {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_onboarding)
+    // set preferences to defaults
+    vm.resetPreferences()
+    // load the first onBoarding page
     changePage(0)
   }
 

@@ -23,14 +23,29 @@ object AppPreferencesProvider: PreferencesProvider {
   override fun getPrimarySurveyActivity(): SurveyType =
     SurveyType.get(sharedPreferences.getString(keys.PRIMARY_SURVEY_KEY, SurveyType.VECTOR.toString()))
 
-  override fun setPrimarySurveyActivity(s: SurveyType) =
-    sharedPreferences.edit().putString(keys.PRIMARY_SURVEY_KEY, s.toString()).apply()
+  override fun setPrimarySurveyActivity(s: SurveyType): Boolean {
+    if (s == SurveyType.NONE) return false
+    return when(getSecondarySurveyActivity()) {
+      s -> false
+      else -> {
+        sharedPreferences.edit().putString(keys.PRIMARY_SURVEY_KEY, s.toString()).apply()
+        true
+      }
+    }
+  }
 
   override fun getSecondarySurveyActivity(): SurveyType =
     SurveyType.get(sharedPreferences.getString(keys.SECONDARY_SURVEY_KEY, SurveyType.PATIENT.toString()))
 
-  override fun setSecondarySurveyActivity(s: SurveyType) =
-    sharedPreferences.edit().putString(keys.SECONDARY_SURVEY_KEY, s.toString()).apply()
+  override fun setSecondarySurveyActivity(s: SurveyType): Boolean {
+    return when (getPrimarySurveyActivity()) {
+      s-> false
+      else -> {
+        sharedPreferences.edit().putString(keys.SECONDARY_SURVEY_KEY, s.toString()).apply()
+        true
+      }
+    }
+  }
 
   override fun hasSecondarySurvey(): Boolean =
     getSecondarySurveyActivity() != SurveyType.NONE

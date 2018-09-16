@@ -6,7 +6,8 @@ import eu.mignot.pathogentracker.App
 import eu.mignot.pathogentracker.R
 import eu.mignot.pathogentracker.util.AppSettings.PreferenceKeys.PRIMARY_SURVEY_KEY
 import eu.mignot.pathogentracker.util.AppSettings.PreferenceKeys.SECONDARY_SURVEY_KEY
-import eu.mignot.pathogentracker.util.showShortMessage
+import org.jetbrains.anko.support.v4.alert
+import org.jetbrains.anko.yesButton
 
 class AppPreferencesFragment: PreferenceFragmentCompat() {
 
@@ -28,7 +29,10 @@ class AppPreferencesFragment: PreferenceFragmentCompat() {
     primarySurvey.setOnPreferenceChangeListener { _, newValue: Any ->
       val secondaryPref: String = prefsProvider.getSecondarySurveyActivity().toString()
       val primaryPref: String = newValue as String
-      showShortMessage(view!!, "Secondary survey already set to $secondaryPref")
+//      showShortMessage(view!!, "Secondary survey already set to $secondaryPref")
+      alert("Secondary survey already set to $secondaryPref") {
+        yesButton {}
+      }
       secondaryPref != primaryPref
     }
 
@@ -36,7 +40,10 @@ class AppPreferencesFragment: PreferenceFragmentCompat() {
     secondarySurvey.setOnPreferenceChangeListener { _, newValue: Any ->
       val primaryPref: String = prefsProvider.getPrimarySurveyActivity().toString()
       val secondaryPref: String = newValue as String
-      showShortMessage(view!!, "Primary survey already set to $primaryPref")
+      alert("Primary survey already set to $primaryPref") {
+        yesButton {}
+      }
+//      showShortMessage(view!!, "Primary survey already set to $primaryPref")
       secondaryPref != primaryPref
     }
 

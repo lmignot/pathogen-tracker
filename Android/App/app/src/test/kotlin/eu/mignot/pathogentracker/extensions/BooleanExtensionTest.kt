@@ -15,12 +15,12 @@ class BooleanExtensionTest {
   }
 
   @Test
-  fun as_yes_or_no_should_return_yes_if_true() {
+  fun `as yes or no should return yes if true`() {
     assertEquals(yes.asYesOrNo(), YES)
   }
 
   @Test
-  fun as_yes_or_no_should_return_no_if_false() {
+  fun `as yes or no should return no if false`() {
     assertEquals(no.asYesOrNo(), NO)
   }
 

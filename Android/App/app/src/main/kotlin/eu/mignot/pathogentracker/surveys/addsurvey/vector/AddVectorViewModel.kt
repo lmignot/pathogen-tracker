@@ -11,13 +11,16 @@ import eu.mignot.pathogentracker.util.AppSettings
 import eu.mignot.pathogentracker.util.TemporaryFileProvider
 import org.jetbrains.anko.AnkoLogger
 import java.io.File
+import java.text.SimpleDateFormat
+import java.util.*
 
 class AddVectorViewModel (
   override val id: String,
   repository: SurveyRepository,
   private val prefs: PreferencesProvider,
   private val photoRepository: PhotoRepository,
-  private val tempFileProvider: TemporaryFileProvider
+  private val tempFileProvider: TemporaryFileProvider,
+  private val deviceFileDir: File
 ): AnkoLogger, BaseViewModel<Vector>(repository) {
 
   var photo: Bitmap? = null
@@ -26,8 +29,12 @@ class AddVectorViewModel (
 
   fun getPhotoPath() = photoPath
 
-  fun getTempImageFile(): File? {
-    return tempFileProvider.getTempFile(id, AppSettings.Constants.IMAGE_EXTENSION)?.let {
+  fun getTempImageFile(fName: String?): File? {
+    val timeStamp = SimpleDateFormat(AppSettings.Constants.PHOTO_TIMESTAMP_FORMAT, Locale.UK)
+      .format(Date())
+    val fileName = fName ?: "${id}_$timeStamp"
+    return tempFileProvider
+      .getTempFile(fileName, AppSettings.Constants.IMAGE_EXTENSION, deviceFileDir)?.let {
       photoPath = it.absolutePath
       it
     }

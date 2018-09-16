@@ -4,9 +4,6 @@ import android.graphics.Bitmap
 import android.support.test.runner.AndroidJUnit4
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import eu.mignot.pathogentracker.data.models.database.Photo
-import eu.mignot.pathogentracker.repository.FirebasePhotoRepository
-import eu.mignot.pathogentracker.repository.PhotoRepository
 import eu.mignot.pathogentracker.util.TemporaryFileProvider
 import org.junit.Before
 import org.junit.Test
@@ -44,13 +41,13 @@ class RemotePhotoRepositoryTest {
 
   @Test
   fun remote_should_store_a_photo() {
-    val photo = with (Photo()) {
-      fileName = tempJpeg.name
-      path = tempJpeg.path
-      parentId =
-        FILE_PARENT
-      this
-    }
+//    val photo = with (Photo()) {
+//      fileName = tempJpeg.name
+//      path = tempJpeg.path
+//      parentId =
+//        FILE_PARENT
+//      this
+//    }
   }
 
 }

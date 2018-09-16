@@ -25,20 +25,20 @@ class TemporaryFileProviderTest {
 
   @Test
   fun file_should_not_be_null() {
-    val file = provider.getTempFile(FILE_ID, FILE_EXT)
+    val file = provider.getTempFile(FILE_ID, FILE_EXT, storageDir)
     assertNotNull(file)
   }
 
   @Test
   fun name_should_begin_with_prefix() {
-    val file = provider.getTempFile(FILE_ID, FILE_EXT)
+    val file = provider.getTempFile(FILE_ID, FILE_EXT, storageDir)
     val prefix = file!!.name.substring(0, FILE_ID.length)
     assertEquals(prefix, FILE_ID)
   }
 
   @Test
   fun path_should_be_in_app_storage() {
-    val file = provider.getTempFile(FILE_ID, FILE_EXT)
+    val file = provider.getTempFile(FILE_ID, FILE_EXT, storageDir)
     assertEquals(storageDir.toString(), file!!.parent)
   }
 

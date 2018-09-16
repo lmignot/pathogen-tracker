@@ -60,7 +60,8 @@ class AddVectorSurveyActivity: BaseSurveyActivity<Vector>(), UsesCamera {
       App.getLocalSurveysRepository(),
       App.getPreferenceProvider(),
       App.getLocalPhotoRepository(),
-      App.getTempFileProvider()
+      App.getTempFileProvider(),
+      App.getDeviceFileDir()
     )
   }
 
@@ -174,7 +175,7 @@ class AddVectorSurveyActivity: BaseSurveyActivity<Vector>(), UsesCamera {
       if (EffortlessPermissions.hasPermissions(
           this, UsesCamera.CAMERA_PERMISSION, UsesCamera.STORAGE_PERMISSION
         )) {
-        vm.getTempImageFile()?.let { f -> takePhotoIntent(f) }
+        vm.getTempImageFile(null)?.let { f -> takePhotoIntent(f) }
           ?: showShortMessage(vectorSurveyRoot, "Unable to store a temporary file")
       } else {
         askForCameraPermission(this, "Please allow access to the camera")

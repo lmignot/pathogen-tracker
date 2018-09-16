@@ -1,8 +1,12 @@
-package eu.mignot.pathogentracker.addsurvey
+package eu.mignot.pathogentracker.viewmodels
 
+import eu.mignot.pathogentracker.data.models.database.VectorBatch
 import eu.mignot.pathogentracker.repository.RealmSurveysRepository
+import eu.mignot.pathogentracker.repository.SurveyRepository
 import eu.mignot.pathogentracker.surveys.addsurvey.vector.AddVectorBatchViewModel
+import io.mockk.*
 import org.junit.Assert.assertEquals
+import org.junit.Before
 import org.junit.Test
 import java.util.*
 
@@ -15,17 +19,39 @@ class TestAddVectorBatchViewModel {
     const val TEST_DAY = 10
   }
 
+  private val collectedOnDate = Date()
+
+  private val mockSurveyRepo: SurveyRepository = spyk(RealmSurveysRepository)
+
   private val vm by lazy {
-    AddVectorBatchViewModel(RealmSurveysRepository)
+    AddVectorBatchViewModel(mockSurveyRepo)
+  }
+
+  @Before
+  fun init() {
+    clearMocks(mockSurveyRepo)
   }
 
   @Test
-  fun should_generate_id_prefix() {
+  fun `save should call surveys repo`() {
+    val survey = with(VectorBatch()) {
+      this.id = TestAddVectorViewModel.SURVEY_ID
+      this.collectedOn = collectedOnDate
+      this
+    }
+    every { mockSurveyRepo.storeSurvey(survey) } just Runs
+    vm.save(survey)
+    verify(atLeast = 1) { mockSurveyRepo.storeSurvey(survey) }
+  }
+
+
+  @Test
+  fun `should generate id with correct prefix`() {
     assertEquals(vm.id.substring(0, 3), ID_PREFIX)
   }
 
   @Test
-  fun should_provide_todays_date_by_default() {
+  fun `should provide todays date by default`() {
     val currentDate = Calendar.getInstance()
     assertEquals(vm.date.get(Calendar.YEAR), currentDate.get(Calendar.YEAR))
     assertEquals(vm.date.get(Calendar.MONTH), currentDate.get(Calendar.MONTH))
@@ -33,7 +59,7 @@ class TestAddVectorBatchViewModel {
   }
 
   @Test
-  fun should_allow_user_to_change_date() {
+  fun `should allow user to change date`() {
     val compareDate = Calendar.getInstance()
     compareDate.set(TEST_YEAR, TEST_MONTH, TEST_DAY)
     vm.date = compareDate

@@ -9,9 +9,9 @@ import eu.mignot.pathogentracker.data.SurveyType
  */
 interface PreferencesProvider {
   fun getPrimarySurveyActivity(): SurveyType
-  fun setPrimarySurveyActivity(s: SurveyType)
+  fun setPrimarySurveyActivity(s: SurveyType): Boolean
   fun getSecondarySurveyActivity(): SurveyType
-  fun setSecondarySurveyActivity(s: SurveyType)
+  fun setSecondarySurveyActivity(s: SurveyType): Boolean
   fun hasSecondarySurvey(): Boolean
   fun getUseCellular(): Boolean
   fun setUseCellular(b: Boolean)

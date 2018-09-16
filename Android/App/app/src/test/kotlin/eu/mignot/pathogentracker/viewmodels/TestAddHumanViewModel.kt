@@ -1,9 +1,13 @@
-package eu.mignot.pathogentracker.addsurvey
+package eu.mignot.pathogentracker.viewmodels
 
 import eu.mignot.pathogentracker.data.AppFormDataProvider
+import eu.mignot.pathogentracker.data.models.database.Human
 import eu.mignot.pathogentracker.repository.RealmSurveysRepository
+import eu.mignot.pathogentracker.repository.SurveyRepository
 import eu.mignot.pathogentracker.surveys.addsurvey.human.AddHumanViewModel
+import io.mockk.*
 import org.junit.Assert.assertEquals
+import org.junit.Before
 import org.junit.Test
 import java.util.*
 
@@ -17,20 +21,42 @@ class TestAddHumanViewModel {
     val TEST_SYMPTOMS = listOf("Skin rash", "Fever", "Joint or muscle pain", "Vomiting", "Severe headache", "Other")
   }
 
+
+  private val collectedOnDate = Date()
+
+  private val mockSurveyRepo: SurveyRepository = spyk(RealmSurveysRepository)
+
   private val vm by lazy {
     AddHumanViewModel(
       AppFormDataProvider,
-      RealmSurveysRepository
+      mockSurveyRepo
     )
   }
 
+  @Before
+  fun init() {
+    clearMocks(mockSurveyRepo)
+  }
+
   @Test
-  fun should_have_the_correct_id_prefix() {
+  fun `save should call surveys repo`() {
+    val survey = with(Human()) {
+      this.id = TestAddVectorViewModel.SURVEY_ID
+      this.collectedOn = collectedOnDate
+      this
+    }
+    every { mockSurveyRepo.storeSurvey(survey) } just Runs
+    vm.save(survey)
+    verify(atLeast = 1) { mockSurveyRepo.storeSurvey(survey) }
+  }
+
+  @Test
+  fun `should have the correct id prefix`() {
     assertEquals(vm.id.substring(0, 2), ID_PREFIX)
   }
 
   @Test
-  fun should_provide_todays_date_by_default() {
+  fun `should provide todays date by default`() {
     val currentDate = Calendar.getInstance()
     assertEquals(vm.date.get(Calendar.YEAR), currentDate.get(Calendar.YEAR))
     assertEquals(vm.date.get(Calendar.MONTH), currentDate.get(Calendar.MONTH))
@@ -38,7 +64,7 @@ class TestAddHumanViewModel {
   }
 
   @Test
-  fun should_allow_user_to_change_date() {
+  fun `should allow user to change date`() {
     val compareDate = Calendar.getInstance()
     compareDate.set(TEST_YEAR, TEST_MONTH, TEST_DAY)
     vm.date = compareDate
@@ -48,7 +74,7 @@ class TestAddHumanViewModel {
   }
 
   @Test
-  fun should_provide_list_of_symptoms() {
+  fun `should provide list of symptoms`() {
     val symptoms = vm.symptoms()
     assertEquals(symptoms.size, TEST_SYMPTOMS.size)
   }
