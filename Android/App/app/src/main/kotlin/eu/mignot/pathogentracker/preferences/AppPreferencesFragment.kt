@@ -25,13 +25,13 @@ class AppPreferencesFragment: PreferenceFragmentCompat() {
     val primarySurvey = findPreference(PRIMARY_SURVEY_KEY)
     val secondarySurvey = findPreference(SECONDARY_SURVEY_KEY)
 
-    // prevent the user from setting secondary and primary surveys to the same type
     primarySurvey.setOnPreferenceChangeListener { _, newValue: Any ->
       val secondaryPref: String = prefsProvider.getSecondarySurveyActivity().toString()
       val primaryPref: String = newValue as String
-//      showShortMessage(view!!, "Secondary survey already set to $secondaryPref")
-      alert("Secondary survey already set to $secondaryPref") {
-        yesButton {}
+      if (secondaryPref == primaryPref) {
+        alert("Secondary survey already set to $secondaryPref") {
+          yesButton {}
+        }.show()
       }
       secondaryPref != primaryPref
     }
@@ -40,11 +40,16 @@ class AppPreferencesFragment: PreferenceFragmentCompat() {
     secondarySurvey.setOnPreferenceChangeListener { _, newValue: Any ->
       val primaryPref: String = prefsProvider.getPrimarySurveyActivity().toString()
       val secondaryPref: String = newValue as String
-      alert("Primary survey already set to $primaryPref") {
-        yesButton {}
+      if (secondaryPref == "None") {
+        true
+      } else {
+        if (secondaryPref == primaryPref) {
+          alert("Primary survey already set to $primaryPref") {
+            yesButton {}
+          }.show()
+        }
+        secondaryPref != primaryPref
       }
-//      showShortMessage(view!!, "Primary survey already set to $primaryPref")
-      secondaryPref != primaryPref
     }
 
   }

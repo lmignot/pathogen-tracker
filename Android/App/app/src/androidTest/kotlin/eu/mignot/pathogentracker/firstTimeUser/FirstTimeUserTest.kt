@@ -8,10 +8,11 @@ import android.support.test.filters.LargeTest
 import android.support.test.rule.ActivityTestRule
 import android.support.test.rule.GrantPermissionRule
 import android.support.test.runner.AndroidJUnit4
-import com.google.firebase.auth.FirebaseAuth
 import eu.mignot.pathogentracker.App
 import eu.mignot.pathogentracker.R
 import eu.mignot.pathogentracker.R.id.*
+import eu.mignot.pathogentracker.TestCommon.signIn
+import eu.mignot.pathogentracker.TestCommon.signOut
 import eu.mignot.pathogentracker.data.SurveyType
 import eu.mignot.pathogentracker.launcher.AppLauncher
 import eu.mignot.pathogentracker.onboarding.OnBoarding
@@ -52,7 +53,7 @@ open class FirstTimeUserTest {
 
   @Test
   fun users_should_first_sign_in_to_the_app() {
-    loginProvider.signOut()
+    signOut()
     prefsProvider.setDidCompleteOnBoarding(false)
     launcherRule.launchActivity(null)
 
@@ -77,7 +78,7 @@ open class FirstTimeUserTest {
     Thread.sleep(2000)
 
     // When I choose to sign out
-    loginProvider.signOut()
+    signOut()
 
     // Then the app should sign me out
     assertFalse(loginProvider.hasUser())
@@ -196,12 +197,6 @@ open class FirstTimeUserTest {
     assertTrue(prefsProvider.getDidCompleteOnBoarding())
 
     afterEach()
-  }
-
-  private fun signIn() {
-    FirebaseAuth
-      .getInstance()
-      .signInWithEmailAndPassword("testuser@pathogentrackerapp.gmail.com", "as\$h26mPO2zF")
   }
 
 }

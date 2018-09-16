@@ -21,6 +21,8 @@ sealed class SurveyType {
   object PATIENT : SurveyType() {
     override fun toString(): String = AppSettings.Constants.PATIENT_TYPE_VALUE
   }
-  object NONE : SurveyType()
+  object NONE : SurveyType() {
+    override fun toString(): String = AppSettings.Constants.NONE_TYPE_VALUE
+  }
 }
 
