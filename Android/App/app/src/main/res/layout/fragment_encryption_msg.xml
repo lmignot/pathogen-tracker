@@ -12,7 +12,7 @@
     android:layout_height="wrap_content"
     android:textColor="@color/white"
     android:textSize="24sp"
-    android:text="@string/encrpytion_rationale"
+    android:text="@string/encryption_rationale"
     android:layout_marginBottom="164dp"
     android:layout_marginStart="24dp"
     android:layout_marginEnd="48dp"

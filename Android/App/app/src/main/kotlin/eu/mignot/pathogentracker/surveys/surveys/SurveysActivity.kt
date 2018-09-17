@@ -26,6 +26,7 @@ import eu.mignot.pathogentracker.syncservice.HumanSyncService
 import eu.mignot.pathogentracker.syncservice.PhotoSyncService
 import eu.mignot.pathogentracker.syncservice.VectorBatchSyncService
 import eu.mignot.pathogentracker.syncservice.VectorSyncService
+import eu.mignot.pathogentracker.util.AppSettings
 import eu.mignot.pathogentracker.util.AppSettings.Constants
 import eu.mignot.pathogentracker.util.setupToolbar
 import eu.mignot.pathogentracker.util.showShortMessage
@@ -53,7 +54,10 @@ class SurveysActivity: AppCompatActivity(), AnkoLogger {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
-    if (!loginProvider.hasUser()) {
+    val shouldAuth = intent
+      .getBooleanExtra(AppSettings.Constants.SHOULD_AUTHENTICATE, true)
+
+    if (shouldAuth && !loginProvider.hasUser()) {
       startActivity<AppLauncher>()
     }
 

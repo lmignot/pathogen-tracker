@@ -187,7 +187,7 @@ open class FirstTimeUserTest {
     Thread.sleep(2000)
 
     // And they should be prompted to encrypt their device
-    onView(withText(R.string.encrpytion_rationale))
+    onView(withText(R.string.encryption_rationale))
       .check(matches(isDisplayed()))
     Thread.sleep(2000)
 

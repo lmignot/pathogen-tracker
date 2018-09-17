@@ -9,7 +9,8 @@ import eu.mignot.pathogentracker.App
 import eu.mignot.pathogentracker.data.models.database.Photo
 import eu.mignot.pathogentracker.util.AppSettings
 import eu.mignot.pathogentracker.util.TemporaryFileProvider
-import org.junit.Assert.assertEquals
+import org.junit.Assert
+import org.junit.Assert.fail
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
@@ -63,10 +64,13 @@ class RemotePhotoRepositoryTest {
       .child("${AppSettings.Constants.FIREBASE_PHOTO_PATH}/${photo.fileName}")
       .getBytes(ONE_MEGABYTE)
       .addOnCompleteListener {
-        if (it.isSuccessful) {
-          val bytes = it.result
-          val dlBmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-          assertEquals(bmp.byteCount, dlBmp.byteCount)
+        when (it.isSuccessful) {
+          true -> {
+            val bytes = it.result
+            val dlBmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+            Assert.assertEquals(bmp.byteCount, dlBmp.byteCount)
+          }
+          false -> fail()
         }
 
       }

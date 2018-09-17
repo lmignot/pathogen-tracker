@@ -1,9 +1,12 @@
 package eu.mignot.pathogentracker.repository
 
 import android.support.test.runner.AndroidJUnit4
-import com.vicpin.krealmextensions.deleteAll
+import com.vicpin.krealmextensions.save
+import eu.mignot.pathogentracker.TestCommon.clearRealm
+import eu.mignot.pathogentracker.TestCommon.createHuman
+import eu.mignot.pathogentracker.TestCommon.createVector
+import eu.mignot.pathogentracker.TestCommon.createVectorBatch
 import eu.mignot.pathogentracker.data.models.database.Human
-import eu.mignot.pathogentracker.data.models.database.Location
 import eu.mignot.pathogentracker.data.models.database.Vector
 import eu.mignot.pathogentracker.data.models.database.VectorBatch
 import io.realm.RealmConfiguration
@@ -15,12 +18,6 @@ import java.util.*
 
 @RunWith(AndroidJUnit4::class)
 class LocalSurveyRepositoryTest {
-
-  companion object {
-    const val TEST_LAT = 37.377166
-    const val TEST_LONG = -122.086966
-    const val TEST_ACC= 2.0F
-  }
 
   private val realmConfig = RealmConfiguration
     .Builder()
@@ -41,7 +38,7 @@ class LocalSurveyRepositoryTest {
   fun should_store_a_Human_survey() {
     val surveyId = "TEST_HUMAN_ID_1"
     val collectedDate = Date()
-    createAndStoreHuman(surveyId, collectedDate, Date())
+    createHuman(surveyId, collectedDate, Date()).save()
     val savedSurvey = localRepository.getSurvey(Human(), surveyId)
     assertNotNull(savedSurvey)
     assertEquals(surveyId, savedSurvey!!.id)
@@ -52,7 +49,7 @@ class LocalSurveyRepositoryTest {
   fun should_get_a_Human_survey() {
     val surveyId = "TEST_HUMAN_ID_2"
     val collected = Date()
-    createAndStoreHuman(surveyId, collected, Date())
+    createHuman(surveyId, collected, Date()).save()
 
     val stored = localRepository.getSurvey(Human(), surveyId)
 
@@ -65,7 +62,7 @@ class LocalSurveyRepositoryTest {
   fun should_store_a_VectorBatch_survey() {
     val surveyId = "TEST_VB_ID_1"
     val collected = Date()
-    createAndStoreVectorBatch(surveyId, collected, Date())
+    createVectorBatch(surveyId, collected, Date()).save()
 
     val savedSurvey = localRepository.getSurvey(VectorBatch(), surveyId)
 
@@ -78,7 +75,7 @@ class LocalSurveyRepositoryTest {
   fun should_get_a_VectorBatch_survey() {
     val surveyId = "TEST_VB_ID_2"
     val collectedDate = Date()
-    createAndStoreVectorBatch(surveyId, collectedDate, Date())
+    createVectorBatch(surveyId, collectedDate, Date()).save()
 
     val stored = localRepository.getSurvey(VectorBatch(), surveyId)
 
@@ -90,7 +87,7 @@ class LocalSurveyRepositoryTest {
   fun should_store_a_Vector_survey() {
     val surveyId = "TEST_V_ID_1"
     val batchId = "TEST_VB_ID_1"
-    createAndStoreVector(surveyId, batchId, Date())
+    createVector(surveyId, batchId, Date()).save()
 
     val savedSurvey = localRepository.getSurvey(Vector(), surveyId)
 
@@ -103,7 +100,7 @@ class LocalSurveyRepositoryTest {
   fun should_get_a_Vector_survey() {
     val surveyId = "TEST_V_ID_2"
     val batchId = "TEST_VB_ID_2"
-    createAndStoreVector(surveyId, batchId, Date())
+    createVector(surveyId, batchId, Date()).save()
 
     val stored = localRepository.getSurvey(Vector(), surveyId)
 
@@ -119,12 +116,12 @@ class LocalSurveyRepositoryTest {
     val batchId2 = "TEST_VB_ID_3"
     val batchId3 = "TEST_VB_ID_4"
     val collectedDate = Date()
-    createAndStoreVectorBatch(batchId2, collectedDate, Date())
-    createAndStoreVectorBatch(batchId3, collectedDate, Date())
-    createAndStoreVector(surveyId2, batchId2, Date())
-    createAndStoreVector(surveyId2, batchId2, Date())
-    createAndStoreVector(surveyId3, batchId2, Date())
-    createAndStoreVector(surveyId4, batchId3, Date())
+    createVectorBatch(batchId2, collectedDate, Date()).save()
+    createVectorBatch(batchId3, collectedDate, Date()).save()
+    createVector(surveyId2, batchId2, Date()).save()
+    createVector(surveyId2, batchId2, Date()).save()
+    createVector(surveyId3, batchId2, Date()).save()
+    createVector(surveyId4, batchId3, Date()).save()
 
     val surveysForBatch2 = localRepository.getSurveysFor(Vector(), batchId2)
     val surveysForBatch3 = localRepository.getSurveysFor(Vector(), batchId3)
@@ -145,13 +142,13 @@ class LocalSurveyRepositoryTest {
     val vectorBatch2 = "TEST_VB_ID_7"
     val vectorBatch3 = "TEST_VB_ID_8"
     val collectedDate = Date()
-    createAndStoreHuman(human1, collectedDate, null)
-    createAndStoreHuman(human2, collectedDate, Date())
-    createAndStoreVectorBatch(vectorBatch2, collectedDate, null)
-    createAndStoreVectorBatch(vectorBatch3, collectedDate, Date())
-    createAndStoreVector(vector2, vectorBatch2, null)
-    createAndStoreVector(vector3, vectorBatch3, null)
-    createAndStoreVector(vector4, vectorBatch2, Date())
+    createHuman(human1, collectedDate, null).save()
+    createHuman(human2, collectedDate, Date()).save()
+    createVectorBatch(vectorBatch2, collectedDate, null).save()
+    createVectorBatch(vectorBatch3, collectedDate, Date()).save()
+    createVector(vector2, vectorBatch2, null).save()
+    createVector(vector3, vectorBatch3, null).save()
+    createVector(vector4, vectorBatch2, Date()).save()
     val h2ul = localRepository.getSurveysToSync(Human())
     val v2ul = localRepository.getSurveysToSync(Vector())
     val vb2ul = localRepository.getSurveysToSync(VectorBatch())
@@ -160,60 +157,4 @@ class LocalSurveyRepositoryTest {
     assertEquals(1,vb2ul.size)
   }
 
-  private fun createAndStoreHuman(id: String, date: Date, uploadedAt: Date?) {
-    val location = with(Location()) {
-      this.latitude = TEST_LAT
-      this.longitude = TEST_LONG
-      this.accuracy = TEST_ACC
-      this
-    }
-    val survey = with(Human()) {
-      this.id = id
-      this.collectedOn = date
-      this.locationCollected = location
-      uploadedAt?.let {
-        this.uploadedAt = it
-      }
-      this
-    }
-    localRepository.storeSurvey(survey)
-  }
-
-  private fun createAndStoreVectorBatch(id: String, date: Date, uploadedAt: Date?) {
-    val location = with(Location()) {
-      this.latitude = TEST_LAT
-      this.longitude = TEST_LONG
-      this.accuracy = TEST_ACC
-      this
-    }
-    val survey = with(VectorBatch()) {
-      this.id = id
-      this.collectedOn = date
-      this.locationCollected = location
-      uploadedAt?.let {
-        this.uploadedAt = it
-      }
-      this
-    }
-    localRepository.storeSurvey(survey)
-  }
-
-  private fun createAndStoreVector(id: String, batchId: String, uploadedAt: Date?) {
-    val survey = with(Vector()) {
-      this.id = id
-      this.batchId = batchId
-      uploadedAt?.let {
-        this.uploadedAt = it
-      }
-      this
-    }
-    localRepository.storeSurvey(survey)
-  }
-
-  private fun clearRealm() {
-    Location().deleteAll()
-    Vector().deleteAll()
-    VectorBatch().deleteAll()
-    Human().deleteAll()
-  }
 }

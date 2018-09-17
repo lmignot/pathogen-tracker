@@ -50,6 +50,7 @@ object AppSettings {
     const val JOB_ID_VECTOR_BATCHES = 2948522
     const val JOB_ID_HUMANS = 2948523
     const val FILEPROVIDER_AUTHORITY = "eu.mignot.pathogentracker.fileprovider"
+    const val SHOULD_AUTHENTICATE = "SHOULD_AUTH"
   }
 
   object RequestCodes {

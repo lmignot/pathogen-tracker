@@ -1,10 +1,10 @@
 package eu.mignot.pathogentracker.surveylist
 
 import android.support.test.runner.AndroidJUnit4
-import com.vicpin.krealmextensions.deleteAll
 import com.vicpin.krealmextensions.save
-import eu.mignot.pathogentracker.data.models.database.*
-import eu.mignot.pathogentracker.data.models.database.Vector
+import eu.mignot.pathogentracker.TestCommon.clearRealm
+import eu.mignot.pathogentracker.TestCommon.createHuman
+import eu.mignot.pathogentracker.TestCommon.createVectorBatch
 import eu.mignot.pathogentracker.repository.RealmSurveysRepository
 import eu.mignot.pathogentracker.surveys.surveys.SurveysViewModel
 import io.realm.RealmConfiguration
@@ -66,56 +66,12 @@ class TestSurveysViewModel: AnkoLogger {
   }
 
   private fun addSomeSurveys() {
-    val location = with(Location()) {
-      this.latitude = TEST_LAT
-      this.longitude = TEST_LONG
-      this.accuracy = TEST_ACC
-      this
-    }
-    with(Human()) {
-      this.id = TEST_HUMAN_A_ID
-      this.collectedOn = collectionDate
-      this.locationCollected = location
-      this
-    }.save()
-    with(Human()) {
-      this.id = TEST_HUMAN_B_ID
-      this.collectedOn = collectionDate
-      this.locationCollected = location
-      this
-    }.save()
-    with(Human()) {
-      this.id = TEST_HUMAN_C_ID
-      this.collectedOn = collectionDate
-      this.locationCollected = location
-      this
-    }.save()
-    with(VectorBatch()) {
-      this.id = TEST_VB_A_ID
-      this.collectedOn = collectionDate
-      this.locationCollected = location
-      this
-    }.save()
-    with(VectorBatch()) {
-      this.id = TEST_VB_B_ID
-      this.collectedOn = collectionDate
-      this.locationCollected = location
-      this
-    }.save()
-    with(VectorBatch()) {
-      this.id = TEST_VB_C_ID
-      this.collectedOn = collectionDate
-      this.locationCollected = location
-      this
-    }.save()
-  }
-
-  private fun clearRealm() {
-    Location().deleteAll()
-    Photo().deleteAll()
-    Vector().deleteAll()
-    VectorBatch().deleteAll()
-    Human().deleteAll()
+    createHuman(TEST_HUMAN_A_ID, collectionDate, null).save()
+    createHuman(TEST_HUMAN_B_ID, collectionDate, null).save()
+    createHuman(TEST_HUMAN_C_ID, collectionDate, null).save()
+    createVectorBatch(TEST_VB_A_ID, collectionDate, null).save()
+    createVectorBatch(TEST_VB_B_ID, collectionDate, null).save()
+    createVectorBatch(TEST_VB_C_ID, collectionDate, null).save()
   }
 
 }
