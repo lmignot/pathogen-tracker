@@ -1,22 +1,28 @@
 package eu.mignot.pathogentracker.repository
 
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.support.test.runner.AndroidJUnit4
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import eu.mignot.pathogentracker.App
+import eu.mignot.pathogentracker.data.models.database.Photo
+import eu.mignot.pathogentracker.util.AppSettings
 import eu.mignot.pathogentracker.util.TemporaryFileProvider
-import org.junit.Before
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.MockitoAnnotations
 import java.io.File
 
 @RunWith(AndroidJUnit4::class)
 class RemotePhotoRepositoryTest {
 
   companion object {
-      const val FILE_PARENT = "TEST_PARENT"
+    const val FILE_PARENT = "TEST_PARENT"
+    const val FILE_NAME = "TEST_FILE_NAME"
+    const val FILE_EXT = "TEST_FILE_EXT"
+    const val ONE_MEGABYTE = 1024 * 1024 * 1L
   }
 
   @Mock
@@ -29,25 +35,41 @@ class RemotePhotoRepositoryTest {
     FirebasePhotoRepository(storageRef)
   }
 
-  private lateinit var tempJpeg: File
-  private lateinit var bmp: Bitmap
-
-  @Before
-  fun build_up() {
-    MockitoAnnotations.initMocks(this)
-    bmp = Bitmap.createBitmap(100, 200, Bitmap.Config.ARGB_8888)
-//    tempJpeg =
+  private val localRepo: PhotoRepository by lazy {
+    DevicePhotoRepository
   }
 
+  private var tempJpeg: File? = temporaryFileProvider.getTempFile(FILE_NAME, FILE_EXT, App.getDeviceFileDir())
+  private var bmp: Bitmap =
+    Bitmap.createBitmap(100, 200, Bitmap.Config.ARGB_8888)
+
   @Test
-  fun remote_should_store_a_photo() {
-//    val photo = with (Photo()) {
-//      fileName = tempJpeg.name
-//      path = tempJpeg.path
-//      parentId =
-//        FILE_PARENT
-//      this
-//    }
+  fun remote_photo_repository_should_store_a_photo() {
+    val photo: Photo = tempJpeg!!.let {
+      with (Photo()) {
+        fileName = it.name
+        path = it.path
+        parentId =
+          FILE_PARENT
+        this
+      }
+    }
+    localRepo.storePhoto(photo, true, bmp)
+    Thread.sleep(2000)
+    remoteRepo.storePhoto(photo, false, null)
+    Thread.sleep(5000)
+    val instance = FirebaseStorage.getInstance().reference
+    instance
+      .child("${AppSettings.Constants.FIREBASE_PHOTO_PATH}/${photo.fileName}")
+      .getBytes(ONE_MEGABYTE)
+      .addOnCompleteListener {
+        if (it.isSuccessful) {
+          val bytes = it.result
+          val dlBmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+          assertEquals(bmp.byteCount, dlBmp.byteCount)
+        }
+
+      }
   }
 
 }

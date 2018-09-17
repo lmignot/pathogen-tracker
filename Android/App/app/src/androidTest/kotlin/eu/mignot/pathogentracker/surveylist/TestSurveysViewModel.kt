@@ -1,16 +1,16 @@
 package eu.mignot.pathogentracker.surveylist
 
 import android.support.test.runner.AndroidJUnit4
+import com.vicpin.krealmextensions.deleteAll
 import com.vicpin.krealmextensions.save
-import eu.mignot.pathogentracker.data.models.database.Human
-import eu.mignot.pathogentracker.data.models.database.Location
-import eu.mignot.pathogentracker.data.models.database.VectorBatch
+import eu.mignot.pathogentracker.data.models.database.*
+import eu.mignot.pathogentracker.data.models.database.Vector
 import eu.mignot.pathogentracker.repository.RealmSurveysRepository
 import eu.mignot.pathogentracker.surveys.surveys.SurveysViewModel
 import io.realm.RealmConfiguration
 import org.jetbrains.anko.AnkoLogger
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
+import org.junit.Assert.*
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.util.*
@@ -40,7 +40,14 @@ class TestSurveysViewModel: AnkoLogger {
     .deleteRealmIfMigrationNeeded()
     .build()
 
-  private val vm = getTheVM(realmConfig)
+  private val repository = RealmSurveysRepository(realmConfig)
+
+  private val vm = SurveysViewModel(repository)
+
+  @Before
+  fun startUp() {
+    clearRealm()
+  }
 
   @Test
   fun get_surveys_returns_surveys_if_any_exist() {
@@ -50,9 +57,12 @@ class TestSurveysViewModel: AnkoLogger {
     assertFalse(surveys.isEmpty())
   }
 
-  private fun getTheVM(config: RealmConfiguration): SurveysViewModel {
-    val repository = RealmSurveysRepository(config)
-    return SurveysViewModel(repository)
+  @Test
+  fun get_surveys_returns_no_surveys_if_none_exist() {
+    clearRealm()
+    val surveys = vm.getSurveys()
+    assertEquals(0, surveys.size)
+    assertTrue(surveys.isEmpty())
   }
 
   private fun addSomeSurveys() {
@@ -98,6 +108,14 @@ class TestSurveysViewModel: AnkoLogger {
       this.locationCollected = location
       this
     }.save()
+  }
+
+  private fun clearRealm() {
+    Location().deleteAll()
+    Photo().deleteAll()
+    Vector().deleteAll()
+    VectorBatch().deleteAll()
+    Human().deleteAll()
   }
 
 }
